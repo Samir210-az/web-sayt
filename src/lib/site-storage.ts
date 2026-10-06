@@ -1,6 +1,6 @@
-import { get, ref, set } from 'firebase/database'
-import { getFirebaseDb } from './firebase'
-import { createSiteFor } from './template-registry'
+import { get, ref, update } from 'firebase/database'
+import { getFirebaseApp, getFirebaseDb } from './firebase'
+import { createSiteFor, getTemplate } from './template-registry'
 import type { ExtraSection, ImageValue, PageKey, ServiceItem, SiteConfig, TemplateId } from './types'
 
 const HEX = /^#[0-9a-fA-F]{6}$/
@@ -8,6 +8,21 @@ const IMAGE_SRC =
   /^(data:image\/(webp|jpeg|png);base64,[A-Za-z0-9+/=]+|https:\/\/[^\s"'<>]+|\/images\/[a-z0-9_-]+(\/[a-z0-9_-]+)*\.(webp|jpe?g|png))$/
 const PAGE_KEYS: PageKey[] = ['home', 'services', 'about', 'contact']
 const MAX_BYTES = 8_000_000
+
+export const SUBDOMAIN = /^[a-z0-9][a-z0-9-]{1,28}[a-z0-9]$/
+export const RESERVED_SUBDOMAINS = ['www', 'admin', 'api', 'app', 'mail', 'redaktor', 'static', 'cdn', 'dashboard', 'login']
+
+export interface PublishInfo {
+  name: string
+  publishedAt: number
+}
+
+export class SubdomainTakenError extends Error {
+  constructor() {
+    super('Ünvan tutulub')
+    this.name = 'SubdomainTakenError'
+  }
+}
 
 export class SiteTooLargeError extends Error {
   constructor() {
@@ -140,10 +155,98 @@ export async function loadSite(uid: string, template: TemplateId): Promise<SiteC
 export async function saveSite(uid: string, site: SiteConfig): Promise<void> {
   const draft = encodeSite(site)
   if (JSON.stringify(draft).length > MAX_BYTES) throw new SiteTooLargeError()
-  await set(ref(getFirebaseDb(), `sites/${siteId(uid, site.template)}`), {
+  await update(ref(getFirebaseDb(), `sites/${siteId(uid, site.template)}`), {
     ownerId: uid,
     template: site.template,
     updatedAt: Date.now(),
     draft,
   })
+}
+
+export async function uploadDataUrl(uid: string, dataUrl: string): Promise<string> {
+  const { getDownloadURL, getStorage, ref: storageRef, uploadBytes } = await import('firebase/storage')
+  const blob = await (await fetch(dataUrl)).blob()
+  const target = storageRef(getStorage(getFirebaseApp()), `sites/${uid}/${crypto.randomUUID()}.webp`)
+  await uploadBytes(target, blob, { contentType: 'image/webp' })
+  return getDownloadURL(target)
+}
+
+export async function moveImagesToStorage(
+  site: SiteConfig,
+  upload: (dataUrl: string) => Promise<string>,
+): Promise<SiteConfig> {
+  const cache = new Map<string, Promise<string>>()
+  const move = async (image: ImageValue): Promise<ImageValue> => {
+    if (!image.src.startsWith('data:')) return image
+    let url = cache.get(image.src)
+    if (!url) {
+      url = upload(image.src)
+      cache.set(image.src, url)
+    }
+    return { ...image, src: await url }
+  }
+
+  const images = Object.fromEntries(await Promise.all(Object.entries(site.images).map(async ([k, v]) => [k, await move(v)])))
+  const services = await Promise.all(site.services.map(async (item) => ({ ...item, image: await move(item.image) })))
+  const extras = { ...site.extras }
+  for (const page of PAGE_KEYS) {
+    extras[page] = await Promise.all(site.extras[page].map(async (item) => ({ ...item, image: await move(item.image) })))
+  }
+  return { ...site, logo: await move(site.logo), images, services, extras }
+}
+
+export async function loadPublishInfo(uid: string, template: TemplateId): Promise<PublishInfo | null> {
+  const snap = await get(ref(getFirebaseDb(), `sites/${siteId(uid, template)}`))
+  const value = snap.val()
+  if (!isRecord(value) || value.ownerId !== uid) return null
+  if (typeof value.subdomain !== 'string' || typeof value.publishedAt !== 'number') return null
+  return { name: value.subdomain, publishedAt: value.publishedAt }
+}
+
+export async function publishSite(uid: string, site: SiteConfig, name: string): Promise<void> {
+  if (!SUBDOMAIN.test(name) || RESERVED_SUBDOMAINS.includes(name)) throw new Error('Ünvan düzgün deyil')
+  const db = getFirebaseDb()
+  const id = siteId(uid, site.template)
+
+  const existing = await get(ref(db, `subdomains/${name}`))
+  const owner = existing.exists() && isRecord(existing.val()) ? existing.val().ownerId : null
+  if (existing.exists() && owner !== uid) throw new SubdomainTakenError()
+
+  const draft = encodeSite(site)
+  if (JSON.stringify(draft).length > MAX_BYTES) throw new SiteTooLargeError()
+
+  const previous = await loadPublishInfo(uid, site.template)
+  const now = Date.now()
+  const changes: Record<string, unknown> = {
+    [`sites/${id}/subdomain`]: name,
+    [`sites/${id}/publishedAt`]: now,
+    [`published/${name}`]: { template: site.template, publishedAt: now, draft },
+  }
+  if (!existing.exists()) changes[`subdomains/${name}`] = { ownerId: uid, siteId: id }
+  if (previous && previous.name !== name) {
+    changes[`subdomains/${previous.name}`] = null
+    changes[`published/${previous.name}`] = null
+  }
+  await update(ref(db), changes)
+}
+
+export async function unpublishSite(uid: string, template: TemplateId): Promise<void> {
+  const previous = await loadPublishInfo(uid, template)
+  if (!previous) return
+  const id = siteId(uid, template)
+  await update(ref(getFirebaseDb()), {
+    [`sites/${id}/subdomain`]: null,
+    [`sites/${id}/publishedAt`]: null,
+    [`subdomains/${previous.name}`]: null,
+    [`published/${previous.name}`]: null,
+  })
+}
+
+export async function loadPublished(name: string): Promise<SiteConfig | null> {
+  if (!SUBDOMAIN.test(name)) return null
+  const snap = await get(ref(getFirebaseDb(), `published/${name}`))
+  const value = snap.val()
+  if (!isRecord(value) || typeof value.template !== 'string') return null
+  const meta = getTemplate(value.template)
+  return meta ? decodeSite(value.draft, meta.id) : null
 }

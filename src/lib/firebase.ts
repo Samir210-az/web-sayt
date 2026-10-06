@@ -15,9 +15,9 @@ export const firebaseConfigured = Boolean(
   config.apiKey && config.authDomain && config.databaseURL && config.projectId && config.appId,
 )
 
-function app() {
+export function getFirebaseApp() {
   return getApps().length ? getApp() : initializeApp(config)
 }
 
-export const getFirebaseAuth = () => getAuth(app())
-export const getFirebaseDb = () => getDatabase(app())
+export const getFirebaseAuth = () => getAuth(getFirebaseApp())
+export const getFirebaseDb = () => getDatabase(getFirebaseApp())

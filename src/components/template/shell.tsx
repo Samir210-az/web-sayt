@@ -5,13 +5,14 @@ import { useState } from 'react'
 import type { ReactNode } from 'react'
 import { useAccount } from '@/components/editor/account'
 import { Editable } from '@/components/editable'
+import { PublishPanel } from '@/components/editor/publish-panel'
 import { SiteProvider, useSite } from '@/lib/site-context'
 import { EDITOR_PREFIX, PAGES } from '@/lib/types'
 import type { SiteConfig, TemplateId } from '@/lib/types'
 import { cx, pageHref } from '@/lib/utils'
 
 function Header({ current }: { current: string }) {
-  const { editing, site } = useSite()
+  const { editing, site, href } = useSite()
   const [open, setOpen] = useState(false)
 
   const brand = (
@@ -27,7 +28,7 @@ function Header({ current }: { current: string }) {
         {editing ? (
           <div className="brand">{brand}</div>
         ) : (
-          <Link href={pageHref('/', false, site.template)} className="brand" aria-label="Ana səhifə">
+          <Link href={href('/')} className="brand" aria-label="Ana səhifə">
             {brand}
           </Link>
         )}
@@ -46,7 +47,7 @@ function Header({ current }: { current: string }) {
           {PAGES.map((page) => (
             <Link
               key={page.key}
-              href={pageHref(page.path, editing, site.template)}
+              href={href(page.path)}
               className={cx('nav__link', current === page.key && 'nav__link--current')}
               aria-current={current === page.key ? 'page' : undefined}
               onClick={() => setOpen(false)}
@@ -132,6 +133,7 @@ function EditorBar() {
       <button type="button" className="editbar__btn" onClick={download} disabled={exporting}>
         ZIP yüklə
       </button>
+      <PublishPanel />
       <button
         type="button"
         className="editbar__btn editbar__btn--quiet"
@@ -156,6 +158,7 @@ export function SiteShell({
   current,
   demoBar = false,
   initialSite,
+  basePath,
   children,
 }: {
   template: TemplateId
@@ -163,10 +166,11 @@ export function SiteShell({
   current: string
   demoBar?: boolean
   initialSite?: SiteConfig
+  basePath?: string
   children: ReactNode
 }) {
   return (
-    <SiteProvider template={template} editing={editing} initialSite={initialSite}>
+    <SiteProvider template={template} editing={editing} initialSite={initialSite} basePath={basePath}>
       <a className="skip" href="#content">
         Məzmuna keç
       </a>

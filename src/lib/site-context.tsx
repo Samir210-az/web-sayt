@@ -4,6 +4,8 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useRef, use
 import type { ReactNode } from 'react'
 import { DEFAULT_ACCENT } from './default-site'
 import { createSiteFor } from './template-registry'
+import { pageHref } from './utils'
+import type { PublishInfo } from './site-storage'
 import type { ExtraSection, ImageValue, PageKey, ServiceItem, SiteConfig, TemplateId } from './types'
 
 const draftKey = (template: TemplateId) => `web-sayt:draft:v1:${template}`
@@ -12,6 +14,11 @@ const HEX = /^#[0-9a-fA-F]{6}$/
 export interface Persistence {
   load: () => Promise<SiteConfig | null>
   save: (site: SiteConfig) => Promise<void>
+  upload: (dataUrl: string) => Promise<string>
+  uploadAll: (site: SiteConfig) => Promise<SiteConfig>
+  publishInfo: () => Promise<PublishInfo | null>
+  publish: (site: SiteConfig, name: string) => Promise<void>
+  unpublish: () => Promise<void>
 }
 
 const PersistenceContext = createContext<Persistence | null>(null)
@@ -24,6 +31,8 @@ interface SiteApi {
   editing: boolean
   saveState: SaveState
   storage: 'account' | 'local'
+  cloud: Persistence | null
+  href: (path: string) => string
   text: (key: string) => string
   image: (key: string) => ImageValue
   setText: (key: string, value: string) => void
@@ -37,6 +46,7 @@ interface SiteApi {
   updateExtra: (page: PageKey, id: string, patch: Partial<Omit<ExtraSection, 'id'>>) => void
   removeExtra: (page: PageKey, id: string) => void
   toggleHidden: (id: string) => void
+  replaceSite: (next: SiteConfig) => void
   reset: () => void
 }
 
@@ -67,11 +77,13 @@ export function SiteProvider({
   template,
   editing,
   initialSite,
+  basePath,
   children,
 }: {
   template: TemplateId
   editing: boolean
   initialSite?: SiteConfig
+  basePath?: string
   children: ReactNode
 }) {
   const [site, setSite] = useState<SiteConfig>(() => initialSite ?? createSiteFor(template))
@@ -101,7 +113,7 @@ export function SiteProvider({
           setReady(true)
         })
     } else {
-      const draft = readDraft(template)
+      const draft = initialSite ? null : readDraft(template)
       if (draft) setSite(draft)
       loaded.current = true
       setReady(true)
@@ -110,7 +122,7 @@ export function SiteProvider({
     return () => {
       cancelled = true
     }
-  }, [remote, persistence, template])
+  }, [remote, persistence, template, initialSite])
 
   useEffect(() => {
     if (!editing || !loaded.current) return
@@ -144,6 +156,8 @@ export function SiteProvider({
       editing,
       saveState,
       storage: remote ? 'account' : 'local',
+      cloud: remote ? persistence : null,
+      href: (path) => (basePath ? (path === '/' ? basePath : `${basePath}${path}`) : pageHref(path, editing, template)),
       text: (key) => site.text[key] ?? defaults.text[key] ?? '',
       image: (key) => site.images[key] ?? defaults.images[key] ?? emptyImage(''),
       setText: (key, value) => update((s) => ({ ...s, text: { ...s.text, [key]: value } })),
@@ -189,6 +203,7 @@ export function SiteProvider({
       removeExtra: (page, id) =>
         update((s) => ({ ...s, extras: { ...s.extras, [page]: s.extras[page].filter((it) => it.id !== id) } })),
       toggleHidden: (id) => update((s) => ({ ...s, hidden: { ...s.hidden, [id]: !s.hidden[id] } })),
+      replaceSite: (next) => update(() => next),
       reset: () => {
         try {
           window.localStorage.removeItem(draftKey(template))
@@ -199,7 +214,7 @@ export function SiteProvider({
         setSaveState('idle')
       },
     }
-  }, [site, editing, saveState, remote, template, update])
+  }, [site, editing, saveState, remote, persistence, template, basePath, update])
 
   const accent = HEX.test(site.theme.accent) ? site.theme.accent : DEFAULT_ACCENT
 

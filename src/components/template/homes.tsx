@@ -5,17 +5,17 @@ import { Editable } from '@/components/editable'
 import { Marquee, Reveal } from '@/components/motion'
 import { Parallax } from '@/components/parallax'
 import { useSite } from '@/lib/site-context'
-import { cx, pageHref, telHref } from '@/lib/utils'
+import { cx, telHref } from '@/lib/utils'
 import { ActionLink, ExtraBlocks, SectionFrame, ServiceList } from './blocks'
 
 export function ServicesHead({ linkClass = 'textlink' }: { linkClass?: string }) {
-  const { editing, site } = useSite()
+  const { href } = useSite()
   return (
     <div className="wrap block__head">
       <Reveal as="div">
         <Editable.Text as="h2" k="home.services.title" className="block__title" label="Bölmənin başlığı" max={60} />
       </Reveal>
-      <Link href={pageHref('/xidmetler', editing, site.template)} className={linkClass}>
+      <Link href={href('/xidmetler')} className={linkClass}>
         <Editable.Text as="span" k="home.services.link" label="Keçidin yazısı" max={30} />
       </Link>
     </div>
@@ -43,14 +43,14 @@ export function Steps({ className }: { className: string }) {
 }
 
 export function CtaCopy({ titleClass, textClass, buttonClass }: { titleClass: string; textClass: string; buttonClass: string }) {
-  const { editing, site } = useSite()
+  const { href } = useSite()
   return (
     <>
       <Reveal as="div">
         <Editable.Text as="h2" k="home.cta.title" className={titleClass} label="Çağırışın başlığı" max={70} />
       </Reveal>
       <Editable.Text as="p" k="home.cta.text" className={textClass} label="Çağırışın mətni" multiline max={180} />
-      <Link href={pageHref('/elaqe', editing, site.template)} className={buttonClass}>
+      <Link href={href('/elaqe')} className={buttonClass}>
         <Editable.Text as="span" k="home.cta.button" label="Düymənin yazısı" max={30} />
       </Link>
     </>

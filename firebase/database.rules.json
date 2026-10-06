@@ -49,8 +49,20 @@
     "published": {
       "$subdomain": {
         ".read": true,
-        ".write": "auth != null && root.child('subdomains').child($subdomain).child('ownerId').val() === auth.uid",
-        ".validate": "newData.hasChildren(['version', 'text', 'theme'])"
+        ".write": "auth != null && (root.child('subdomains').child($subdomain).child('ownerId').val() === auth.uid || newData.parent().parent().child('subdomains').child($subdomain).child('ownerId').val() === auth.uid)",
+        ".validate": "$subdomain.matches(/^[a-z0-9][a-z0-9-]{1,28}[a-z0-9]$/) && newData.hasChildren(['template', 'draft'])",
+        "template": {
+          ".validate": "newData.isString() && (newData.val() === 'xidmet' || newData.val() === 'klinika' || newData.val() === 'kafe' || newData.val() === 'huquq' || newData.val() === 'gozellik' || newData.val() === 'idman' || newData.val() === 'tikinti' || newData.val() === 'kurs' || newData.val() === 'studiya' || newData.val() === 'usaq' || newData.val() === 'bosh')"
+        },
+        "publishedAt": {
+          ".validate": "newData.isNumber()"
+        },
+        "draft": {
+          ".validate": "newData.hasChildren(['version', 'text', 'theme'])"
+        },
+        "$other": {
+          ".validate": false
+        }
       }
     }
   }

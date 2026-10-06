@@ -7,14 +7,33 @@ import type { ReactNode } from 'react'
 import { firebaseConfigured, getFirebaseAuth } from '@/lib/firebase'
 import { PersistenceProvider } from '@/lib/site-context'
 import type { Persistence } from '@/lib/site-context'
-import { loadSite, saveSite } from '@/lib/site-storage'
+import {
+  loadPublishInfo,
+  loadSite,
+  moveImagesToStorage,
+  publishSite,
+  saveSite,
+  unpublishSite,
+  uploadDataUrl,
+} from '@/lib/site-storage'
 import type { TemplateId } from '@/lib/types'
 import { AccountContext } from './account'
 import { LoginPanel } from './login-panel'
 
 function SignedIn({ user, template, children }: { user: User; template: TemplateId; children: ReactNode }) {
   const persistence = useMemo<Persistence>(
-    () => ({ load: () => loadSite(user.uid, template), save: (site) => saveSite(user.uid, site) }),
+    () => {
+      const upload = (dataUrl: string) => uploadDataUrl(user.uid, dataUrl)
+      return {
+        load: () => loadSite(user.uid, template),
+        save: (site) => saveSite(user.uid, site),
+        upload,
+        uploadAll: (site) => moveImagesToStorage(site, upload),
+        publishInfo: () => loadPublishInfo(user.uid, template),
+        publish: (site, name) => publishSite(user.uid, site, name),
+        unpublish: () => unpublishSite(user.uid, template),
+      }
+    },
     [user.uid, template],
   )
   const account = useMemo(
