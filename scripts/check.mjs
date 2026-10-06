@@ -1,7 +1,8 @@
 import { chromium } from 'playwright'
 
 const BASE = process.env.PREVIEW_BASE ?? 'http://localhost:3100'
-const TEMPLATES = ['xidmet', 'klinika', 'kafe', 'huquq', 'gozellik', 'idman', 'tikinti', 'kurs', 'studiya', 'usaq', 'emlak', 'avto', 'stomat', 'turizm', 'gul', 'interyer', 'it', 'toy', 'berber', 'bosh']
+const ALL_TEMPLATES = ['xidmet', 'klinika', 'kafe', 'huquq', 'gozellik', 'idman', 'tikinti', 'kurs', 'studiya', 'usaq', 'emlak', 'avto', 'stomat', 'turizm', 'gul', 'interyer', 'it', 'toy', 'berber', 'bosh']
+const TEMPLATES = process.env.ONLY ? process.env.ONLY.split(',') : ALL_TEMPLATES
 const SUBPAGES = ['', '/xidmetler', '/haqqimizda', '/elaqe']
 const SCROLLER_ROUTES = new Set(['idman'])
 
