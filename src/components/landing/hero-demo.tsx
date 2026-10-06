@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { Parallax } from '@/components/parallax'
 
 const SAMPLES = [
-  { brand: 'Evdar', headline: 'Eyni gün gəlirik, qiyməti işə başlamazdan əvvəl deyirik', color: '#e9a93b', tint: '#2b44c9' },
+  { brand: 'Usta', headline: 'Eyni gün gəlirik, qiyməti işə başlamazdan əvvəl deyirik', color: '#e9a93b', tint: '#2b44c9' },
   { brand: 'Nur Klinikası', headline: 'Qəbula yazılın, növbəsiz və vaxtında qəbul olunun', color: '#34c8a0', tint: '#0f6b5c' },
   { brand: 'Dəniz Kafe', headline: 'Səhər yeməyindən axşam süfrəsinə qədər açığıq', color: '#ff7a59', tint: '#8c2f4a' },
 ]

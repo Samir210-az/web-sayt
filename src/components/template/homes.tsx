@@ -62,7 +62,7 @@ export function useServiceTitles(): string[] {
   return site.services.map((s) => s.title)
 }
 
-/* Evdar: dispatch / industrial */
+/* Usta: dispatch / industrial */
 
 export function HomeXidmet() {
   const { editing, text } = useSite()
