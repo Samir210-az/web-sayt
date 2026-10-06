@@ -144,10 +144,19 @@ export function encodeSite(site: SiteConfig) {
   )
 }
 
+async function readSiteNode(uid: string, template: TemplateId): Promise<unknown> {
+  try {
+    const snap = await get(ref(getFirebaseDb(), `sites/${siteId(uid, template)}`))
+    return snap.val()
+  } catch (e) {
+    // qaydalar boş düyünü oxumağa icazə vermir, yəni sayt hələ yaradılmayıb
+    if (isRecord(e) && e.code === 'PERMISSION_DENIED') return null
+    throw e
+  }
+}
+
 export async function loadSite(uid: string, template: TemplateId): Promise<SiteConfig | null> {
-  const snap = await get(ref(getFirebaseDb(), `sites/${siteId(uid, template)}`))
-  if (!snap.exists()) return null
-  const value = snap.val()
+  const value = await readSiteNode(uid, template)
   if (!isRecord(value) || value.ownerId !== uid) return null
   return decodeSite(value.draft, template)
 }
@@ -159,11 +168,9 @@ export interface SiteSummary {
 }
 
 export async function listSites(uid: string): Promise<SiteSummary[]> {
-  const db = getFirebaseDb()
-  const snaps = await Promise.all(TEMPLATES.map((t) => get(ref(db, `sites/${siteId(uid, t.id)}`))))
+  const values = await Promise.all(TEMPLATES.map((t) => readSiteNode(uid, t.id)))
   const out: SiteSummary[] = []
-  snaps.forEach((snap, i) => {
-    const value = snap.val()
+  values.forEach((value, i) => {
     if (!isRecord(value) || value.ownerId !== uid) return
     const published =
       typeof value.subdomain === 'string' && typeof value.publishedAt === 'number'
@@ -222,8 +229,7 @@ export async function moveImagesToStorage(
 }
 
 export async function loadPublishInfo(uid: string, template: TemplateId): Promise<PublishInfo | null> {
-  const snap = await get(ref(getFirebaseDb(), `sites/${siteId(uid, template)}`))
-  const value = snap.val()
+  const value = await readSiteNode(uid, template)
   if (!isRecord(value) || value.ownerId !== uid) return null
   if (typeof value.subdomain !== 'string' || typeof value.publishedAt !== 'number') return null
   return { name: value.subdomain, publishedAt: value.publishedAt }
