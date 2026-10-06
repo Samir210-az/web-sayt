@@ -135,7 +135,7 @@ export async function buildSiteZip(site: SiteConfig): Promise<Blob> {
   }
 
   for (const page of PAGES) {
-    const route = resolveRoute(page.path === '/' ? undefined : [page.path.slice(1)])
+    const route = resolveRoute(site.template, page.path === '/' ? undefined : [page.path.slice(1)])
     if (!route) continue
     const depth = page.path === '/' ? 0 : 1
     const prefix = depth ? '../' : ''

@@ -11,7 +11,7 @@ export const generateStaticParams = templateStaticParams
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { template, slug } = await params
   const meta = getTemplate(template)
-  const route = resolveRoute(slug)
+  const route = meta ? resolveRoute(meta.id, slug) : null
   if (!meta || !route) return {}
   return { title: route.key === 'home' ? `${meta.name}: nümunə şablon` : `${route.label} | ${meta.name}` }
 }
@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 export default async function Page({ params }: { params: Params }) {
   const { template, slug } = await params
   const meta = getTemplate(template)
-  const route = resolveRoute(slug)
+  const route = meta ? resolveRoute(meta.id, slug) : null
   if (!meta || !route) notFound()
 
   return (

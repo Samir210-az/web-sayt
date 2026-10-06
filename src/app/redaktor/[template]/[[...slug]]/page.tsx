@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export default async function Page({ params }: { params: Params }) {
   const { template, slug } = await params
   const meta = getTemplate(template)
-  const route = resolveRoute(slug)
+  const route = meta ? resolveRoute(meta.id, slug) : null
   if (!meta || !route) notFound()
 
   return (

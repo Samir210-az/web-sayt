@@ -1,10 +1,10 @@
 'use client'
 
-import type { ReactNode } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 import { Editable, ImageField, TextField } from '@/components/editable'
 import { Parallax } from '@/components/parallax'
 import { useSite } from '@/lib/site-context'
-import type { PageKey, ServiceItem } from '@/lib/types'
+import type { PageKey, ServiceItem, TemplateId } from '@/lib/types'
 import { cx } from '@/lib/utils'
 
 export function SectionFrame({ id, label, children }: { id: string; label: string; children: ReactNode }) {
@@ -59,29 +59,57 @@ export function PageHead({ page, titleKey, leadKey }: { page: string; titleKey: 
   )
 }
 
-function ServiceRow({ item }: { item: ServiceItem }) {
+type ServiceVariant = 'rows' | 'stack' | 'bento' | 'menu'
+
+const SERVICE_VARIANT: Record<TemplateId, ServiceVariant> = {
+  xidmet: 'stack',
+  klinika: 'bento',
+  kafe: 'menu',
+  bosh: 'rows',
+}
+
+const ITEM_CLASS: Record<ServiceVariant, string> = {
+  rows: 'svc',
+  stack: 'stack__card',
+  bento: 'bento__tile',
+  menu: 'menu__row',
+}
+
+const PART: Record<ServiceVariant, string> = {
+  rows: 'svc',
+  stack: 'stack',
+  bento: 'bento',
+  menu: 'menu',
+}
+
+const MEDIA_SPEED: Record<ServiceVariant, number> = { rows: 0.06, stack: 0.1, bento: 0.07, menu: 0.05 }
+
+function ServiceRow({ item, index, variant }: { item: ServiceItem; index: number; variant: ServiceVariant }) {
   const { editing, updateService, removeService } = useSite()
+  const part = PART[variant]
 
   return (
-    <li className="svc">
-      <TextField
-        as="h3"
-        className="svc__title"
-        label="Xidmətin adı"
-        value={item.title}
-        max={50}
-        onCommit={(title) => updateService(item.id, { title })}
-      />
-      <TextField
-        as="p"
-        className="svc__text"
-        label="Xidmətin təsviri"
-        value={item.text}
-        multiline
-        max={220}
-        onCommit={(text) => updateService(item.id, { text })}
-      />
-      <Parallax speed={0.06} bleed className="svc__media">
+    <li className={ITEM_CLASS[variant]} style={{ '--i': index } as CSSProperties}>
+      <div className={`${part}__copy`}>
+        <TextField
+          as="h3"
+          className={`${part}__title`}
+          label="Xidmətin adı"
+          value={item.title}
+          max={50}
+          onCommit={(title) => updateService(item.id, { title })}
+        />
+        <TextField
+          as="p"
+          className={`${part}__text`}
+          label="Xidmətin təsviri"
+          value={item.text}
+          multiline
+          max={220}
+          onCommit={(text) => updateService(item.id, { text })}
+        />
+      </div>
+      <Parallax speed={MEDIA_SPEED[variant]} bleed className={`${part}__media`}>
         <ImageField
           label={`${item.title} şəkli`}
           value={item.image}
@@ -91,7 +119,7 @@ function ServiceRow({ item }: { item: ServiceItem }) {
       {editing && (
         <button
           type="button"
-          className="ed-remove"
+          className="ed-remove svc-remove"
           onClick={() => {
             if (window.confirm(`"${item.title}" xidməti silinsin?`)) removeService(item.id)
           }}
@@ -106,12 +134,13 @@ function ServiceRow({ item }: { item: ServiceItem }) {
 export function ServiceList({ limit }: { limit?: number }) {
   const { site, editing, addService } = useSite()
   const items = limit ? site.services.slice(0, limit) : site.services
+  const variant = SERVICE_VARIANT[site.template]
 
   return (
     <>
-      <ul className="svclist">
-        {items.map((item) => (
-          <ServiceRow key={item.id} item={item} />
+      <ul className={cx('svclist', `svclist--${variant}`, editing && 'svclist--editing')}>
+        {items.map((item, index) => (
+          <ServiceRow key={item.id} item={item} index={index} variant={variant} />
         ))}
       </ul>
       {editing && !limit && (

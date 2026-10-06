@@ -1,10 +1,17 @@
 import { PAGES } from '@/lib/types'
-import type { PageKey } from '@/lib/types'
+import type { PageKey, TemplateId } from '@/lib/types'
 import { TEMPLATES } from '@/lib/template-registry'
-import { AboutPage, ContactPage, HomePage, ServicesPage } from './pages'
+import { HomeBosh, HomeKafe, HomeKlinika, HomeXidmet } from './homes'
+import { AboutPage, ContactPage, ServicesPage } from './pages'
+
+const HOMES = {
+  xidmet: HomeXidmet,
+  klinika: HomeKlinika,
+  kafe: HomeKafe,
+  bosh: HomeBosh,
+}
 
 const VIEWS = {
-  home: HomePage,
   services: ServicesPage,
   about: AboutPage,
   contact: ContactPage,
@@ -16,11 +23,13 @@ export interface TemplateRoute {
   View: () => React.JSX.Element
 }
 
-export function resolveRoute(slug?: string[]): TemplateRoute | null {
+export function resolveRoute(template: TemplateId, slug?: string[]): TemplateRoute | null {
   if (slug && slug.length > 1) return null
   const path = slug?.[0] ? `/${slug[0]}` : '/'
   const page = PAGES.find((p) => p.path === path)
-  return page ? { key: page.key, label: page.label, View: VIEWS[page.key] } : null
+  if (!page) return null
+  const View = page.key === 'home' ? HOMES[template] : VIEWS[page.key]
+  return { key: page.key, label: page.label, View }
 }
 
 export function templateStaticParams() {
