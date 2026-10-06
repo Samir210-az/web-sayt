@@ -1,4 +1,3 @@
-import { createElement } from 'react'
 import { resolveRoute } from '@/components/template/routes'
 import { SiteShell } from '@/components/template/shell'
 import { createSiteFor } from './template-registry'
@@ -150,13 +149,9 @@ export async function buildSiteZip(site: SiteConfig): Promise<Blob> {
     const prefix = depth ? '../' : ''
 
     let body = renderToStaticMarkup(
-      createElement(SiteShell, {
-        template: site.template,
-        editing: false,
-        current: page.key,
-        initialSite: site,
-        children: createElement(route.View),
-      }),
+      <SiteShell template={site.template} editing={false} current={page.key} initialSite={site}>
+        <route.View />
+      </SiteShell>,
     )
 
     body = body.replace(new RegExp(`href="${base}(/[a-z]+)?"`, 'g'), (_m, sub?: string) => {

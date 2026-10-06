@@ -1007,6 +1007,11 @@
   opacity: 0.84;
 }
 
+.tile__card:nth-child(4n + 2) .tile__text,
+.tile__card:nth-child(4n + 3) .tile__text {
+  opacity: 1;
+}
+
 .tile__media {
   align-self: stretch;
   min-height: 140px;
@@ -1844,7 +1849,7 @@
   border: 2px solid var(--ink);
 }
 .ab-r__item:nth-child(2) {
-  background: #ff5a36;
+  background: #d4380d;
   color: #fff;
 }
 .ab-r__item:nth-child(3) {
@@ -2078,13 +2083,16 @@
   background: #cfc6ff;
 }
 .cx-r__note:nth-child(3) {
-  background: #ff5a36;
+  background: #d4380d;
   color: #fff;
 }
 .cx-r__note dt {
   font-size: 0.85rem;
   opacity: 0.75;
   margin-bottom: 6px;
+}
+.cx-r__note:nth-child(3) dt {
+  opacity: 1;
 }
 .cx-r__note dd {
   margin: 0;
@@ -2467,7 +2475,7 @@
 
 .uq-cta__text {
   max-width: 40ch;
-  color: var(--muted);
+  color: var(--ink);
 }
 
 .uq-cta__img {

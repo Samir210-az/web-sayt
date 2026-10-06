@@ -232,7 +232,10 @@ export function ServiceList({ limit }: { limit?: number }) {
 
   return (
     <>
-      <ul className={cx('svclist', `svclist--${variant}`, editing && 'svclist--editing')}>
+      <ul
+        className={cx('svclist', `svclist--${variant}`, editing && 'svclist--editing')}
+        {...(variant === 'scroller' && { tabIndex: 0, 'aria-label': 'Xidmətlər siyahısı' })}
+      >
         {items.map((item, index) => (
           <ServiceRow key={item.id} item={item} index={index} variant={variant} />
         ))}

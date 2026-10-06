@@ -14,7 +14,7 @@ interface ImageFieldProps {
 }
 
 export function ImageField({ value, onCommit, className, label, fit = 'cover' }: ImageFieldProps) {
-  const { editing } = useSite()
+  const { editing, cloud } = useSite()
   const inputRef = useRef<HTMLInputElement>(null)
   const errorId = useId()
   const [busy, setBusy] = useState(false)
@@ -36,8 +36,9 @@ export function ImageField({ value, onCommit, className, label, fit = 'cover' }:
     setBusy(true)
     setError('')
     try {
-      const src = await processImage(file)
-      onCommit({ ...value, src })
+      const processed = await processImage(file)
+      const src = cloud ? await cloud.upload(processed) : processed
+      onCommit({ ...value, src, alt: '' })
     } catch (e) {
       setError(e instanceof ImageError ? e.message : 'Şəkli yükləmək alınmadı.')
     } finally {
@@ -59,6 +60,19 @@ export function ImageField({ value, onCommit, className, label, fit = 'cover' }:
         {busy ? 'Yüklənir…' : value.src ? 'Şəkli dəyiş' : 'Şəkil əlavə et'}
         <span className="visually-hidden"> — {label}</span>
       </button>
+      {value.src && (
+        <button
+          type="button"
+          className="ed-image__alt"
+          onClick={() => {
+            const next = window.prompt('Şəklin qısa təsviri (görmə məhdudiyyəti olan ziyarətçilər üçün):', value.alt)
+            if (next !== null) onCommit({ ...value, alt: next.trim().slice(0, 200) })
+          }}
+        >
+          Təsvir
+          <span className="visually-hidden"> — {label}</span>
+        </button>
+      )}
       <input
         ref={inputRef}
         type="file"
