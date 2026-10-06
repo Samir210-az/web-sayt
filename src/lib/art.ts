@@ -10,6 +10,15 @@ const ART_ALT: Partial<Record<TemplateId, string>> = {
   kurs: 'Kitablar və qələm təsvir edilən illüstrasiya',
   studiya: 'Kamera obyektivi və kino lenti təsvir edilən illüstrasiya',
   usaq: 'Rəngli kublar, buludlar və uçurtma təsvir edilən illüstrasiya',
+  emlak: 'Müasir yaşayış binası və açar təsvir edilən illüstrasiya',
+  avto: 'Avtomobil mühərriki və diaqnostika alətləri təsvir edilən illüstrasiya',
+  stomat: 'Diş və təbəssüm təsvir edilən yumşaq illüstrasiya',
+  turizm: 'Dağlar, dəniz və təyyarə izi təsvir edilən səyahət illüstrasiyası',
+  gul: 'Çiçək buketi və lent təsvir edilən illüstrasiya',
+  interyer: 'Kreslo, lampa və bitki olan sakit interyer illüstrasiyası',
+  it: 'Kod pəncərələri və şəbəkə düyünləri təsvir edilən illüstrasiya',
+  toy: 'Qapı tağı, lüstr və süfrə təsvir edilən illüstrasiya',
+  berber: 'Ülgüc, daraq və bərbər dirəyi təsvir edilən illüstrasiya',
 }
 
 const SLOT_FOCUS: Record<string, [number, number]> = {

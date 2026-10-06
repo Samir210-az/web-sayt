@@ -3,6 +3,15 @@ import type { PageKey, TemplateId } from '@/lib/types'
 import { TEMPLATES } from '@/lib/template-registry'
 import { HomeBosh, HomeKafe, HomeKlinika, HomeXidmet } from './homes'
 import { HomeGozellik, HomeHuquq, HomeIdman, HomeKurs, HomeStudiya, HomeTikinti, HomeUsaq } from './homes-more'
+import { HomeEmlak } from './t-emlak'
+import { HomeAvto } from './t-avto'
+import { HomeStomat } from './t-stomat'
+import { HomeTurizm } from './t-turizm'
+import { HomeGul } from './t-gul'
+import { HomeInteryer } from './t-interyer'
+import { HomeIt } from './t-it'
+import { HomeToy } from './t-toy'
+import { HomeBerber } from './t-berber'
 import { AboutPage, ContactPage, ServicesPage } from './pages'
 
 const HOMES = {
@@ -16,6 +25,15 @@ const HOMES = {
   kurs: HomeKurs,
   studiya: HomeStudiya,
   usaq: HomeUsaq,
+  emlak: HomeEmlak,
+  avto: HomeAvto,
+  stomat: HomeStomat,
+  turizm: HomeTurizm,
+  gul: HomeGul,
+  interyer: HomeInteryer,
+  it: HomeIt,
+  toy: HomeToy,
+  berber: HomeBerber,
   bosh: HomeBosh,
 }
 

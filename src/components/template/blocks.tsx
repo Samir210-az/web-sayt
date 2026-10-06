@@ -78,6 +78,15 @@ const SERVICE_VARIANT: Record<TemplateId, ServiceVariant> = {
   kurs: 'tiles',
   studiya: 'split',
   usaq: 'tiles',
+  emlak: 'gallery',
+  avto: 'rows',
+  stomat: 'rounds',
+  turizm: 'scroller',
+  gul: 'tiles',
+  interyer: 'split',
+  it: 'bento',
+  toy: 'accordion',
+  berber: 'menu',
 }
 
 const ITEM_CLASS: Record<ServiceVariant, string> = {

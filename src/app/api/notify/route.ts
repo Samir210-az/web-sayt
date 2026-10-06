@@ -5,7 +5,7 @@ export const runtime = 'nodejs'
 const LOOKUP_URL = process.env.IDENTITY_LOOKUP_URL ?? 'https://identitytoolkit.googleapis.com/v1/accounts:lookup'
 const TELEGRAM_URL = process.env.TELEGRAM_API_URL ?? 'https://api.telegram.org'
 const SUBDOMAIN = /^[a-z0-9][a-z0-9-]{1,28}[a-z0-9]$/
-const TEMPLATES = ['xidmet', 'klinika', 'kafe', 'huquq', 'gozellik', 'idman', 'tikinti', 'kurs', 'studiya', 'usaq', 'bosh']
+const TEMPLATES = ['xidmet', 'klinika', 'kafe', 'huquq', 'gozellik', 'idman', 'tikinti', 'kurs', 'studiya', 'usaq', 'emlak', 'avto', 'stomat', 'turizm', 'gul', 'interyer', 'it', 'toy', 'berber', 'bosh']
 const WINDOW_MS = { login: 10 * 60_000, publish: 20_000 }
 const lastSent = new Map<string, number>()
 

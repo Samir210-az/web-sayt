@@ -3,7 +3,7 @@ import { chromium } from 'playwright'
 
 const BASE = process.env.PREVIEW_BASE ?? 'http://localhost:3100'
 const OUT = new URL('../public/previews/', import.meta.url).pathname
-const TEMPLATES = (process.env.ONLY ?? 'xidmet,klinika,kafe,huquq,gozellik,idman,tikinti,kurs,studiya,usaq,bosh').split(',')
+const TEMPLATES = (process.env.ONLY ?? 'xidmet,klinika,kafe,huquq,gozellik,idman,tikinti,kurs,studiya,usaq,emlak,avto,stomat,turizm,gul,interyer,it,toy,berber,bosh').split(',')
 const PAGES = [
   ['home', ''],
   ['xidmetler', '/xidmetler'],

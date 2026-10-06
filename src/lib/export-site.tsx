@@ -16,6 +16,15 @@ const FONT_FAMILIES: Record<TemplateId, string[]> = {
   kurs: ['Manrope Variable', 'Instrument Sans Variable'],
   studiya: ['Fraunces Variable', 'Instrument Sans Variable'],
   usaq: ['Bricolage Grotesque Variable', 'Instrument Sans Variable'],
+  emlak: ['Plus Jakarta Sans Variable', 'DM Sans Variable'],
+  avto: ['Oswald Variable', 'Inter Variable'],
+  stomat: ['Onest Variable'],
+  turizm: ['Unbounded Variable', 'Montserrat Variable'],
+  gul: ['Fraunces Variable', 'DM Sans Variable'],
+  interyer: ['Montserrat Variable', 'Inter Variable'],
+  it: ['Space Grotesk Variable', 'JetBrains Mono Variable'],
+  toy: ['Cormorant Variable', 'DM Sans Variable'],
+  berber: ['Playfair Display Variable', 'Onest Variable'],
 }
 
 const IMAGE_ATTR = /src="(data:image\/(webp|jpeg|png);base64,[A-Za-z0-9+/=]+)"/g

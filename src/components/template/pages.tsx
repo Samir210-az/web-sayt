@@ -15,6 +15,15 @@ import {
   WhatsappLink,
   useContactLinks,
 } from './page-parts'
+import { AboutEmlak, ContactEmlak } from './t-emlak'
+import { AboutAvto, ContactAvto } from './t-avto'
+import { AboutStomat, ContactStomat } from './t-stomat'
+import { AboutTurizm, ContactTurizm } from './t-turizm'
+import { AboutGul, ContactGul } from './t-gul'
+import { AboutInteryer, ContactInteryer } from './t-interyer'
+import { AboutIt, ContactIt } from './t-it'
+import { AboutToy, ContactToy } from './t-toy'
+import { AboutBerber, ContactBerber } from './t-berber'
 import {
   AboutGozellik,
   AboutHuquq,
@@ -178,6 +187,15 @@ const ABOUT: Record<TemplateId, () => React.JSX.Element> = {
   kurs: AboutKurs,
   studiya: AboutStudiya,
   usaq: AboutUsaq,
+  emlak: AboutEmlak,
+  avto: AboutAvto,
+  stomat: AboutStomat,
+  turizm: AboutTurizm,
+  gul: AboutGul,
+  interyer: AboutInteryer,
+  it: AboutIt,
+  toy: AboutToy,
+  berber: AboutBerber,
 }
 
 export function AboutPage() {
@@ -295,6 +313,15 @@ const CONTACT: Record<TemplateId, () => React.JSX.Element> = {
   kurs: ContactKurs,
   studiya: ContactStudiya,
   usaq: ContactUsaq,
+  emlak: ContactEmlak,
+  avto: ContactAvto,
+  stomat: ContactStomat,
+  turizm: ContactTurizm,
+  gul: ContactGul,
+  interyer: ContactInteryer,
+  it: ContactIt,
+  toy: ContactToy,
+  berber: ContactBerber,
 }
 
 export function ContactPage() {

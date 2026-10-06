@@ -1,31 +1,9 @@
 import { mkdir } from 'node:fs/promises'
 import sharp from 'sharp'
 
-const W = 1600
-const H = 1100
+import { H, W, lin, rad, wrap } from './art/helpers.mjs'
+
 const OUT = new URL('../public/images/', import.meta.url).pathname
-
-const grain = `<filter id="grain" x="0" y="0" width="100%" height="100%">
-  <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="7"/>
-  <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0"/>
-</filter>
-<filter id="soft"><feGaussianBlur stdDeviation="14"/></filter>
-<filter id="softer"><feGaussianBlur stdDeviation="40"/></filter>`
-
-const wrap = (defs, body, grainOpacity = 0.1) => `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
-<defs>${grain}${defs}</defs>${body}
-<rect width="${W}" height="${H}" filter="url(#grain)" opacity="${grainOpacity}"/>
-</svg>`
-
-const lin = (id, stops, x1 = 0, y1 = 0, x2 = 1, y2 = 1) =>
-  `<linearGradient id="${id}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}">${stops
-    .map(([o, c, a = 1]) => `<stop offset="${o}" stop-color="${c}" stop-opacity="${a}"/>`)
-    .join('')}</linearGradient>`
-
-const rad = (id, stops, cx = 0.5, cy = 0.5, r = 0.5) =>
-  `<radialGradient id="${id}" cx="${cx}" cy="${cy}" r="${r}">${stops
-    .map(([o, c, a = 1]) => `<stop offset="${o}" stop-color="${c}" stop-opacity="${a}"/>`)
-    .join('')}</radialGradient>`
 
 const scenes = {}
 
@@ -349,6 +327,9 @@ ${cube(380, 905, 150, '#c7a4e8', '#9d73cc', 12, 'E')}`,
     0.06,
   )
 }
+
+const NEW_SCENES = ['emlak', 'avto', 'stomat', 'turizm', 'gul', 'interyer', 'it', 'toy', 'berber']
+for (const id of NEW_SCENES) scenes[id] = (await import(`./art/${id}.mjs`)).scene
 
 await mkdir(OUT, { recursive: true })
 for (const [id, make] of Object.entries(scenes)) {

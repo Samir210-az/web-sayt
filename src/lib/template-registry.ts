@@ -12,6 +12,15 @@ import {
   createTikintiSite,
   createUsaqSite,
 } from './templates/more'
+import { createEmlakSite } from './templates/emlak'
+import { createAvtoSite } from './templates/avto'
+import { createStomatSite } from './templates/stomat'
+import { createTurizmSite } from './templates/turizm'
+import { createGulSite } from './templates/gul'
+import { createInteryerSite } from './templates/interyer'
+import { createItSite } from './templates/it'
+import { createToySite } from './templates/toy'
+import { createBerberSite } from './templates/berber'
 import type { SiteConfig, TemplateId } from './types'
 
 export interface TemplateMeta {
@@ -32,6 +41,15 @@ export const TEMPLATES: TemplateMeta[] = [
   { id: 'tikinti', name: 'Təməl Tikinti', kind: 'Tikinti və təmir şirkətləri', create: () => withArt('tikinti', createTikintiSite()) },
   { id: 'kurs', name: 'Bilik Mərkəzi', kind: 'Kurs və təhsil mərkəzləri', create: () => withArt('kurs', createKursSite()) },
   { id: 'studiya', name: 'Kadr Studio', kind: 'Foto və video studiyaları', create: () => withArt('studiya', createStudiyaSite()) },
+  { id: 'emlak', name: 'Dəyər Əmlak', kind: 'Əmlak agentlikləri', create: () => withArt('emlak', createEmlakSite()) },
+  { id: 'avto', name: 'Mator Servis', kind: 'Avtoservis və avtosalonlar', create: () => withArt('avto', createAvtoSite()) },
+  { id: 'stomat', name: 'Ağ Təbəssüm', kind: 'Stomatologiya klinikaları', create: () => withArt('stomat', createStomatSite()) },
+  { id: 'turizm', name: 'Yol Əhli', kind: 'Turizm agentlikləri', create: () => withArt('turizm', createTurizmSite()) },
+  { id: 'gul', name: 'Qönçə', kind: 'Gül və hədiyyə mağazaları', create: () => withArt('gul', createGulSite()) },
+  { id: 'interyer', name: 'Ölçü Studio', kind: 'İnteryer və mebel studiyaları', create: () => withArt('interyer', createInteryerSite()) },
+  { id: 'it', name: 'Kod Zavodu', kind: 'IT və proqram şirkətləri', create: () => withArt('it', createItSite()) },
+  { id: 'toy', name: 'Şölən Saray', kind: 'Toy və tədbir salonları', create: () => withArt('toy', createToySite()) },
+  { id: 'berber', name: 'Tiğ Bərbər', kind: 'Bərbər və kişi salonları', create: () => withArt('berber', createBerberSite()) },
   { id: 'bosh', name: 'Sıfırdan başla', kind: 'Boş şablon, özünüz qurun', create: createBoshSite },
 ]
 
