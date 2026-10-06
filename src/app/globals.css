@@ -1554,6 +1554,7 @@ input:focus-visible {
 .lp-card {
   position: relative;
   display: grid;
+  align-content: start;
   gap: 18px;
   padding: 14px 14px 22px;
   border: 1px solid var(--lp-edge);
@@ -3234,8 +3235,11 @@ main:not(.main--editing) .pagehead__lead {
   padding-block: clamp(32px, 5vw, 64px) clamp(56px, 8vw, 104px);
 }
 
-.ab-b-story__lead {
+.ab-b-story__head {
   grid-column: 1 / -1;
+}
+
+.ab-b-story__lead {
   max-width: 24ch;
   font-family: var(--font-display);
   font-size: clamp(2rem, 5.6vw, 4.6rem);
@@ -3474,7 +3478,7 @@ main:not(.main--editing) .pagehead__lead {
 .ct-b__big {
   display: block;
   font-family: var(--font-display);
-  font-size: clamp(2.4rem, 9.4vw, 8rem);
+  font-size: clamp(1.7rem, 8.2vw, 8rem);
   font-weight: 700;
   letter-spacing: -0.05em;
   line-height: 1;
@@ -3579,7 +3583,7 @@ main:not(.main--editing) .pagehead__lead {
 
 .lp-cards > li {
   display: grid;
-  align-content: start;
+  grid-template-rows: 1fr auto;
   gap: 12px;
 }
 
@@ -3788,5 +3792,27 @@ html:has(.pv[open]) {
   .pv__actions > * {
     flex: 1;
     text-align: center;
+  }
+}
+
+.ct-x__wa,
+.ct-k__card .btn {
+  white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+  .pagehead--bosh .pagehead__deco {
+    top: 14px;
+    width: 40px;
+  }
+
+  .pagehead--bosh .pagehead__title {
+    padding-right: 52px;
+  }
+
+  .ct-x__wa,
+  .ct-k__card .btn {
+    max-width: 100%;
+    font-size: 0.95rem;
   }
 }

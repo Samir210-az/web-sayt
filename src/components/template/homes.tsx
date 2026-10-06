@@ -8,7 +8,7 @@ import { useSite } from '@/lib/site-context'
 import { cx, pageHref, telHref } from '@/lib/utils'
 import { ActionLink, ExtraBlocks, SectionFrame, ServiceList } from './blocks'
 
-function ServicesHead({ linkClass = 'textlink' }: { linkClass?: string }) {
+export function ServicesHead({ linkClass = 'textlink' }: { linkClass?: string }) {
   const { editing, site } = useSite()
   return (
     <div className="wrap block__head">
@@ -22,7 +22,7 @@ function ServicesHead({ linkClass = 'textlink' }: { linkClass?: string }) {
   )
 }
 
-function Steps({ className }: { className: string }) {
+export function Steps({ className }: { className: string }) {
   return (
     <ol className={className}>
       {[1, 2, 3, 4].map((n) => (
@@ -42,7 +42,7 @@ function Steps({ className }: { className: string }) {
   )
 }
 
-function CtaCopy({ titleClass, textClass, buttonClass }: { titleClass: string; textClass: string; buttonClass: string }) {
+export function CtaCopy({ titleClass, textClass, buttonClass }: { titleClass: string; textClass: string; buttonClass: string }) {
   const { editing, site } = useSite()
   return (
     <>
@@ -57,7 +57,7 @@ function CtaCopy({ titleClass, textClass, buttonClass }: { titleClass: string; t
   )
 }
 
-function useServiceTitles(): string[] {
+export function useServiceTitles(): string[] {
   const { site } = useSite()
   return site.services.map((s) => s.title)
 }

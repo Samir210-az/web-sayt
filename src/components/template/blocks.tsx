@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import type { CSSProperties, ReactNode } from 'react'
 import { Editable, ImageField, TextField } from '@/components/editable'
 import { Parallax } from '@/components/parallax'
@@ -63,13 +64,19 @@ export function PageHead({ page, titleKey, leadKey }: { page: string; titleKey: 
   )
 }
 
-type ServiceVariant = 'rows' | 'stack' | 'bento' | 'menu'
+type ServiceVariant = 'rows' | 'stack' | 'bento' | 'menu' | 'accordion' | 'rounds' | 'scroller' | 'gallery' | 'tiles' | 'split'
 
 const SERVICE_VARIANT: Record<TemplateId, ServiceVariant> = {
   xidmet: 'stack',
   klinika: 'bento',
   kafe: 'menu',
   bosh: 'rows',
+  huquq: 'accordion',
+  gozellik: 'rounds',
+  idman: 'scroller',
+  tikinti: 'gallery',
+  kurs: 'tiles',
+  studiya: 'split',
 }
 
 const ITEM_CLASS: Record<ServiceVariant, string> = {
@@ -77,6 +84,12 @@ const ITEM_CLASS: Record<ServiceVariant, string> = {
   stack: 'stack__card',
   bento: 'bento__tile',
   menu: 'menu__row',
+  accordion: 'acc__item',
+  rounds: 'rnd__item',
+  scroller: 'scr__card',
+  gallery: 'gal__card',
+  tiles: 'tile__card',
+  split: 'spl__row',
 }
 
 const PART: Record<ServiceVariant, string> = {
@@ -84,13 +97,99 @@ const PART: Record<ServiceVariant, string> = {
   stack: 'stack',
   bento: 'bento',
   menu: 'menu',
+  accordion: 'acc',
+  rounds: 'rnd',
+  scroller: 'scr',
+  gallery: 'gal',
+  tiles: 'tile',
+  split: 'spl',
 }
 
-const MEDIA_SPEED: Record<ServiceVariant, number> = { rows: 0.06, stack: 0.1, bento: 0.07, menu: 0.05 }
+const MEDIA_SPEED: Record<ServiceVariant, number> = {
+  rows: 0.06,
+  stack: 0.1,
+  bento: 0.07,
+  menu: 0.05,
+  accordion: 0.05,
+  rounds: 0.06,
+  scroller: 0.1,
+  gallery: 0.09,
+  tiles: 0.07,
+  split: 0.12,
+}
+
+function RemoveService({ item }: { item: ServiceItem }) {
+  const { removeService } = useSite()
+  return (
+    <button
+      type="button"
+      className="ed-remove svc-remove"
+      onClick={() => {
+        if (window.confirm(`"${item.title}" xidməti silinsin?`)) removeService(item.id)
+      }}
+    >
+      Xidməti sil
+    </button>
+  )
+}
+
+function AccordionRow({ item }: { item: ServiceItem }) {
+  const { editing, updateService } = useSite()
+  const [open, setOpen] = useState(false)
+  const expanded = editing || open
+
+  return (
+    <li className="acc__item" data-open={expanded}>
+      <div className="acc__head">
+        <TextField
+          as="h3"
+          className="acc__title"
+          label="Xidmətin adı"
+          value={item.title}
+          max={50}
+          onCommit={(title) => updateService(item.id, { title })}
+        />
+        {!editing && (
+          <button
+            type="button"
+            className="acc__btn"
+            aria-expanded={open}
+            aria-label={`${item.title}: təsviri ${open ? 'gizlət' : 'göstər'}`}
+            onClick={() => setOpen(!open)}
+          />
+        )}
+        <span className="acc__mark" aria-hidden="true" />
+      </div>
+      <div className="acc__panel">
+        <div className="acc__body">
+          <TextField
+            as="p"
+            className="acc__text"
+            label="Xidmətin təsviri"
+            value={item.text}
+            multiline
+            max={220}
+            onCommit={(text) => updateService(item.id, { text })}
+          />
+          <Parallax speed={MEDIA_SPEED.accordion} bleed className="acc__media">
+            <ImageField
+              label={`${item.title} şəkli`}
+              value={item.image}
+              onCommit={(image) => updateService(item.id, { image })}
+            />
+          </Parallax>
+          {editing && <RemoveService item={item} />}
+        </div>
+      </div>
+    </li>
+  )
+}
 
 function ServiceRow({ item, index, variant }: { item: ServiceItem; index: number; variant: ServiceVariant }) {
-  const { editing, updateService, removeService } = useSite()
+  const { editing, updateService } = useSite()
   const part = PART[variant]
+
+  if (variant === 'accordion') return <AccordionRow item={item} />
 
   return (
     <li className={ITEM_CLASS[variant]} style={{ '--i': index } as CSSProperties}>
@@ -120,17 +219,7 @@ function ServiceRow({ item, index, variant }: { item: ServiceItem; index: number
           onCommit={(image) => updateService(item.id, { image })}
         />
       </Parallax>
-      {editing && (
-        <button
-          type="button"
-          className="ed-remove svc-remove"
-          onClick={() => {
-            if (window.confirm(`"${item.title}" xidməti silinsin?`)) removeService(item.id)
-          }}
-        >
-          Xidməti sil
-        </button>
-      )}
+      {editing && <RemoveService item={item} />}
     </li>
   )
 }

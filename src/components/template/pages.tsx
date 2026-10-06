@@ -149,7 +149,7 @@ function AboutBosh() {
     <>
       <SectionFrame id="about.story" label="Hekayə">
         <section className="ab-b-story wrap">
-          <Reveal variant="up">
+          <Reveal variant="up" className="ab-b-story__head">
             <Editable.Text as="p" k="about.body1" className="ab-b-story__lead" label="Birinci abzas" multiline max={400} />
           </Reveal>
           <Reveal variant="zoom" className="ab-b-story__media">
@@ -179,6 +179,12 @@ const ABOUT: Record<TemplateId, () => React.JSX.Element> = {
   klinika: AboutKlinika,
   kafe: AboutKafe,
   bosh: AboutBosh,
+  huquq: AboutKafe,
+  gozellik: AboutKlinika,
+  idman: AboutBosh,
+  tikinti: AboutXidmet,
+  kurs: AboutKlinika,
+  studiya: AboutKafe,
 }
 
 export function AboutPage() {
@@ -339,6 +345,12 @@ const CONTACT: Record<TemplateId, () => React.JSX.Element> = {
   klinika: ContactKlinika,
   kafe: ContactKafe,
   bosh: ContactBosh,
+  huquq: ContactKafe,
+  gozellik: ContactKlinika,
+  idman: ContactBosh,
+  tikinti: ContactXidmet,
+  kurs: ContactKlinika,
+  studiya: ContactKafe,
 }
 
 export function ContactPage() {

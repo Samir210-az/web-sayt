@@ -4,6 +4,7 @@ import '@fontsource-variable/instrument-sans'
 import '@fontsource-variable/manrope'
 import '@fontsource-variable/fraunces'
 import './globals.css'
+import './templates-more.css'
 
 export const metadata: Metadata = {
   title: { default: 'web-sayt: şirkətinizin saytını özünüz yaradın', template: '%s | web-sayt' },

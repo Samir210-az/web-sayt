@@ -1,4 +1,14 @@
-export type TemplateId = 'xidmet' | 'klinika' | 'kafe' | 'bosh'
+export type TemplateId =
+  | 'xidmet'
+  | 'klinika'
+  | 'kafe'
+  | 'huquq'
+  | 'gozellik'
+  | 'idman'
+  | 'tikinti'
+  | 'kurs'
+  | 'studiya'
+  | 'bosh'
 
 export type PageKey = 'home' | 'services' | 'about' | 'contact'
 
