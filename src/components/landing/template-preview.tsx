@@ -17,12 +17,14 @@ type Device = 'desktop' | 'mobile'
 export function TemplatePreview({ id, name }: { id: TemplateId; name: string }) {
   const dialog = useRef<HTMLDialogElement>(null)
   const screen = useRef<HTMLDivElement>(null)
+  const [opened, setOpened] = useState(false)
   const [device, setDevice] = useState<Device>('desktop')
   const [page, setPage] = useState<(typeof PAGES)[number]['key']>('home')
 
   function open() {
     setDevice(window.matchMedia('(max-width: 720px)').matches ? 'mobile' : 'desktop')
     setPage('home')
+    setOpened(true)
     dialog.current?.showModal()
   }
 
@@ -74,13 +76,15 @@ export function TemplatePreview({ id, name }: { id: TemplateId; name: string }) 
               <i />
             </div>
             <div className="pv__screen" ref={screen} tabIndex={0} aria-label={`${label} səhifəsinin görünüşü, aşağı sürüşdürün`}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                key={`${device}-${page}`}
-                src={`/previews/${id}-${page}-${device}.jpg`}
-                alt={`${name} şablonu, ${label} səhifəsi`}
-                decoding="async"
-              />
+              {opened && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  key={`${device}-${page}`}
+                  src={`/previews/${id}-${page}-${device}.jpg`}
+                  alt={`${name} şablonu, ${label} səhifəsi`}
+                  decoding="async"
+                />
+              )}
             </div>
           </div>
         </div>
