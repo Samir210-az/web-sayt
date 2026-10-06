@@ -335,3 +335,62 @@ export function HomeStudiya() {
     </>
   )
 }
+
+/* Kiçik Addım: pilləkən və yumşaq formalar */
+
+export function HomeUsaq() {
+  const { editing } = useSite()
+
+  return (
+    <>
+      <SectionFrame id="home.hero" label="Giriş bölməsi">
+        <section className={cx('uq-hero wrap', !editing && 'uq-hero--enter')}>
+          <div className="uq-hero__copy">
+            <Editable.Text as="p" k="home.hero.chip" className="uq-hero__chip" label="Kiçik yazı" max={30} />
+            <Editable.Text as="h1" k="home.hero.title" className="uq-hero__title" label="Əsas başlıq" max={110} />
+            <Editable.Text as="p" k="home.hero.lead" className="uq-hero__lead" label="Giriş mətni" multiline max={240} />
+            <HeroCta />
+          </div>
+          <div className="uq-hero__art">
+            <Parallax speed={0.08} bleed className="uq-blob">
+              <Editable.Image k="home.hero.panel" label="Əsas şəkil" />
+            </Parallax>
+            <Parallax speed={0.16} bleed className="uq-round">
+              <Editable.Image k="home.hero.float" label="İkinci şəkil" />
+            </Parallax>
+            <Parallax speed={-0.12} className="uq-shape uq-shape--a">
+              <span />
+            </Parallax>
+            <Parallax speed={0.12} className="uq-shape uq-shape--b">
+              <span />
+            </Parallax>
+          </div>
+        </section>
+      </SectionFrame>
+
+      <ServicesBlock />
+
+      <SectionFrame id="home.process" label="Başlama qaydası">
+        <section className="uq-steps wrap">
+          <ProcessHead />
+          <Steps className="uq-steps__list" />
+        </section>
+      </SectionFrame>
+
+      <SectionFrame id="home.cta" label="Yekun çağırış">
+        <section className="uq-cta wrap">
+          <div className="uq-cta__box">
+            <div className="uq-cta__copy">
+              <CtaCopy titleClass="uq-cta__title" textClass="uq-cta__text" buttonClass="btn btn--primary" />
+            </div>
+            <Parallax speed={0.08} bleed className="uq-cta__img">
+              <Editable.Image k="home.cta.bg" label="Çağırış şəkli" />
+            </Parallax>
+          </div>
+        </section>
+      </SectionFrame>
+
+      <ExtraBlocks page="home" />
+    </>
+  )
+}

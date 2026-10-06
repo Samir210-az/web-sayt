@@ -10,6 +10,7 @@ import {
   createKursSite,
   createStudiyaSite,
   createTikintiSite,
+  createUsaqSite,
 } from './templates/more'
 import type { SiteConfig, TemplateId } from './types'
 
@@ -23,6 +24,7 @@ export interface TemplateMeta {
 export const TEMPLATES: TemplateMeta[] = [
   { id: 'xidmet', name: 'Evdar', kind: 'Xidmət şirkətləri', create: () => withArt('xidmet', createDefaultSite()) },
   { id: 'klinika', name: 'Nur Klinika', kind: 'Klinika və tibb mərkəzləri', create: () => withArt('klinika', createKlinikaSite()) },
+  { id: 'usaq', name: 'Kiçik Addım', kind: 'Uşaq psixoloji mərkəzləri', create: () => withArt('usaq', createUsaqSite()) },
   { id: 'kafe', name: 'Dəmlik Kafe', kind: 'Kafe və restoranlar', create: () => withArt('kafe', createKafeSite()) },
   { id: 'huquq', name: 'Hüquq Evi', kind: 'Hüquq və vəkil bürosları', create: createHuquqSite },
   { id: 'gozellik', name: 'Lalə Gözəllik', kind: 'Gözəllik salonları', create: () => withArt('gozellik', createGozellikSite()) },

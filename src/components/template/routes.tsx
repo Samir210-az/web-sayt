@@ -2,7 +2,7 @@ import { PAGES } from '@/lib/types'
 import type { PageKey, TemplateId } from '@/lib/types'
 import { TEMPLATES } from '@/lib/template-registry'
 import { HomeBosh, HomeKafe, HomeKlinika, HomeXidmet } from './homes'
-import { HomeGozellik, HomeHuquq, HomeIdman, HomeKurs, HomeStudiya, HomeTikinti } from './homes-more'
+import { HomeGozellik, HomeHuquq, HomeIdman, HomeKurs, HomeStudiya, HomeTikinti, HomeUsaq } from './homes-more'
 import { AboutPage, ContactPage, ServicesPage } from './pages'
 
 const HOMES = {
@@ -15,6 +15,7 @@ const HOMES = {
   tikinti: HomeTikinti,
   kurs: HomeKurs,
   studiya: HomeStudiya,
+  usaq: HomeUsaq,
   bosh: HomeBosh,
 }
 

@@ -8,6 +8,7 @@ export type TemplateId =
   | 'tikinti'
   | 'kurs'
   | 'studiya'
+  | 'usaq'
   | 'bosh'
 
 export type PageKey = 'home' | 'services' | 'about' | 'contact'

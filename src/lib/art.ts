@@ -9,6 +9,7 @@ const ART_ALT: Partial<Record<TemplateId, string>> = {
   tikinti: 'Tikilən bina və kran təsvir edilən illüstrasiya',
   kurs: 'Kitablar və qələm təsvir edilən illüstrasiya',
   studiya: 'Kamera obyektivi və kino lenti təsvir edilən illüstrasiya',
+  usaq: 'Rəngli kublar, buludlar və uçurtma təsvir edilən illüstrasiya',
 }
 
 const SLOT_FOCUS: Record<string, [number, number]> = {

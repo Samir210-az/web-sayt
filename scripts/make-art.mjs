@@ -314,6 +314,42 @@ scenes.studiya = () => {
   )
 }
 
+scenes.usaq = () => {
+  const cloud = (x, y, k = 1, o = 1) =>
+    `<g transform="translate(${x} ${y}) scale(${k})" opacity="${o}" fill="#fff"><ellipse cx="0" cy="40" rx="150" ry="46"/><circle cx="-50" cy="12" r="52"/><circle cx="26" cy="-6" r="68"/><circle cx="92" cy="22" r="44"/></g>`
+  const cube = (x, y, s, c, shade, rot, letter) =>
+    `<g transform="translate(${x} ${y}) rotate(${rot})">
+  <rect x="${-s / 2 + 10}" y="${-s / 2 + 16}" width="${s}" height="${s}" rx="22" fill="#17314a" opacity="0.16"/>
+  <rect x="${-s / 2}" y="${-s / 2}" width="${s}" height="${s}" rx="22" fill="${c}"/>
+  <rect x="${-s / 2}" y="${s / 2 - 26}" width="${s}" height="26" rx="13" fill="${shade}" opacity="0.55"/>
+  <text x="0" y="${s * 0.22}" font-family="Arial, sans-serif" font-weight="800" font-size="${s * 0.6}" fill="#fff" text-anchor="middle">${letter}</text>
+</g>`
+  return wrap(
+    lin('sky', [[0, '#a9d4ef'], [1, '#e8f4fb']], 0, 0, 0, 1) +
+      rad('sun', [[0, '#fff3c4', 0.95], [1, '#fff3c4', 0]]) +
+      lin('hill', [[0, '#bfe3c0'], [1, '#8ccb9a']], 0, 0, 0, 1),
+    `<rect width="${W}" height="${H}" fill="url(#sky)"/>
+<circle cx="1280" cy="250" r="360" fill="url(#sun)"/>
+${cloud(260, 220, 1.1, 0.95)}${cloud(1240, 140, 0.8, 0.9)}${cloud(1380, 560, 0.7, 0.8)}${cloud(120, 700, 0.6, 0.8)}
+<path d="M0 860 C 300 760 560 800 820 850 C 1080 900 1340 790 1600 840 L1600 1100 L0 1100 Z" fill="url(#hill)"/>
+<path d="M0 950 C 360 880 700 960 1020 940 C 1260 925 1450 900 1600 930 L1600 1100 L0 1100 Z" fill="#a6d8a8"/>
+<g transform="translate(1130 330) rotate(14)">
+  <path d="M0 -150 L110 0 L0 190 L-110 0 Z" fill="#ffa987"/>
+  <path d="M0 -150 L110 0 L0 20 Z" fill="#ffd86b"/>
+  <path d="M0 -150 L-110 0 L0 20 Z" fill="#f48e66"/>
+  <path d="M0 20 L110 0 L0 190 Z" fill="#e97a52" opacity="0.9"/>
+  <path d="M0 190 C -60 300 60 380 -10 480 C -50 540 40 590 0 650" fill="none" stroke="#17314a" stroke-width="5" stroke-linecap="round" opacity="0.7"/>
+  <circle cx="-26" cy="330" r="16" fill="#4d8fc0"/><circle cx="30" cy="420" r="16" fill="#ffa987"/><circle cx="-14" cy="520" r="16" fill="#ffd86b"/>
+</g>
+${cube(560, 810, 250, '#4d8fc0', '#2f78b7', -6, 'A')}
+${cube(830, 860, 210, '#ffa987', '#e97a52', 8, 'B')}
+${cube(700, 610, 220, '#f2c14e', '#d9a21f', 5, 'C')}
+${cube(1010, 735, 170, '#6bbf8a', '#3f9c67', -10, 'D')}
+${cube(380, 905, 150, '#c7a4e8', '#9d73cc', 12, 'E')}`,
+    0.06,
+  )
+}
+
 await mkdir(OUT, { recursive: true })
 for (const [id, make] of Object.entries(scenes)) {
   await mkdir(`${OUT}${id}`, { recursive: true })

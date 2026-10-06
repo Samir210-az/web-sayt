@@ -16,6 +16,7 @@ const FONT_FAMILIES: Record<TemplateId, string[]> = {
   tikinti: ['Bricolage Grotesque Variable', 'Instrument Sans Variable'],
   kurs: ['Manrope Variable', 'Instrument Sans Variable'],
   studiya: ['Fraunces Variable', 'Instrument Sans Variable'],
+  usaq: ['Bricolage Grotesque Variable', 'Instrument Sans Variable'],
 }
 
 const IMAGE_ATTR = /src="(data:image\/(webp|jpeg|png);base64,[A-Za-z0-9+/=]+)"/g

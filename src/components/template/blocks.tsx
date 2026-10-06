@@ -77,6 +77,7 @@ const SERVICE_VARIANT: Record<TemplateId, ServiceVariant> = {
   tikinti: 'gallery',
   kurs: 'tiles',
   studiya: 'split',
+  usaq: 'tiles',
 }
 
 const ITEM_CLASS: Record<ServiceVariant, string> = {

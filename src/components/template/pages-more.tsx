@@ -273,3 +273,40 @@ export function ContactStudiya() {
     </section>
   )
 }
+
+export function AboutUsaq() {
+  return (
+    <SectionFrame id="about.story" label="Hekayə">
+      <section className="ab-u wrap">
+        <Reveal variant="zoom" className="ab-u__media">
+          <StoryImage className="ab-u__blob" speed={0.08} />
+          <Parallax speed={-0.12} className="ab-u__shape">
+            <span />
+          </Parallax>
+        </Reveal>
+        <Reveal variant="up" className="ab-u__copy">
+          <StoryCopy leadClass="ab-u__lead" />
+        </Reveal>
+        <ValuesTitle className="ab-u__title" />
+        <ValueItems listClass="ab-u__list" itemClass="ab-u__item" stagger={0.1} />
+      </section>
+    </SectionFrame>
+  )
+}
+
+export function ContactUsaq() {
+  const { tel } = useContactLinks()
+  return (
+    <section className="cx-u wrap">
+      <Reveal variant="up" className="cx-u__card">
+        <ActionLink className="btn btn--primary" href={tel}>
+          <PhoneField />
+        </ActionLink>
+        <WhatsappLink className="btn btn--ghost" />
+      </Reveal>
+      <Reveal variant="up" delay={0.1}>
+        <ContactRows wrapClass="cx-u__list" rowClass="cx-u__row" />
+      </Reveal>
+    </section>
+  )
+}

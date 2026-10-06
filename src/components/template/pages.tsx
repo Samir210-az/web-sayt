@@ -22,12 +22,14 @@ import {
   AboutKurs,
   AboutStudiya,
   AboutTikinti,
+  AboutUsaq,
   ContactGozellik,
   ContactHuquq,
   ContactIdman,
   ContactKurs,
   ContactStudiya,
   ContactTikinti,
+  ContactUsaq,
 } from './pages-more'
 
 export function ServicesPage() {
@@ -175,6 +177,7 @@ const ABOUT: Record<TemplateId, () => React.JSX.Element> = {
   tikinti: AboutTikinti,
   kurs: AboutKurs,
   studiya: AboutStudiya,
+  usaq: AboutUsaq,
 }
 
 export function AboutPage() {
@@ -291,6 +294,7 @@ const CONTACT: Record<TemplateId, () => React.JSX.Element> = {
   tikinti: ContactTikinti,
   kurs: ContactKurs,
   studiya: ContactStudiya,
+  usaq: ContactUsaq,
 }
 
 export function ContactPage() {
