@@ -1,0 +1,1126 @@
+/* Yol Əhli: açıqca, bilet və marşrut */
+
+.site[data-template='turizm'] {
+  --duman: #fff4e3;
+  --ink: #0e3f4c;
+  --kehreba: #f2b632;
+  --paper: #fffdf8;
+  --radius: 8px;
+  --font-display: 'Unbounded Variable', 'Montserrat Variable', system-ui, sans-serif;
+  --font-body: 'Montserrat Variable', system-ui, sans-serif;
+  --tz-text-accent: color-mix(in srgb, var(--accent) 62%, var(--ink));
+  --tz-dash: color-mix(in srgb, var(--ink) 40%, transparent);
+  background-color: var(--duman);
+  background-image: radial-gradient(circle, color-mix(in srgb, var(--ink) 11%, transparent) 1.2px, transparent 1.6px);
+  background-size: 24px 24px;
+  font-family: var(--font-body);
+}
+
+.site[data-template='turizm'] :is(h1, h2, h3) {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+}
+
+.site[data-template='turizm'] a:focus-visible,
+.site[data-template='turizm'] button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.site[data-template='turizm'] .tz-band a:focus-visible,
+.site[data-template='turizm'] .tz-ticket a:focus-visible,
+.site[data-template='turizm'] .footer a:focus-visible {
+  outline-color: var(--kehreba);
+}
+
+/* Header */
+
+.site[data-template='turizm'] .header {
+  background: color-mix(in srgb, var(--duman) 94%, transparent);
+  border-bottom: 2px dashed var(--tz-dash);
+}
+
+.site[data-template='turizm'] .brand {
+  gap: 12px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.site[data-template='turizm'] .brand::before {
+  content: '';
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px var(--duman), 0 0 0 5px var(--ink);
+}
+
+.site[data-template='turizm'] .brand__logo {
+  width: 36px;
+  height: 36px;
+}
+
+.site[data-template='turizm'] .nav {
+  gap: 6px;
+}
+
+.site[data-template='turizm'] .nav__link {
+  isolation: isolate;
+  padding: 9px 16px;
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.site[data-template='turizm'] .nav__link::after {
+  inset: 0;
+  z-index: -1;
+  height: auto;
+  border-radius: 999px;
+  background: var(--kehreba);
+}
+
+.site[data-template='turizm'] .nav__link:hover::after {
+  transform: scaleX(0.6);
+}
+
+.site[data-template='turizm'] .nav__link--current::after {
+  transform: scaleX(1);
+}
+
+.site[data-template='turizm'] .header__toggle {
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  background: var(--kehreba);
+  color: var(--ink);
+  font-weight: 700;
+}
+
+@media (max-width: 820px) {
+  .site[data-template='turizm'] .nav {
+    background: var(--duman);
+    border-bottom: 2px dashed var(--tz-dash);
+  }
+
+  .site[data-template='turizm'] .nav__link {
+    padding: 16px 4px;
+    border-bottom: 2px dashed var(--tz-dash);
+    border-radius: 0;
+    font-size: 1rem;
+  }
+
+  .site[data-template='turizm'] .nav__link--current {
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .site[data-template='turizm'] .nav__link--current::before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+}
+
+/* Buttons */
+
+.site[data-template='turizm'] .btn {
+  position: relative;
+  min-height: 54px;
+  padding: 0 32px;
+  border-radius: 10px;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.site[data-template='turizm'] .btn--primary,
+.site[data-template='turizm'] .btn--accent {
+  background: var(--ink);
+  color: var(--duman);
+  box-shadow: 5px 5px 0 var(--accent);
+}
+
+.site[data-template='turizm'] .btn--primary::before,
+.site[data-template='turizm'] .btn--primary::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--duman);
+  transform: translateY(-50%);
+}
+
+.site[data-template='turizm'] .btn--primary::before {
+  left: -6px;
+}
+
+.site[data-template='turizm'] .btn--primary::after {
+  right: -6px;
+}
+
+.site[data-template='turizm'] .btn--primary:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 var(--accent);
+}
+
+.site[data-template='turizm'] .btn--ghost {
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.site[data-template='turizm'] .textlink {
+  color: var(--tz-text-accent);
+}
+
+/* Page head */
+
+.site[data-template='turizm'] .pagehead--turizm {
+  padding-block: clamp(48px, 8vw, 104px) clamp(40px, 6vw, 72px);
+  border-bottom: 2px dashed var(--tz-dash);
+}
+
+.site[data-template='turizm'] .pagehead--turizm .pagehead__title {
+  max-width: 14ch;
+  font-size: clamp(1.9rem, 5.4vw, 4.4rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+  overflow-wrap: break-word;
+}
+
+.site[data-template='turizm'] .pagehead--turizm .pagehead__lead {
+  max-width: 46ch;
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+}
+
+.site[data-template='turizm'] .pagehead--turizm .pagehead__deco {
+  right: -90px;
+  top: -110px;
+  width: clamp(240px, 32vw, 400px);
+  height: clamp(240px, 32vw, 400px);
+}
+
+.site[data-template='turizm'] .pagehead--turizm .pagehead__deco span {
+  position: relative;
+  border: 3px dashed color-mix(in srgb, var(--accent) 75%, transparent);
+  border-radius: 50%;
+}
+
+.site[data-template='turizm'] .pagehead--turizm .pagehead__deco span::after {
+  content: '';
+  position: absolute;
+  left: 14%;
+  bottom: 14%;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--kehreba);
+  box-shadow: 0 0 0 4px var(--duman), 0 0 0 6px var(--ink);
+}
+
+/* Hero */
+
+.site[data-template='turizm'] .tz-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  align-items: center;
+  gap: clamp(32px, 5vw, 72px);
+  padding-block: clamp(40px, 6vw, 88px) clamp(64px, 8vw, 112px);
+}
+
+.site[data-template='turizm'] .tz-route {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  pointer-events: none;
+}
+
+.site[data-template='turizm'] .tz-route path {
+  stroke: var(--ink);
+  stroke-width: 3;
+  stroke-dasharray: 2 11;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.55;
+}
+
+.site[data-template='turizm'] .tz-plane {
+  position: absolute;
+  z-index: 0;
+  right: calc(var(--gutter) * 0.4);
+  top: 8%;
+  width: 46px;
+  rotate: -12deg;
+  pointer-events: none;
+}
+
+.site[data-template='turizm'] .tz-plane path:first-child {
+  fill: var(--ink);
+}
+
+.site[data-template='turizm'] .tz-plane path:last-child {
+  fill: var(--accent);
+}
+
+.site[data-template='turizm'] .tz-hero__copy {
+  position: relative;
+  z-index: 2;
+}
+
+.site[data-template='turizm'] .tz-hero__stamp {
+  display: inline-block;
+  margin-bottom: 26px;
+  padding: 8px 16px;
+  border: 2px solid var(--tz-text-accent);
+  border-radius: 6px;
+  box-shadow: 0 0 0 4px var(--duman), 0 0 0 6px var(--tz-text-accent);
+  background: var(--duman);
+  color: var(--tz-text-accent);
+  font-family: var(--font-display);
+  font-size: 0.74rem;
+  font-weight: 500;
+  rotate: -3deg;
+}
+
+.site[data-template='turizm'] .tz-hero__title {
+  max-width: 11ch;
+  font-size: clamp(2.3rem, 5.3vw, 4.7rem);
+  line-height: 1.04;
+  overflow-wrap: break-word;
+}
+
+.site[data-template='turizm'] .tz-hero__lead {
+  max-width: 42ch;
+  margin-block: 24px 36px;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.4vw, 1.12rem);
+  font-weight: 500;
+}
+
+.site[data-template='turizm'] .tz-hero__collage {
+  position: relative;
+  z-index: 1;
+  aspect-ratio: 1 / 1.02;
+  min-height: 340px;
+}
+
+.site[data-template='turizm'] .tz-card {
+  position: absolute;
+  overflow: hidden;
+  border: 10px solid var(--paper);
+  background: var(--paper);
+  box-shadow: 0 26px 40px -22px rgb(14 63 76 / 0.6);
+  rotate: var(--r);
+}
+
+.site[data-template='turizm'] .tz-card--main {
+  --r: 3deg;
+  left: 15%;
+  top: 2%;
+  width: 66%;
+  aspect-ratio: 4 / 5;
+  border-bottom-width: 38px;
+}
+
+.site[data-template='turizm'] .tz-card--float {
+  --r: -7deg;
+  left: 0;
+  bottom: 4%;
+  width: 44%;
+  aspect-ratio: 1;
+}
+
+.site[data-template='turizm'] .tz-card--third {
+  --r: 8deg;
+  right: 0;
+  top: 40%;
+  width: 31%;
+  aspect-ratio: 3 / 4;
+  border-width: 12px;
+  box-shadow: none;
+  mask:
+    radial-gradient(circle 5px at 50% 0, #0000 97%, #000) 0 0 / 16px 100% repeat-x,
+    radial-gradient(circle 5px at 50% 100%, #0000 97%, #000) 0 0 / 16px 100% repeat-x,
+    radial-gradient(circle 5px at 0 50%, #0000 97%, #000) 0 0 / 100% 16px repeat-y,
+    radial-gradient(circle 5px at 100% 50%, #0000 97%, #000) 0 0 / 100% 16px repeat-y;
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
+}
+
+.site[data-template='turizm'] .tz-hero__postmark {
+  position: absolute;
+  z-index: 3;
+  right: 6%;
+  top: 14%;
+  width: clamp(90px, 11vw, 130px);
+  color: var(--tz-text-accent);
+  opacity: 0.85;
+  rotate: -10deg;
+}
+
+@keyframes tz-rise {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes tz-drop {
+  from {
+    opacity: 0;
+    transform: translateY(46px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .site[data-template='turizm'] .tz-hero--enter .tz-hero__copy > * {
+    animation: tz-rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .site[data-template='turizm'] .tz-hero--enter .tz-hero__copy > :nth-child(2) {
+    animation-delay: 0.1s;
+  }
+
+  .site[data-template='turizm'] .tz-hero--enter .tz-hero__copy > :nth-child(3) {
+    animation-delay: 0.22s;
+  }
+
+  .site[data-template='turizm'] .tz-hero--enter .tz-hero__copy > :nth-child(4) {
+    animation-delay: 0.34s;
+  }
+
+  .site[data-template='turizm'] .tz-hero--enter .tz-card {
+    animation: tz-drop 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  .site[data-template='turizm'] .tz-hero--enter .tz-card--float {
+    animation-delay: 0.25s;
+  }
+
+  .site[data-template='turizm'] .tz-hero--enter .tz-card--third {
+    animation-delay: 0.45s;
+  }
+}
+
+/* Services: postcard scroller */
+
+.site[data-template='turizm'] .tz-band {
+  position: relative;
+  padding-block: clamp(72px, 10vw, 128px) clamp(64px, 8vw, 104px);
+  background: var(--ink);
+  color: var(--duman);
+}
+
+.site[data-template='turizm'] .tz-band::before,
+.site[data-template='turizm'] .tz-band::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 18px;
+  pointer-events: none;
+}
+
+.site[data-template='turizm'] .tz-band::before {
+  top: 0;
+  background: radial-gradient(circle 8px at 50% 0, var(--duman) 97%, transparent) 0 0 / 28px 18px repeat-x;
+}
+
+.site[data-template='turizm'] .tz-band::after {
+  bottom: 0;
+  background: radial-gradient(circle 8px at 50% 100%, var(--duman) 97%, transparent) 0 0 / 28px 18px repeat-x;
+}
+
+.site[data-template='turizm'] .tz-band .block__title {
+  max-width: 14ch;
+  font-size: clamp(1.7rem, 3.6vw, 2.8rem);
+}
+
+.site[data-template='turizm'] .tz-band__link {
+  color: var(--kehreba);
+}
+
+.site[data-template='turizm'] .svclist--scroller {
+  --tz-edge: max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter)));
+  gap: 26px;
+  padding: 18px var(--tz-edge) 30px;
+  scroll-padding-inline: var(--tz-edge);
+  scrollbar-width: thin;
+  scrollbar-color: var(--kehreba) color-mix(in srgb, var(--ink) 30%, transparent);
+}
+
+.site[data-template='turizm'] .svclist--scroller.svclist--editing {
+  flex-wrap: wrap;
+}
+
+.site[data-template='turizm'] .scr__card {
+  --tilt: -1.4deg;
+  position: relative;
+  display: flex;
+  flex: 0 0 clamp(260px, 74vw, 320px);
+  flex-direction: column;
+  aspect-ratio: auto;
+  padding: 12px 12px 24px;
+  border-radius: 5px;
+  background: var(--paper);
+  color: var(--ink);
+  overflow: visible;
+  box-shadow: 0 22px 34px -20px rgb(0 0 0 / 0.55);
+  rotate: var(--tilt);
+  transition: rotate 0.3s ease, translate 0.3s ease;
+}
+
+.site[data-template='turizm'] .scr__card:nth-child(even) {
+  --tilt: 1.2deg;
+  margin-top: 22px;
+}
+
+.site[data-template='turizm'] .scr__card:hover {
+  rotate: 0deg;
+  translate: 0 -8px;
+}
+
+.site[data-template='turizm'] .scr__card::after {
+  inset: auto;
+  top: -12px;
+  right: -9px;
+  width: 50px;
+  height: 60px;
+  border: 5px solid var(--paper);
+  background:
+    radial-gradient(circle at 50% 44%, var(--kehreba) 0 26%, transparent 28%),
+    var(--accent);
+  box-shadow: 0 6px 10px -4px rgb(0 0 0 / 0.4);
+  rotate: 5deg;
+}
+
+.site[data-template='turizm'] .scr__media {
+  position: relative;
+  inset: auto;
+  order: -1;
+  aspect-ratio: 4 / 3;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.site[data-template='turizm'] .scr__copy {
+  position: static;
+  padding: 18px 8px 0;
+  color: var(--ink);
+}
+
+.site[data-template='turizm'] .scr__title {
+  font-size: 1.02rem;
+  text-transform: none;
+}
+
+.site[data-template='turizm'] .scr__text {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.site[data-template='turizm'] .svclist--scroller .svc-remove {
+  top: 20px;
+  left: 20px;
+}
+
+.site[data-template='turizm'] .block--flush {
+  padding-top: clamp(24px, 4vw, 48px);
+  padding-bottom: clamp(64px, 9vw, 120px);
+}
+
+.site[data-template='turizm'] .block--flush .svclist--scroller {
+  padding-top: 24px;
+}
+
+/* Process: winding route */
+
+.site[data-template='turizm'] .tz-way {
+  padding-block: clamp(80px, 11vw, 144px) clamp(40px, 6vw, 72px);
+}
+
+.site[data-template='turizm'] .tz-way__title {
+  max-width: 16ch;
+  font-size: clamp(1.7rem, 3.6vw, 2.8rem);
+}
+
+.site[data-template='turizm'] .tz-way__track {
+  position: relative;
+  margin-top: clamp(28px, 4vw, 48px);
+}
+
+.site[data-template='turizm'] .tz-way__line {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 128px;
+  fill: none;
+  pointer-events: none;
+}
+
+.site[data-template='turizm'] .tz-way__line path {
+  stroke: var(--ink);
+  stroke-width: 3;
+  stroke-dasharray: 2 11;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.55;
+}
+
+.site[data-template='turizm'] .tz-way__list {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  counter-reset: way;
+}
+
+.site[data-template='turizm'] .tz-way__list .step {
+  counter-increment: way;
+  margin-top: 8px;
+  padding-inline: 8px;
+  text-align: center;
+}
+
+.site[data-template='turizm'] .tz-way__list .step:nth-child(even) {
+  margin-top: 72px;
+}
+
+.site[data-template='turizm'] .tz-way__list .step::before {
+  content: counter(way);
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--duman);
+  box-shadow: 0 0 0 5px var(--duman), 0 0 0 7px var(--accent);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.site[data-template='turizm'] .tz-way__list .step__name {
+  font-size: clamp(1.05rem, 1.7vw, 1.3rem);
+}
+
+.site[data-template='turizm'] .tz-way__list .step__text {
+  max-width: 24ch;
+  margin-inline: auto;
+  font-size: 0.94rem;
+  font-weight: 500;
+}
+
+@media (max-width: 760px) {
+  .site[data-template='turizm'] .tz-way__line {
+    display: none;
+  }
+
+  .site[data-template='turizm'] .tz-way__list {
+    display: block;
+    margin-left: 24px;
+    border-left: 3px dotted var(--tz-dash);
+  }
+
+  .site[data-template='turizm'] .tz-way__list .step,
+  .site[data-template='turizm'] .tz-way__list .step:nth-child(even) {
+    position: relative;
+    margin-top: 0;
+    padding: 0 0 36px 40px;
+    text-align: left;
+  }
+
+  .site[data-template='turizm'] .tz-way__list .step::before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 0;
+    translate: -50% 0;
+  }
+
+  .site[data-template='turizm'] .tz-way__list .step__text {
+    margin-inline: 0;
+  }
+}
+
+/* Closing: boarding pass */
+
+.site[data-template='turizm'] .tz-cta {
+  padding-block: clamp(32px, 5vw, 64px) clamp(72px, 10vw, 128px);
+}
+
+.site[data-template='turizm'] .tz-ticket {
+  --stub: clamp(240px, 28vw, 340px);
+  --cut: calc(100% - var(--stub));
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--stub);
+  min-height: 340px;
+  background: var(--ink);
+  color: var(--duman);
+  mask:
+    radial-gradient(circle 17px at var(--cut) 0, #0000 97%, #000),
+    radial-gradient(circle 17px at var(--cut) 100%, #0000 97%, #000);
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
+}
+
+.site[data-template='turizm'] .tz-ticket::before {
+  content: '';
+  position: absolute;
+  top: 24px;
+  bottom: 24px;
+  left: var(--cut);
+  border-left: 3px dashed color-mix(in srgb, var(--duman) 45%, transparent);
+  z-index: 2;
+}
+
+.site[data-template='turizm'] .tz-ticket__main {
+  padding: clamp(32px, 5vw, 64px);
+}
+
+.site[data-template='turizm'] .tz-ticket__title {
+  max-width: 14ch;
+  color: var(--duman);
+  font-size: clamp(1.6rem, 3.3vw, 2.7rem);
+}
+
+.site[data-template='turizm'] .tz-ticket__text {
+  max-width: 38ch;
+  margin-block: 16px 30px;
+  color: color-mix(in srgb, var(--duman) 86%, var(--ink));
+  font-weight: 500;
+}
+
+.site[data-template='turizm'] .tz-ticket__btn {
+  background: var(--kehreba);
+  color: var(--ink);
+  box-shadow: 5px 5px 0 color-mix(in srgb, var(--duman) 30%, var(--ink));
+}
+
+.site[data-template='turizm'] .tz-ticket__btn::before,
+.site[data-template='turizm'] .tz-ticket__btn::after {
+  background: var(--ink);
+}
+
+.site[data-template='turizm'] .tz-ticket__btn:hover {
+  box-shadow: 7px 7px 0 color-mix(in srgb, var(--duman) 30%, var(--ink));
+}
+
+.site[data-template='turizm'] .tz-ticket__stub {
+  min-height: 100%;
+  overflow: hidden;
+}
+
+.site[data-template='turizm'] .tz-ticket__code {
+  position: absolute;
+  z-index: 3;
+  right: 20px;
+  bottom: 20px;
+  width: 118px;
+  height: 40px;
+  background:
+    repeating-linear-gradient(90deg, var(--paper) 0 2px, transparent 2px 5px, var(--paper) 5px 6px, transparent 6px 10px, var(--paper) 10px 13px, transparent 13px 15px) 8px 8px / calc(100% - 16px) calc(100% - 16px) no-repeat,
+    color-mix(in srgb, var(--ink) 78%, transparent);
+  border-radius: 4px;
+}
+
+@media (max-width: 760px) {
+  .site[data-template='turizm'] .tz-ticket {
+    --stub: 190px;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: var(--stub) auto;
+    mask:
+      radial-gradient(circle 17px at 0 var(--stub), #0000 97%, #000),
+      radial-gradient(circle 17px at 100% var(--stub), #0000 97%, #000);
+    mask-composite: intersect;
+    -webkit-mask-composite: source-in;
+  }
+
+  .site[data-template='turizm'] .tz-ticket::before {
+    top: var(--stub);
+    bottom: auto;
+    left: 24px;
+    right: 24px;
+    border-left: 0;
+    border-top: 3px dashed color-mix(in srgb, var(--duman) 45%, transparent);
+  }
+
+  .site[data-template='turizm'] .tz-ticket__stub {
+    grid-row: 1;
+    min-height: 0;
+  }
+
+  .site[data-template='turizm'] .tz-ticket__main {
+    grid-row: 2;
+  }
+
+  .site[data-template='turizm'] .tz-ticket__code {
+    top: 20px;
+    bottom: auto;
+  }
+}
+
+/* Extra sections */
+
+.site[data-template='turizm'] .split__title {
+  font-size: clamp(1.5rem, 3vw, 2.3rem);
+}
+
+.site[data-template='turizm'] .split__media {
+  border: 10px solid var(--paper);
+  border-radius: 4px;
+  box-shadow: 0 24px 36px -22px rgb(14 63 76 / 0.55);
+  rotate: 1.2deg;
+}
+
+.site[data-template='turizm'] .split--flip .split__media {
+  rotate: -1.2deg;
+}
+
+/* About */
+
+.site[data-template='turizm'] .tz-about {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  align-items: center;
+  gap: clamp(36px, 7vw, 104px);
+  padding-block: clamp(48px, 7vw, 96px) clamp(32px, 5vw, 56px);
+}
+
+.site[data-template='turizm'] .tz-about__photo {
+  position: relative;
+  justify-self: center;
+  width: min(100%, 440px);
+}
+
+.site[data-template='turizm'] .tz-about__photo::before {
+  content: '';
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  top: -14px;
+  width: 120px;
+  height: 32px;
+  background: color-mix(in srgb, var(--kehreba) 82%, transparent);
+  translate: -50% 0;
+  rotate: -4deg;
+}
+
+.site[data-template='turizm'] .tz-about__frame {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border: 12px solid var(--paper);
+  border-bottom-width: 56px;
+  background: var(--paper);
+  box-shadow: 0 30px 44px -24px rgb(14 63 76 / 0.6);
+  rotate: -3deg;
+}
+
+.site[data-template='turizm'] .tz-about__postmark {
+  position: absolute;
+  z-index: 3;
+  right: -34px;
+  bottom: 18px;
+  width: 116px;
+  color: var(--tz-text-accent);
+  rotate: 8deg;
+}
+
+.site[data-template='turizm'] .tz-about__lead {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2vw, 1.55rem);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.015em;
+}
+
+.site[data-template='turizm'] .tz-about__text {
+  max-width: 48ch;
+  margin-top: 24px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.site[data-template='turizm'] .tz-values {
+  padding-block: clamp(32px, 5vw, 56px) clamp(72px, 10vw, 128px);
+}
+
+.site[data-template='turizm'] .tz-values__title {
+  margin-bottom: clamp(24px, 4vw, 40px);
+  font-size: clamp(1.5rem, 3vw, 2.3rem);
+}
+
+.site[data-template='turizm'] .tz-pass {
+  display: grid;
+  gap: 18px;
+}
+
+.site[data-template='turizm'] .tz-pass__item {
+  --cut: 84px;
+  display: grid;
+  grid-template-columns: var(--cut) minmax(0, 0.8fr) minmax(0, 1.4fr);
+  align-items: center;
+  gap: clamp(16px, 3vw, 40px);
+  padding: 0 clamp(20px, 3vw, 40px) 0 0;
+  min-height: 108px;
+  border: 2px solid color-mix(in srgb, var(--ink) 24%, transparent);
+  border-radius: 6px;
+  background: var(--paper);
+  mask:
+    radial-gradient(circle 14px at var(--cut) 0, #0000 97%, #000),
+    radial-gradient(circle 14px at var(--cut) 100%, #0000 97%, #000);
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
+}
+
+.site[data-template='turizm'] .tz-pass__item::before {
+  content: '';
+  align-self: stretch;
+  border-right: 2px dashed var(--tz-dash);
+  background:
+    radial-gradient(circle at 50% 50%, var(--paper) 0 8px, transparent 9px),
+    var(--accent);
+}
+
+.site[data-template='turizm'] .tz-pass__item:nth-child(2)::before {
+  background:
+    radial-gradient(circle at 50% 50%, var(--ink) 0 8px, transparent 9px),
+    var(--kehreba);
+}
+
+.site[data-template='turizm'] .tz-pass__item:nth-child(3)::before {
+  background:
+    radial-gradient(circle at 50% 50%, var(--kehreba) 0 8px, transparent 9px),
+    var(--ink);
+}
+
+.site[data-template='turizm'] .tz-pass__item .values__name {
+  font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+}
+
+.site[data-template='turizm'] .tz-pass__item .values__text {
+  margin-top: 0;
+  padding-block: 18px;
+  font-weight: 500;
+}
+
+@media (max-width: 820px) {
+  .site[data-template='turizm'] .tz-about {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .site[data-template='turizm'] .tz-about__postmark {
+    right: -8px;
+  }
+
+  .site[data-template='turizm'] .tz-pass__item {
+    --cut: 56px;
+    grid-template-columns: var(--cut) minmax(0, 1fr);
+    gap: 4px 20px;
+    padding-bottom: 18px;
+  }
+
+  .site[data-template='turizm'] .tz-pass__item::before {
+    grid-row: 1 / span 2;
+  }
+
+  .site[data-template='turizm'] .tz-pass__item .values__name {
+    align-self: end;
+    padding-top: 18px;
+  }
+
+  .site[data-template='turizm'] .tz-pass__item .values__text {
+    padding-block: 0;
+  }
+}
+
+/* Contact: airmail postcard */
+
+.site[data-template='turizm'] .tz-post {
+  padding-block: clamp(40px, 6vw, 72px) clamp(72px, 10vw, 128px);
+}
+
+.site[data-template='turizm'] .tz-post__card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(28px, 5vw, 64px);
+  padding: clamp(32px, 5vw, 64px);
+  border: 14px solid transparent;
+  border-image: repeating-linear-gradient(135deg, var(--accent) 0 18px, var(--paper) 18px 34px, var(--ink) 34px 52px, var(--paper) 52px 68px) 14;
+  background: var(--paper);
+  box-shadow: 0 34px 50px -30px rgb(14 63 76 / 0.55);
+}
+
+.site[data-template='turizm'] .tz-post__msg {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 28px;
+}
+
+.site[data-template='turizm'] .tz-post__phone {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.8vw, 2.2rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+
+.site[data-template='turizm'] .tz-post__addr {
+  padding-left: clamp(24px, 4vw, 56px);
+  padding-top: 64px;
+  border-left: 2px solid var(--tz-dash);
+}
+
+.site[data-template='turizm'] .tz-post__row {
+  padding-block: 14px 10px;
+  border-bottom: 2px solid color-mix(in srgb, var(--ink) 28%, transparent);
+}
+
+.site[data-template='turizm'] .tz-post__row dt {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.site[data-template='turizm'] .tz-post__row dd {
+  margin-top: 4px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.site[data-template='turizm'] .tz-post__stamp {
+  position: absolute;
+  top: clamp(20px, 3vw, 36px);
+  right: clamp(20px, 3vw, 36px);
+  width: 62px;
+  height: 76px;
+  border: 7px solid var(--paper);
+  background:
+    radial-gradient(circle at 50% 40%, var(--accent) 0 20%, transparent 21%),
+    linear-gradient(180deg, #ffe7b0 0 62%, #1a6572 62% 100%);
+  outline: 2px dashed color-mix(in srgb, var(--ink) 40%, transparent);
+  outline-offset: -2px;
+  rotate: 4deg;
+}
+
+.site[data-template='turizm'] .tz-post__postmark {
+  position: absolute;
+  top: clamp(18px, 3vw, 32px);
+  right: calc(clamp(20px, 3vw, 36px) + 56px);
+  width: 108px;
+  color: var(--tz-text-accent);
+  opacity: 0.85;
+  rotate: -8deg;
+}
+
+@media (max-width: 820px) {
+  .site[data-template='turizm'] .tz-post__card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .site[data-template='turizm'] .tz-post__msg {
+    padding-top: 56px;
+  }
+
+  .site[data-template='turizm'] .tz-post__addr {
+    padding: 8px 0 0;
+    border-left: 0;
+    border-top: 2px solid var(--tz-dash);
+  }
+}
+
+/* Footer */
+
+.site[data-template='turizm'] .footer {
+  position: relative;
+  margin-top: 18px;
+}
+
+.site[data-template='turizm'] .footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 18px;
+  background: radial-gradient(circle 8px at 50% 0, var(--duman) 97%, transparent) 0 0 / 28px 18px repeat-x;
+}
+
+.site[data-template='turizm'] .footer__row {
+  padding-block: 44px 32px;
+}
+
+.site[data-template='turizm'] .footer__brand {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.site[data-template='turizm'] .footer__credit {
+  color: var(--kehreba);
+}
+
+/* Narrow screens */
+
+@media (max-width: 900px) {
+  .site[data-template='turizm'] .tz-hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .site[data-template='turizm'] .tz-route {
+    display: none;
+  }
+
+  .site[data-template='turizm'] .tz-plane {
+    top: 14px;
+  }
+
+  .site[data-template='turizm'] .tz-hero__collage {
+    width: min(100%, 520px);
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .site[data-template='turizm'] .tz-card {
+    border-width: 7px;
+  }
+
+  .site[data-template='turizm'] .tz-card--main {
+    border-bottom-width: 26px;
+  }
+
+  .site[data-template='turizm'] .tz-card--third {
+    border-width: 9px;
+  }
+}
