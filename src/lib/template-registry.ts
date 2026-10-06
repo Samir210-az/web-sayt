@@ -1,3 +1,4 @@
+import { withArt } from './art'
 import { createDefaultSite } from './default-site'
 import { createBoshSite } from './templates/bosh'
 import { createKafeSite } from './templates/kafe'
@@ -20,15 +21,15 @@ export interface TemplateMeta {
 }
 
 export const TEMPLATES: TemplateMeta[] = [
-  { id: 'xidmet', name: 'Evdar', kind: 'Xidmət şirkətləri', create: createDefaultSite },
-  { id: 'klinika', name: 'Nur Klinika', kind: 'Klinika və tibb mərkəzləri', create: createKlinikaSite },
-  { id: 'kafe', name: 'Dəmlik Kafe', kind: 'Kafe və restoranlar', create: createKafeSite },
+  { id: 'xidmet', name: 'Evdar', kind: 'Xidmət şirkətləri', create: () => withArt('xidmet', createDefaultSite()) },
+  { id: 'klinika', name: 'Nur Klinika', kind: 'Klinika və tibb mərkəzləri', create: () => withArt('klinika', createKlinikaSite()) },
+  { id: 'kafe', name: 'Dəmlik Kafe', kind: 'Kafe və restoranlar', create: () => withArt('kafe', createKafeSite()) },
   { id: 'huquq', name: 'Hüquq Evi', kind: 'Hüquq və vəkil bürosları', create: createHuquqSite },
-  { id: 'gozellik', name: 'Lalə Gözəllik', kind: 'Gözəllik salonları', create: createGozellikSite },
-  { id: 'idman', name: 'Güc Zal', kind: 'İdman zalları və studiyalar', create: createIdmanSite },
-  { id: 'tikinti', name: 'Təməl Tikinti', kind: 'Tikinti və təmir şirkətləri', create: createTikintiSite },
-  { id: 'kurs', name: 'Bilik Mərkəzi', kind: 'Kurs və təhsil mərkəzləri', create: createKursSite },
-  { id: 'studiya', name: 'Kadr Studio', kind: 'Foto və video studiyaları', create: createStudiyaSite },
+  { id: 'gozellik', name: 'Lalə Gözəllik', kind: 'Gözəllik salonları', create: () => withArt('gozellik', createGozellikSite()) },
+  { id: 'idman', name: 'Güc Zal', kind: 'İdman zalları və studiyalar', create: () => withArt('idman', createIdmanSite()) },
+  { id: 'tikinti', name: 'Təməl Tikinti', kind: 'Tikinti və təmir şirkətləri', create: () => withArt('tikinti', createTikintiSite()) },
+  { id: 'kurs', name: 'Bilik Mərkəzi', kind: 'Kurs və təhsil mərkəzləri', create: () => withArt('kurs', createKursSite()) },
+  { id: 'studiya', name: 'Kadr Studio', kind: 'Foto və video studiyaları', create: () => withArt('studiya', createStudiyaSite()) },
   { id: 'bosh', name: 'Sıfırdan başla', kind: 'Boş şablon, özünüz qurun', create: createBoshSite },
 ]
 

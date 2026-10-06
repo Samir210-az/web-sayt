@@ -4,7 +4,8 @@ import { createSiteFor } from './template-registry'
 import type { ExtraSection, ImageValue, PageKey, ServiceItem, SiteConfig, TemplateId } from './types'
 
 const HEX = /^#[0-9a-fA-F]{6}$/
-const IMAGE_SRC = /^(data:image\/(webp|jpeg|png);base64,[A-Za-z0-9+/=]+|https:\/\/[^\s"'<>]+)$/
+const IMAGE_SRC =
+  /^(data:image\/(webp|jpeg|png);base64,[A-Za-z0-9+/=]+|https:\/\/[^\s"'<>]+|\/images\/[a-z0-9_-]+(\/[a-z0-9_-]+)*\.(webp|jpe?g|png))$/
 const PAGE_KEYS: PageKey[] = ['home', 'services', 'about', 'contact']
 const MAX_BYTES = 8_000_000
 
