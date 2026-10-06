@@ -15,6 +15,8 @@ export const firebaseConfigured = Boolean(
   config.apiKey && config.authDomain && config.databaseURL && config.projectId && config.appId,
 )
 
+export const storageConfigured = Boolean(config.storageBucket)
+
 export function getFirebaseApp() {
   return getApps().length ? getApp() : initializeApp(config)
 }

@@ -27,11 +27,11 @@ Redaktor dəyişiklikləri hələlik brauzerin `localStorage` yaddaşında qaral
 Layihə `petcrm-c0cfe` Firebase layihəsinin əsas (default) Realtime Database və Storage bucket-indən istifadə edir. Qaydalar bütün bazaya şamil olur: `sites`, `subdomains` və `published` yollarından başqa heç nə oxunmur və yazılmır. Firebase qurulmayıbsa redaktor işləyir, amma dəyişikliklər yalnız həmin brauzerdə saxlanılır.
 
 1. **Realtime Database → Rules** bölməsinə `firebase/database.rules.petcrm-merged.json` məzmununu yapışdırıb dərc edin. Bu fayl PET CRM-in mövcud qaydalarını və web-sayt qaydalarını birləşdirir. Baza yalnız web-sayt üçün olsaydı, `firebase/database.rules.json` istifadə olunardı.
-2. **Storage** bölməsində **Get started** ilə işə salın (artıq işləyirsə bu addım lazım deyil), **Rules** hissəsinə `firebase/storage.rules` məzmununu yapışdırıb dərc edin.
+2. (İxtiyari, Blaze plan tələb edir) **Storage** bölməsində **Get started** ilə işə salın (artıq işləyirsə bu addım lazım deyil), **Rules** hissəsinə `firebase/storage.rules` məzmununu yapışdırıb dərc edin.
 3. **Authentication → Sign-in method** bölməsində **Email/Password** və **Google** aktiv edin. **Settings → Authorized domains** siyahısına `web-sayt-az.vercel.app` əlavə edin.
 4. Vercel → Project → Settings → Environment Variables bölməsinə `.env.example` faylındakı `NEXT_PUBLIC_FIREBASE_*` dəyişənlərini yazın, sonra yenidən deploy edin.
 
-Hər istifadəçinin saytı `sites/{uid}_{şablon}` yolunda saxlanılır və qaydalar yalnız sahibinə oxumağa və yazmağa icazə verir. Giriş edilmiş redaktorda yüklənən şəkillər Storage-də `sites/{uid}/` altında saxlanılır, bazada yalnız ünvanı qalır. Giriş edilməyibsə şəkil qaralamanın içində base64 kimi qalır.
+Hər istifadəçinin saytı `sites/{uid}_{şablon}` yolunda saxlanılır və qaydalar yalnız sahibinə oxumağa və yazmağa icazə verir. Giriş edilmiş redaktorda yüklənən şəkillər Storage-də `sites/{uid}/` altında saxlanılır, bazada yalnız ünvanı qalır. `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` verilməyibsə (və ya giriş edilməyibsə) şəkil qaralamanın və dərc olunmuş məzmunun içində base64 kimi qalır.
 
 ## Dərc etmə
 

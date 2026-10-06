@@ -4,7 +4,7 @@ import { onAuthStateChanged, signOut } from 'firebase/auth'
 import type { User } from 'firebase/auth'
 import { useEffect, useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
-import { firebaseConfigured, getFirebaseAuth } from '@/lib/firebase'
+import { firebaseConfigured, getFirebaseAuth, storageConfigured } from '@/lib/firebase'
 import { PersistenceProvider } from '@/lib/site-context'
 import type { Persistence } from '@/lib/site-context'
 import {
@@ -23,12 +23,12 @@ import { LoginPanel } from './login-panel'
 function SignedIn({ user, template, children }: { user: User; template: TemplateId; children: ReactNode }) {
   const persistence = useMemo<Persistence>(
     () => {
-      const upload = (dataUrl: string) => uploadDataUrl(user.uid, dataUrl)
+      const upload = (dataUrl: string) => (storageConfigured ? uploadDataUrl(user.uid, dataUrl) : Promise.resolve(dataUrl))
       return {
         load: () => loadSite(user.uid, template),
         save: (site) => saveSite(user.uid, site),
         upload,
-        uploadAll: (site) => moveImagesToStorage(site, upload),
+        uploadAll: (site) => (storageConfigured ? moveImagesToStorage(site, upload) : Promise.resolve(site)),
         publishInfo: () => loadPublishInfo(user.uid, template),
         publish: (site, name) => publishSite(user.uid, site, name),
         unpublish: () => unpublishSite(user.uid, template),
