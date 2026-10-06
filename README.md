@@ -33,6 +33,10 @@ Layihə `petcrm-c0cfe` Firebase layihəsinin əsas (default) Realtime Database v
 
 Hər istifadəçinin saytı `sites/{uid}_{şablon}` yolunda saxlanılır və qaydalar yalnız sahibinə oxumağa və yazmağa icazə verir. Giriş edilmiş redaktorda yüklənən şəkillər Storage-də `sites/{uid}/` altında saxlanılır, bazada yalnız ünvanı qalır. `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` verilməyibsə (və ya giriş edilməyibsə) şəkil qaralamanın və dərc olunmuş məzmunun içində base64 kimi qalır.
 
+### Telegram bildirişləri
+
+İstifadəçi redaktora daxil olanda və sayt dərc edəndə `/api/notify` marşrutu Telegram-a mesaj göndərir (e-poçt, şablon, dərc olunmuş saytın linki). `TELEGRAM_BOT_TOKEN` və `TELEGRAM_CHAT_ID` dəyişənləri yalnız serverdə, `NEXT_PUBLIC_` olmadan verilir. Marşrut Firebase ID token-i yoxlayır, dərc hadisəsində `subdomains/{ad}` sahibliyini təsdiqləyir və təkrarları məhdudlaşdırır. Dəyişənlər verilməyibsə heç nə göndərilmir.
+
 ## Dərc etmə
 
 Redaktorda **Dərc et** düyməsi saytı `/s/{ad}` ünvanında açır (məsələn, `web-sayt-az.vercel.app/s/demlik`). Dərc olunmuş məzmun `published/{ad}` yolundan oxunur, ünvanın sahibi `subdomains/{ad}` ilə saxlanılır. Dərc zamanı hələ base64 qalan şəkillər Storage-ə köçürülür. Öz domeninizdə wildcard subdomen (`ad.domen.az`) sonradan əlavə olunacaq.

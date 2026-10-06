@@ -5,6 +5,7 @@ import type { User } from 'firebase/auth'
 import { useEffect, useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
 import { firebaseConfigured, getFirebaseAuth, storageConfigured } from '@/lib/firebase'
+import { notifyOwner } from '@/lib/notify'
 import { PersistenceProvider } from '@/lib/site-context'
 import type { Persistence } from '@/lib/site-context'
 import {
@@ -30,12 +31,26 @@ function SignedIn({ user, template, children }: { user: User; template: Template
         upload,
         uploadAll: (site) => (storageConfigured ? moveImagesToStorage(site, upload) : Promise.resolve(site)),
         publishInfo: () => loadPublishInfo(user.uid, template),
-        publish: (site, name) => publishSite(user.uid, site, name),
+        publish: async (site, name) => {
+          await publishSite(user.uid, site, name)
+          void notifyOwner(user, { event: 'publish', template: site.template, name })
+        },
         unpublish: () => unpublishSite(user.uid, template),
       }
     },
-    [user.uid, template],
+    [user, template],
   )
+  useEffect(() => {
+    const key = `web-sayt:notified:${user.uid}`
+    try {
+      if (window.sessionStorage.getItem(key)) return
+      window.sessionStorage.setItem(key, '1')
+    } catch {
+      /* sessionStorage bağlı ola bilər */
+    }
+    void notifyOwner(user, { event: 'login', template })
+  }, [user, template])
+
   const account = useMemo(
     () => ({ email: user.email ?? '', signOut: () => void signOut(getFirebaseAuth()) }),
     [user.email],
