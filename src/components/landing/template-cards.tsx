@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { TEMPLATES } from '@/lib/template-registry'
+import { TemplatePreview } from './template-preview'
 import { EDITOR_PREFIX, TEMPLATE_PREFIX } from '@/lib/types'
 
 export function TemplateCards({ mode }: { mode: 'preview' | 'edit' }) {
@@ -20,6 +21,7 @@ export function TemplateCards({ mode }: { mode: 'preview' | 'edit' }) {
               <span>{t.kind}</span>
             </div>
           </Link>
+          <TemplatePreview id={t.id} name={t.name} />
         </li>
       ))}
     </ul>

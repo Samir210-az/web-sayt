@@ -4,6 +4,7 @@ import { Editable } from '@/components/editable'
 import { Reveal } from '@/components/motion'
 import { Parallax } from '@/components/parallax'
 import { useSite } from '@/lib/site-context'
+import type { TemplateId } from '@/lib/types'
 import { mailHref, telHref, whatsappHref } from '@/lib/utils'
 import { ActionLink, ExtraBlocks, PageHead, SectionFrame, ServiceList } from './blocks'
 
@@ -21,10 +22,42 @@ export function ServicesPage() {
   )
 }
 
-export function AboutPage() {
+function ValuesTitle({ className }: { className: string }) {
+  return <Editable.Text as="h2" k="about.values.title" className={className} label="Bölmənin başlığı" max={60} />
+}
+
+function ValueItems({ itemClass, listClass, stagger = 0.12 }: { itemClass: string; listClass: string; stagger?: number }) {
+  return (
+    <ul className={listClass}>
+      {[1, 2, 3].map((n) => (
+        <Reveal as="li" key={n} delay={(n - 1) * stagger} className={itemClass}>
+          <Editable.Text as="h3" k={`about.value.${n}.title`} className="values__name" label={`${n}-ci prinsipin adı`} max={30} />
+          <Editable.Text
+            as="p"
+            k={`about.value.${n}.text`}
+            className="values__text"
+            label={`${n}-ci prinsipin təsviri`}
+            multiline
+            max={160}
+          />
+        </Reveal>
+      ))}
+    </ul>
+  )
+}
+
+function StoryCopy({ leadClass = 'story__lead', textClass = 'story__text' }: { leadClass?: string; textClass?: string }) {
   return (
     <>
-      <PageHead page="about" titleKey="about.title" leadKey="about.lead" />
+      <Editable.Text as="p" k="about.body1" className={leadClass} label="Birinci abzas" multiline max={400} />
+      <Editable.Text as="p" k="about.body2" className={textClass} label="İkinci abzas" multiline max={400} />
+    </>
+  )
+}
+
+function AboutXidmet() {
+  return (
+    <>
       <SectionFrame id="about.story" label="Hekayə">
         <section className="story wrap">
           <Reveal variant="left" className="story__media">
@@ -33,87 +66,289 @@ export function AboutPage() {
             </Parallax>
           </Reveal>
           <Reveal variant="right" className="story__copy">
-            <Editable.Text as="p" k="about.body1" className="story__lead" label="Birinci abzas" multiline max={400} />
+            <StoryCopy />
+          </Reveal>
+        </section>
+      </SectionFrame>
+      <SectionFrame id="about.values" label="Prinsiplər">
+        <section className="ab-x-values">
+          <div className="wrap">
+            <ValuesTitle className="block__title" />
+            <ValueItems listClass="ab-x-values__list" itemClass="ab-x-values__item" />
+          </div>
+        </section>
+      </SectionFrame>
+    </>
+  )
+}
+
+function AboutKlinika() {
+  return (
+    <>
+      <SectionFrame id="about.story" label="Hekayə">
+        <section className="ab-k-story wrap">
+          <Reveal variant="up" className="ab-k-story__copy">
+            <StoryCopy />
+          </Reveal>
+          <Reveal variant="zoom" className="ab-k-story__media">
+            <Parallax speed={0.08} bleed className="ab-k-story__arch">
+              <Editable.Image k="about.main" label="Komanda şəkli" />
+            </Parallax>
+            <Parallax speed={-0.14} className="ab-k-story__dot">
+              <span />
+            </Parallax>
+          </Reveal>
+        </section>
+      </SectionFrame>
+      <SectionFrame id="about.values" label="Prinsiplər">
+        <section className="ab-k-values">
+          <div className="wrap">
+            <ValuesTitle className="block__title ab-k-values__title" />
+            <ValueItems listClass="ab-k-values__list" itemClass="ab-k-values__item" />
+          </div>
+        </section>
+      </SectionFrame>
+    </>
+  )
+}
+
+function AboutKafe() {
+  return (
+    <>
+      <SectionFrame id="about.story" label="Hekayə">
+        <section className="ab-c-story">
+          <Reveal variant="zoom" className="ab-c-story__banner">
+            <Parallax speed={0.14} bleed className="ab-c-story__frame">
+              <Editable.Image k="about.main" label="Komanda şəkli" />
+            </Parallax>
+          </Reveal>
+          <div className="wrap ab-c-story__cols">
+            <Reveal variant="up">
+              <Editable.Text as="p" k="about.body1" className="ab-c-story__lead" label="Birinci abzas" multiline max={400} />
+            </Reveal>
+            <Reveal variant="up" delay={0.12}>
+              <Editable.Text as="p" k="about.body2" className="story__text" label="İkinci abzas" multiline max={400} />
+            </Reveal>
+          </div>
+        </section>
+      </SectionFrame>
+      <SectionFrame id="about.values" label="Prinsiplər">
+        <section className="ab-c-values">
+          <div className="wrap">
+            <ValuesTitle className="block__title ab-c-values__title" />
+            <ValueItems listClass="ab-c-values__list" itemClass="ab-c-values__item" stagger={0.1} />
+          </div>
+        </section>
+      </SectionFrame>
+    </>
+  )
+}
+
+function AboutBosh() {
+  return (
+    <>
+      <SectionFrame id="about.story" label="Hekayə">
+        <section className="ab-b-story wrap">
+          <Reveal variant="up">
+            <Editable.Text as="p" k="about.body1" className="ab-b-story__lead" label="Birinci abzas" multiline max={400} />
+          </Reveal>
+          <Reveal variant="zoom" className="ab-b-story__media">
+            <Parallax speed={0.1} bleed className="ab-b-story__frame">
+              <Editable.Image k="about.main" label="Komanda şəkli" />
+            </Parallax>
+          </Reveal>
+          <Reveal variant="up" className="ab-b-story__text">
             <Editable.Text as="p" k="about.body2" className="story__text" label="İkinci abzas" multiline max={400} />
           </Reveal>
         </section>
       </SectionFrame>
       <SectionFrame id="about.values" label="Prinsiplər">
-        <section className="values">
+        <section className="ab-b-values">
           <div className="wrap">
-            <Editable.Text as="h2" k="about.values.title" className="block__title" label="Bölmənin başlığı" max={60} />
-            <ul className="values__list">
-              {[1, 2, 3].map((n) => (
-                <Reveal as="li" key={n} delay={(n - 1) * 0.12} className="values__item">
-                  <Editable.Text
-                    as="h3"
-                    k={`about.value.${n}.title`}
-                    className="values__name"
-                    label={`${n}-ci prinsipin adı`}
-                    max={30}
-                  />
-                  <Editable.Text
-                    as="p"
-                    k={`about.value.${n}.text`}
-                    className="values__text"
-                    label={`${n}-ci prinsipin təsviri`}
-                    multiline
-                    max={160}
-                  />
-                </Reveal>
-              ))}
-            </ul>
+            <ValuesTitle className="block__title" />
+            <ValueItems listClass="ab-b-values__list" itemClass="ab-b-values__item" stagger={0.08} />
           </div>
         </section>
       </SectionFrame>
+    </>
+  )
+}
+
+const ABOUT: Record<TemplateId, () => React.JSX.Element> = {
+  xidmet: AboutXidmet,
+  klinika: AboutKlinika,
+  kafe: AboutKafe,
+  bosh: AboutBosh,
+}
+
+export function AboutPage() {
+  const { site } = useSite()
+  const Body = ABOUT[site.template]
+  return (
+    <>
+      <PageHead page="about" titleKey="about.title" leadKey="about.lead" />
+      <Body />
       <ExtraBlocks page="about" />
     </>
   )
 }
 
-export function ContactPage() {
+function useContactLinks() {
   const { text } = useSite()
-  const phone = text('contact.phone')
-  const whatsapp = text('contact.whatsapp')
-  const email = text('contact.email')
+  return {
+    tel: telHref(text('contact.phone')),
+    wa: whatsappHref(text('contact.whatsapp')),
+    mail: mailHref(text('contact.email')),
+  }
+}
 
+function PhoneField() {
+  return <Editable.Text as="span" k="contact.phone" label="Telefon nömrəsi" max={24} />
+}
+
+function WhatsappLink({ className }: { className: string }) {
+  const { wa } = useContactLinks()
+  return (
+    <ActionLink className={className} href={wa} external>
+      <span>WhatsApp: </span>
+      <Editable.Text as="span" k="contact.whatsapp" label="WhatsApp nömrəsi" max={24} />
+    </ActionLink>
+  )
+}
+
+function ContactRows({ rowClass, wrapClass }: { rowClass: string; wrapClass: string }) {
+  const { mail } = useContactLinks()
+  return (
+    <dl className={wrapClass}>
+      <div className={rowClass}>
+        <dt>E-poçt</dt>
+        <dd>
+          <ActionLink className="textlink" href={mail}>
+            <Editable.Text as="span" k="contact.email" label="E-poçt ünvanı" max={80} />
+          </ActionLink>
+        </dd>
+      </div>
+      <div className={rowClass}>
+        <dt>Ünvan</dt>
+        <dd>
+          <Editable.Text as="span" k="contact.address" label="Ünvan" max={120} />
+        </dd>
+      </div>
+      <div className={rowClass}>
+        <dt>İş saatları</dt>
+        <dd>
+          <Editable.Text as="span" k="contact.hours" label="İş saatları" max={80} />
+        </dd>
+      </div>
+    </dl>
+  )
+}
+
+function ContactXidmet() {
+  const { tel } = useContactLinks()
+  return (
+    <section className="ct-x wrap">
+      <Reveal variant="left" className="ct-x__panel">
+        <p className="ct-x__hint">Birbaşa zəng</p>
+        <ActionLink className="ct-x__phone" href={tel}>
+          <PhoneField />
+        </ActionLink>
+        <WhatsappLink className="btn btn--ghost ct-x__wa" />
+      </Reveal>
+      <Reveal variant="right" className="ct-x__info">
+        <ContactRows wrapClass="ct-x__list" rowClass="ct-x__row" />
+      </Reveal>
+    </section>
+  )
+}
+
+function ContactKlinika() {
+  const { tel } = useContactLinks()
+  return (
+    <section className="ct-k wrap">
+      <Reveal variant="up" className="ct-k__card">
+        <ActionLink className="btn btn--primary" href={tel}>
+          <PhoneField />
+        </ActionLink>
+        <WhatsappLink className="btn btn--ghost" />
+        <Parallax speed={-0.12} className="ct-k__blob">
+          <span />
+        </Parallax>
+      </Reveal>
+      <Reveal variant="up" delay={0.12}>
+        <ContactRows wrapClass="ct-k__list" rowClass="ct-k__row" />
+      </Reveal>
+    </section>
+  )
+}
+
+function ContactKafe() {
+  const { tel } = useContactLinks()
+  return (
+    <section className="ct-c wrap">
+      <Reveal variant="up" className="ct-c__actions">
+        <ActionLink className="btn btn--primary" href={tel}>
+          <PhoneField />
+        </ActionLink>
+        <WhatsappLink className="btn btn--ghost" />
+      </Reveal>
+      <Reveal variant="up" delay={0.12}>
+        <ContactRows wrapClass="ct-c__list" rowClass="ct-c__row" />
+      </Reveal>
+    </section>
+  )
+}
+
+function ContactBosh() {
+  const { tel, mail } = useContactLinks()
+  return (
+    <section className="ct-b wrap">
+      <Reveal variant="up">
+        <ActionLink className="ct-b__big" href={tel}>
+          <PhoneField />
+        </ActionLink>
+      </Reveal>
+      <Reveal variant="up" delay={0.1}>
+        <ActionLink className="ct-b__mail" href={mail}>
+          <Editable.Text as="span" k="contact.email" label="E-poçt ünvanı" max={80} />
+        </ActionLink>
+      </Reveal>
+      <Reveal variant="up" delay={0.2} className="ct-b__rest">
+        <WhatsappLink className="btn btn--primary" />
+        <dl className="ct-b__list">
+          <div className="ct-b__row">
+            <dt>Ünvan</dt>
+            <dd>
+              <Editable.Text as="span" k="contact.address" label="Ünvan" max={120} />
+            </dd>
+          </div>
+          <div className="ct-b__row">
+            <dt>İş saatları</dt>
+            <dd>
+              <Editable.Text as="span" k="contact.hours" label="İş saatları" max={80} />
+            </dd>
+          </div>
+        </dl>
+      </Reveal>
+    </section>
+  )
+}
+
+const CONTACT: Record<TemplateId, () => React.JSX.Element> = {
+  xidmet: ContactXidmet,
+  klinika: ContactKlinika,
+  kafe: ContactKafe,
+  bosh: ContactBosh,
+}
+
+export function ContactPage() {
+  const { site } = useSite()
+  const Body = CONTACT[site.template]
   return (
     <>
       <PageHead page="contact" titleKey="contact.title" leadKey="contact.lead" />
       <SectionFrame id="contact.info" label="Əlaqə məlumatları">
-        <section className="contact wrap">
-          <div className="contact__actions">
-            <ActionLink className="btn btn--primary" href={telHref(phone)}>
-              <Editable.Text as="span" k="contact.phone" label="Telefon nömrəsi" max={24} />
-            </ActionLink>
-            <ActionLink className="btn btn--ghost" href={whatsappHref(whatsapp)} external>
-              <span>WhatsApp: </span>
-              <Editable.Text as="span" k="contact.whatsapp" label="WhatsApp nömrəsi" max={24} />
-            </ActionLink>
-          </div>
-          <dl className="contact__list">
-            <div className="contact__row">
-              <dt>E-poçt</dt>
-              <dd>
-                <ActionLink className="textlink" href={mailHref(email)}>
-                  <Editable.Text as="span" k="contact.email" label="E-poçt ünvanı" max={80} />
-                </ActionLink>
-              </dd>
-            </div>
-            <div className="contact__row">
-              <dt>Ünvan</dt>
-              <dd>
-                <Editable.Text as="span" k="contact.address" label="Ünvan" max={120} />
-              </dd>
-            </div>
-            <div className="contact__row">
-              <dt>İş saatları</dt>
-              <dd>
-                <Editable.Text as="span" k="contact.hours" label="İş saatları" max={80} />
-              </dd>
-            </div>
-          </dl>
-        </section>
+        <Body />
       </SectionFrame>
       <ExtraBlocks page="contact" />
     </>

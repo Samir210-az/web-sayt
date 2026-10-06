@@ -32,3 +32,13 @@ Firebase qurulmayıbsa redaktor işləyir, amma dəyişikliklər yalnız həmin 
 4. Vercel → Project → Settings → Environment Variables bölməsinə `.env.example` faylındakı `NEXT_PUBLIC_FIREBASE_*` dəyişənlərini yazın, sonra yenidən deploy edin.
 
 Hər istifadəçinin saytı `sites/{uid}_{şablon}` yolunda saxlanılır və qaydalar yalnız sahibinə oxumağa və yazmağa icazə verir. Şəkillər hələlik qaralamanın içində base64 kimi saxlanılır (8 MB-dan böyük sayt yazılmır). Dərc edilmiş sayt üçün şəkillər Firebase Storage-ə köçürülməlidir.
+
+## Şablon önizləmə şəkilləri
+
+`public/previews/` qovluğundakı tam səhifə şəkilləri şablonlar dəyişəndə yenilənməlidir. Layihə serveri işləyərkən (`npm run build && npm start -- -p 3100`) və `playwright` quraşdırılmış halda:
+
+```
+node scripts/make-previews.mjs
+```
+
+`PREVIEW_BASE` ünvanı, `CHROME_PATH` isə brauzer faylını göstərmək üçündür.

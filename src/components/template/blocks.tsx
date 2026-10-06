@@ -49,9 +49,13 @@ export function ActionLink({
 }
 
 export function PageHead({ page, titleKey, leadKey }: { page: string; titleKey: string; leadKey: string }) {
+  const { site } = useSite()
   return (
-    <header className={`pagehead pagehead--${page}`}>
-      <div className="wrap">
+    <header className={`pagehead pagehead--${page} pagehead--${site.template}`}>
+      <Parallax speed={-0.18} className="pagehead__deco">
+        <span />
+      </Parallax>
+      <div className="wrap pagehead__inner">
         <Editable.Text as="h1" k={titleKey} className="pagehead__title" label="Səhifə başlığı" max={60} />
         <Editable.Text as="p" k={leadKey} className="pagehead__lead" label="Qısa izah" multiline max={240} />
       </div>
