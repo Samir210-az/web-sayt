@@ -15,6 +15,15 @@ const DEVICES = {
   mobile: { viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true },
 }
 
+async function loadImages(page) {
+  await page.evaluate(async () => {
+    const imgs = [...document.images]
+    imgs.forEach((i) => (i.loading = 'eager'))
+    await Promise.all(imgs.map((i) => i.decode().catch(() => {})))
+    await document.fonts.ready
+  })
+}
+
 const browser = await chromium.launch({ executablePath: process.env.CHROME_PATH })
 await mkdir(OUT, { recursive: true })
 
@@ -27,7 +36,7 @@ for (const [device, options] of Object.entries(DEVICES)) {
       await page.addStyleTag({
         content: '.demobar{display:none!important}.header{position:static!important}.stack__card{position:static!important}',
       })
-      await page.evaluate(() => document.fonts.ready)
+      await loadImages(page)
       await page.screenshot({ path: `${OUT}${template}-${key}-${device}.jpg`, type: 'jpeg', quality: 74, fullPage: true })
       await page.close()
     }
@@ -40,7 +49,7 @@ for (const template of TEMPLATES) {
   const page = await thumbs.newPage()
   await page.goto(`${BASE}/shablon/${template}`, { waitUntil: 'networkidle' })
   await page.addStyleTag({ content: '.demobar{display:none!important}.header{position:static!important}' })
-  await page.evaluate(() => document.fonts.ready)
+  await loadImages(page)
   await page.screenshot({ path: `${OUT}${template}-thumb.jpg`, type: 'jpeg', quality: 72 })
   await page.close()
 }

@@ -1,12 +1,12 @@
 import type { ImageValue, PageKey, ServiceItem, SiteConfig } from './types'
 
-export const img = (alt: string, focusX = 50, focusY = 50): ImageValue => ({ src: '', alt, focusX, focusY })
+export const img = (alt: string, focusX = 50, focusY = 50, src = ''): ImageValue => ({ src, alt, focusX, focusY })
 
-export const service = (id: string, title: string, text: string, alt: string): ServiceItem => ({
+export const service = (id: string, title: string, text: string, alt: string, src = ''): ServiceItem => ({
   id,
   title,
   text,
-  image: img(alt),
+  image: img(alt, 50, 50, src),
 })
 
 export const DEFAULT_ACCENT = '#2b44c9'

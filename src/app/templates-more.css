@@ -293,12 +293,33 @@
 }
 
 .hq-cta__box {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   padding: clamp(36px, 6vw, 80px) clamp(20px, 5vw, 72px);
   background: var(--ink);
   color: var(--duman);
   text-align: center;
   outline: 1px solid var(--kehreba);
   outline-offset: -12px;
+}
+
+.hq-cta__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.hq-cta__bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--ink) 80%, transparent);
+  pointer-events: none;
+}
+
+.hq-cta__copy {
+  position: relative;
 }
 
 .hq-cta__title {

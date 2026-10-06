@@ -19,6 +19,7 @@ const FONT_FAMILIES: Record<TemplateId, string[]> = {
 }
 
 const IMAGE_ATTR = /src="(data:image\/(webp|jpeg|png);base64,[A-Za-z0-9+/=]+)"/g
+const STOCK_ATTR = /src="(\/images\/[a-z0-9_/-]+\.(webp|jpe?g|png))"/g
 
 const escapeHtml = (value: string) =>
   value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
@@ -130,6 +131,7 @@ export async function buildSiteZip(site: SiteConfig): Promise<Blob> {
   zip.file('assets/site.js', await fetchBytes('/export/site.js'))
 
   const images = new Map<string, string>()
+  const stock = new Map<string, string>()
   const imageName = (dataUrl: string, mime: string) => {
     let name = images.get(dataUrl)
     if (!name) {
@@ -161,6 +163,15 @@ export async function buildSiteZip(site: SiteConfig): Promise<Blob> {
       return `href="${target ? prefix + target : depth ? '../' : './'}"`
     })
     body = body.replace(IMAGE_ATTR, (_m, dataUrl: string, mime: string) => `src="${prefix}images/${imageName(dataUrl, mime)}"`)
+
+    for (const [, path] of body.matchAll(STOCK_ATTR)) {
+      if (!stock.has(path)) {
+        const name = `stock-${stock.size + 1}.${path.split('.').pop()}`
+        zip.file(`images/${name}`, await fetchBytes(path))
+        stock.set(path, name)
+      }
+    }
+    body = body.replace(STOCK_ATTR, (_m, path: string) => `src="${prefix}images/${stock.get(path)}"`)
 
     const title = page.path === '/' ? brand : `${page.label} | ${brand}`
     const html = `<!doctype html>

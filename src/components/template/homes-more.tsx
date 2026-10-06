@@ -69,7 +69,12 @@ export function HomeHuquq() {
       <SectionFrame id="home.cta" label="Yekun çağırış">
         <section className="hq-cta wrap">
           <div className="hq-cta__box">
-            <CtaCopy titleClass="hq-cta__title" textClass="hq-cta__text" buttonClass="btn btn--primary" />
+            <Parallax speed={0.08} bleed className="hq-cta__bg">
+              <Editable.Image k="home.cta.bg" label="Çağırış fonu" />
+            </Parallax>
+            <div className="hq-cta__copy">
+              <CtaCopy titleClass="hq-cta__title" textClass="hq-cta__text" buttonClass="btn btn--primary" />
+            </div>
           </div>
         </section>
       </SectionFrame>

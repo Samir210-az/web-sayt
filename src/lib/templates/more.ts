@@ -4,8 +4,8 @@ import type { SiteConfig, TemplateId } from '../types'
 interface Spec {
   accent: string
   text: Record<string, string>
-  images: [string, string][]
-  services: [string, string, string][]
+  images: [string, string, string?, number?, number?][]
+  services: [string, string, string, string?][]
 }
 
 function build(template: TemplateId, spec: Spec): SiteConfig {
@@ -15,8 +15,8 @@ function build(template: TemplateId, spec: Spec): SiteConfig {
     theme: { accent: spec.accent },
     logo: img('Loqo'),
     text: { 'footer.text': 'Bütün hüquqlar qorunur.', ...spec.text },
-    images: Object.fromEntries(spec.images.map(([key, alt]) => [key, img(alt)])),
-    services: spec.services.map(([title, text, alt], i) => service(`s${i + 1}`, title, text, alt)),
+    images: Object.fromEntries(spec.images.map(([key, alt, src, fx, fy]) => [key, img(alt, fx, fy, src)])),
+    services: spec.services.map(([title, text, alt, src], i) => service(`s${i + 1}`, title, text, alt, src)),
     extras: { home: [], services: [], about: [], contact: [] },
     hidden: {},
   }
@@ -67,16 +67,15 @@ export function createHuquqSite(): SiteConfig {
       'contact.hours': 'B.e. – Cümə 10:00 – 18:00',
     },
     images: [
-      ['home.hero.panel', 'Vəkil müştəri ilə görüşür'],
-      ['home.hero.float', 'Hüquq kitabları'],
-      ['home.cta.bg', 'Vəkillik bürosunun giriş zalı'],
-      ['about.main', 'Büronun komandası'],
+      ['home.hero.panel', 'Ədalət tərəzisi, hakim çəkici və qanun kitabları', '/images/huquq/hero.webp'],
+      ['home.cta.bg', 'Kitablar üzərində hakim çəkici və ədalət tərəzisi', '/images/huquq/cokic-kitab.webp'],
+      ['about.main', 'Vəkil iş masasında sənədlə işləyir', '/images/huquq/about.webp', 42, 50],
     ],
     services: [
-      ['Mülki mübahisələr', 'Borc, mülkiyyət və müqavilə mübahisələrində müraciət və məhkəmə təmsilçiliyi.', 'Məhkəmə zalı'],
-      ['Ailə hüququ', 'Boşanma, nəfəqə və uşağın yaşayış yeri məsələləri.', 'Sənədlərlə iş masası'],
-      ['Əmək münasibətləri', 'İşdən çıxarılma, əmək müqaviləsi və kompensasiya mübahisələri.', 'Əmək sənədləri'],
-      ['Müqavilələr və sənədlər', 'Müqavilənin hazırlanması, yoxlanması və hüquqi rəyi.', 'Müqavilə imzalanır'],
+      ['Mülki mübahisələr', 'Borc, mülkiyyət və müqavilə mübahisələrində müraciət və məhkəmə təmsilçiliyi.', 'Hakim çəkici və qanun kitabları', '/images/huquq/mulki.webp'],
+      ['Ailə hüququ', 'Boşanma, nəfəqə və uşağın yaşayış yeri məsələləri.', 'Kitablar üzərində hakim çəkici və ədalət tərəzisi', '/images/huquq/cokic-kitab.webp'],
+      ['Əmək münasibətləri', 'İşdən çıxarılma, əmək müqaviləsi və kompensasiya mübahisələri.', 'Hakim çəkici', '/images/huquq/emek.webp'],
+      ['Müqavilələr və sənədlər', 'Müqavilənin hazırlanması, yoxlanması və hüquqi rəyi.', 'Açıq qanun kitabı və ədalət tərəzisi', '/images/huquq/muqavile.webp'],
     ],
   })
 }
