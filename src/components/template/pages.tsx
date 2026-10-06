@@ -5,8 +5,30 @@ import { Reveal } from '@/components/motion'
 import { Parallax } from '@/components/parallax'
 import { useSite } from '@/lib/site-context'
 import type { TemplateId } from '@/lib/types'
-import { mailHref, telHref, whatsappHref } from '@/lib/utils'
 import { ActionLink, ExtraBlocks, PageHead, SectionFrame, ServiceList } from './blocks'
+import {
+  ContactRows,
+  PhoneField,
+  StoryCopy,
+  ValueItems,
+  ValuesTitle,
+  WhatsappLink,
+  useContactLinks,
+} from './page-parts'
+import {
+  AboutGozellik,
+  AboutHuquq,
+  AboutIdman,
+  AboutKurs,
+  AboutStudiya,
+  AboutTikinti,
+  ContactGozellik,
+  ContactHuquq,
+  ContactIdman,
+  ContactKurs,
+  ContactStudiya,
+  ContactTikinti,
+} from './pages-more'
 
 export function ServicesPage() {
   return (
@@ -22,38 +44,6 @@ export function ServicesPage() {
   )
 }
 
-function ValuesTitle({ className }: { className: string }) {
-  return <Editable.Text as="h2" k="about.values.title" className={className} label="Bölmənin başlığı" max={60} />
-}
-
-function ValueItems({ itemClass, listClass, stagger = 0.12 }: { itemClass: string; listClass: string; stagger?: number }) {
-  return (
-    <ul className={listClass}>
-      {[1, 2, 3].map((n) => (
-        <Reveal as="li" key={n} delay={(n - 1) * stagger} className={itemClass}>
-          <Editable.Text as="h3" k={`about.value.${n}.title`} className="values__name" label={`${n}-ci prinsipin adı`} max={30} />
-          <Editable.Text
-            as="p"
-            k={`about.value.${n}.text`}
-            className="values__text"
-            label={`${n}-ci prinsipin təsviri`}
-            multiline
-            max={160}
-          />
-        </Reveal>
-      ))}
-    </ul>
-  )
-}
-
-function StoryCopy({ leadClass = 'story__lead', textClass = 'story__text' }: { leadClass?: string; textClass?: string }) {
-  return (
-    <>
-      <Editable.Text as="p" k="about.body1" className={leadClass} label="Birinci abzas" multiline max={400} />
-      <Editable.Text as="p" k="about.body2" className={textClass} label="İkinci abzas" multiline max={400} />
-    </>
-  )
-}
 
 function AboutXidmet() {
   return (
@@ -179,12 +169,12 @@ const ABOUT: Record<TemplateId, () => React.JSX.Element> = {
   klinika: AboutKlinika,
   kafe: AboutKafe,
   bosh: AboutBosh,
-  huquq: AboutKafe,
-  gozellik: AboutKlinika,
-  idman: AboutBosh,
-  tikinti: AboutXidmet,
-  kurs: AboutKlinika,
-  studiya: AboutKafe,
+  huquq: AboutHuquq,
+  gozellik: AboutGozellik,
+  idman: AboutIdman,
+  tikinti: AboutTikinti,
+  kurs: AboutKurs,
+  studiya: AboutStudiya,
 }
 
 export function AboutPage() {
@@ -199,56 +189,6 @@ export function AboutPage() {
   )
 }
 
-function useContactLinks() {
-  const { text } = useSite()
-  return {
-    tel: telHref(text('contact.phone')),
-    wa: whatsappHref(text('contact.whatsapp')),
-    mail: mailHref(text('contact.email')),
-  }
-}
-
-function PhoneField() {
-  return <Editable.Text as="span" k="contact.phone" label="Telefon nömrəsi" max={24} />
-}
-
-function WhatsappLink({ className }: { className: string }) {
-  const { wa } = useContactLinks()
-  return (
-    <ActionLink className={className} href={wa} external>
-      <span>WhatsApp: </span>
-      <Editable.Text as="span" k="contact.whatsapp" label="WhatsApp nömrəsi" max={24} />
-    </ActionLink>
-  )
-}
-
-function ContactRows({ rowClass, wrapClass }: { rowClass: string; wrapClass: string }) {
-  const { mail } = useContactLinks()
-  return (
-    <dl className={wrapClass}>
-      <div className={rowClass}>
-        <dt>E-poçt</dt>
-        <dd>
-          <ActionLink className="textlink" href={mail}>
-            <Editable.Text as="span" k="contact.email" label="E-poçt ünvanı" max={80} />
-          </ActionLink>
-        </dd>
-      </div>
-      <div className={rowClass}>
-        <dt>Ünvan</dt>
-        <dd>
-          <Editable.Text as="span" k="contact.address" label="Ünvan" max={120} />
-        </dd>
-      </div>
-      <div className={rowClass}>
-        <dt>İş saatları</dt>
-        <dd>
-          <Editable.Text as="span" k="contact.hours" label="İş saatları" max={80} />
-        </dd>
-      </div>
-    </dl>
-  )
-}
 
 function ContactXidmet() {
   const { tel } = useContactLinks()
@@ -345,12 +285,12 @@ const CONTACT: Record<TemplateId, () => React.JSX.Element> = {
   klinika: ContactKlinika,
   kafe: ContactKafe,
   bosh: ContactBosh,
-  huquq: ContactKafe,
-  gozellik: ContactKlinika,
-  idman: ContactBosh,
-  tikinti: ContactXidmet,
-  kurs: ContactKlinika,
-  studiya: ContactKafe,
+  huquq: ContactHuquq,
+  gozellik: ContactGozellik,
+  idman: ContactIdman,
+  tikinti: ContactTikinti,
+  kurs: ContactKurs,
+  studiya: ContactStudiya,
 }
 
 export function ContactPage() {
