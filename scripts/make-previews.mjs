@@ -35,4 +35,15 @@ for (const [device, options] of Object.entries(DEVICES)) {
   await context.close()
 }
 
+const thumbs = await browser.newContext({ viewport: { width: 1280, height: 960 }, deviceScaleFactor: 0.5, reducedMotion: 'reduce' })
+for (const template of TEMPLATES) {
+  const page = await thumbs.newPage()
+  await page.goto(`${BASE}/shablon/${template}`, { waitUntil: 'networkidle' })
+  await page.addStyleTag({ content: '.demobar{display:none!important}.header{position:static!important}' })
+  await page.evaluate(() => document.fonts.ready)
+  await page.screenshot({ path: `${OUT}${template}-thumb.jpg`, type: 'jpeg', quality: 72 })
+  await page.close()
+}
+await thumbs.close()
+
 await browser.close()

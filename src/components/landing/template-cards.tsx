@@ -12,9 +12,15 @@ export function TemplateCards({ mode }: { mode: 'preview' | 'edit' }) {
         <li key={t.id}>
           <Link href={`${prefix}/${t.id}`} className="lp-card">
             <div className={`lp-card__art lp-card__art--${t.id}`}>
-              <i />
-              <i />
-              <i />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`/previews/${t.id}-thumb.jpg`}
+                alt={`${t.name} şablonunun ana səhifəsi`}
+                width={640}
+                height={480}
+                loading="lazy"
+                decoding="async"
+              />
             </div>
             <div className="lp-card__meta">
               <strong>{t.name}</strong>

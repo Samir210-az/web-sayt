@@ -1573,12 +1573,16 @@ a.lp-card:hover {
 }
 
 .lp-card__art {
-  display: grid;
-  align-content: end;
-  gap: 8px;
-  aspect-ratio: 16 / 10;
-  padding: 18px;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
   border-radius: 14px;
+}
+.lp-card__art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
 }
 
 .lp-card__art--xidmet {
@@ -1595,39 +1599,6 @@ a.lp-card:hover {
 
 .lp-card__art--bosh {
   background: linear-gradient(135deg, #f4f4f2, #cfd3dc);
-  outline: 2px dashed rgba(17, 24, 39, 0.35);
-  outline-offset: -10px;
-}
-
-.lp-card__art.lp-card__art--bosh i {
-  background: #111827;
-}
-
-.lp-card__art.lp-card__art--bosh i:nth-child(3) {
-  background: var(--lp-gold);
-}
-
-.lp-card__art i {
-  height: 9px;
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.85);
-}
-
-.lp-card__art i:nth-child(1) {
-  width: 70%;
-  height: 14px;
-}
-
-.lp-card__art i:nth-child(2) {
-  width: 52%;
-  opacity: 0.5;
-}
-
-.lp-card__art i:nth-child(3) {
-  width: 28%;
-  height: 22px;
-  border-radius: 999px;
-  background: var(--lp-gold);
 }
 
 .lp-card__meta {
