@@ -1,8 +1,8 @@
 import type { ImageValue, PageKey, ServiceItem, SiteConfig } from './types'
 
-const img = (alt: string, focusX = 50, focusY = 50): ImageValue => ({ src: '', alt, focusX, focusY })
+export const img = (alt: string, focusX = 50, focusY = 50): ImageValue => ({ src: '', alt, focusX, focusY })
 
-const service = (id: string, title: string, text: string, alt: string): ServiceItem => ({
+export const service = (id: string, title: string, text: string, alt: string): ServiceItem => ({
   id,
   title,
   text,

@@ -1,10 +1,5 @@
-import { SiteShell } from '@/components/template/shell'
-import { HomePage } from '@/components/template/pages'
+import { redirect } from 'next/navigation'
 
 export default function Page() {
-  return (
-    <SiteShell editing={false} current="home">
-      <HomePage />
-    </SiteShell>
-  )
+  redirect('/#shablonlar')
 }

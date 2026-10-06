@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next'
 import '@fontsource-variable/bricolage-grotesque'
 import '@fontsource-variable/instrument-sans'
+import '@fontsource-variable/manrope'
+import '@fontsource-variable/fraunces'
 import './globals.css'
 
 export const metadata: Metadata = {

@@ -1,3 +1,5 @@
+export type TemplateId = 'xidmet' | 'klinika' | 'kafe' | 'bosh'
+
 export type PageKey = 'home' | 'services' | 'about' | 'contact'
 
 export interface ImageValue {
@@ -24,7 +26,7 @@ export interface ExtraSection {
 
 export interface SiteConfig {
   version: 1
-  template: 'xidmet'
+  template: TemplateId
   theme: { accent: string }
   logo: ImageValue
   text: Record<string, string>

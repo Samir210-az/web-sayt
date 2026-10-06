@@ -1,11 +1,12 @@
 import { EDITOR_PREFIX, TEMPLATE_PREFIX } from './types'
+import type { TemplateId } from './types'
 
 export function cx(...parts: (string | false | null | undefined)[]): string {
   return parts.filter(Boolean).join(' ')
 }
 
-export function pageHref(path: string, editing: boolean): string {
-  const prefix = editing ? EDITOR_PREFIX : TEMPLATE_PREFIX
+export function pageHref(path: string, editing: boolean, template: TemplateId): string {
+  const prefix = `${editing ? EDITOR_PREFIX : TEMPLATE_PREFIX}/${template}`
   return path === '/' ? prefix : `${prefix}${path}`
 }
 

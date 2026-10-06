@@ -1570,16 +1570,30 @@ a.lp-card:hover {
   border-radius: 14px;
 }
 
-.lp-card__art--a {
+.lp-card__art--xidmet {
   background: radial-gradient(300px 160px at 90% 0%, rgba(240, 180, 74, 0.55), transparent 70%), linear-gradient(135deg, #0b1626, #2b44c9);
 }
 
-.lp-card__art--b {
+.lp-card__art--klinika {
   background: radial-gradient(300px 160px at 90% 0%, rgba(52, 200, 160, 0.55), transparent 70%), linear-gradient(135deg, #0b1d1c, #0f6b5c);
 }
 
-.lp-card__art--c {
+.lp-card__art--kafe {
   background: radial-gradient(300px 160px at 90% 0%, rgba(255, 122, 89, 0.55), transparent 70%), linear-gradient(135deg, #1f0d14, #8c2f4a);
+}
+
+.lp-card__art--bosh {
+  background: linear-gradient(135deg, #f4f4f2, #cfd3dc);
+  outline: 2px dashed rgba(17, 24, 39, 0.35);
+  outline-offset: -10px;
+}
+
+.lp-card__art.lp-card__art--bosh i {
+  background: #111827;
+}
+
+.lp-card__art.lp-card__art--bosh i:nth-child(3) {
+  background: var(--lp-gold);
 }
 
 .lp-card__art i {
@@ -1775,5 +1789,175 @@ a.lp-card:hover {
 
   .lp-chip--b {
     left: 0;
+  }
+}
+
+.lp-pick {
+  padding-bottom: clamp(56px, 9vw, 120px);
+}
+
+@media (min-width: 640px) and (max-width: 1099px) {
+  .lp-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1100px) {
+  .lp-cards {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Template themes */
+.site {
+  --muted: color-mix(in srgb, var(--ink) 68%, var(--duman));
+  --line: color-mix(in srgb, var(--ink) 16%, transparent);
+  min-height: 100vh;
+  background: var(--duman);
+  color: var(--ink);
+}
+
+.site[data-template='klinika'] {
+  --duman: #eef6f5;
+  --ink: #0c2b33;
+  --kehreba: #8fe0cf;
+  --radius: 36px;
+  --font-display: 'Manrope Variable', system-ui, sans-serif;
+}
+
+.site[data-template='kafe'] {
+  --duman: #f8f1f0;
+  --ink: #2a0f1c;
+  --kehreba: #cfe08f;
+  --radius: 20px;
+  --font-display: 'Fraunces Variable', Georgia, serif;
+}
+
+.site[data-template='bosh'] {
+  --duman: #f4f4f2;
+  --ink: #111827;
+  --kehreba: #ffd23f;
+}
+
+.site[data-template='kafe'] :is(h1, h2, h3) {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.site[data-template='klinika'] :is(h1, h2, h3) {
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+
+.site[data-template='bosh'] .hero__stage::after {
+  background: linear-gradient(95deg, rgb(17 24 39 / 0.92) 0%, rgb(17 24 39 / 0.6) 48%, rgb(17 24 39 / 0.12) 100%);
+}
+
+.site[data-template='kafe'] .hero__stage {
+  justify-content: center;
+}
+
+.site[data-template='kafe'] .hero__stage::after {
+  background: radial-gradient(ellipse at center, rgb(42 15 28 / 0.55), rgb(42 15 28 / 0.82));
+}
+
+.site[data-template='kafe'] .hero__copy {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+
+.site[data-template='kafe'] .hero__title {
+  max-width: 17ch;
+}
+
+.site[data-template='kafe'] .hero__lead {
+  margin-inline: auto;
+}
+
+.site[data-template='kafe'] .hero__actions {
+  display: flex;
+  justify-content: center;
+}
+
+.site[data-template='klinika'] .hero__stage {
+  display: grid;
+  align-items: stretch;
+  gap: 8px;
+  padding: 10px;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
+.site[data-template='klinika'] .hero__stage::after {
+  display: none;
+}
+
+.site[data-template='klinika'] .hero__panel {
+  position: relative;
+  inset: auto;
+  order: 2;
+  min-height: 320px;
+  border-radius: calc(var(--radius) - 12px);
+}
+
+.site[data-template='klinika'] .hero__copy {
+  order: 1;
+  padding-block: 40px;
+}
+
+.site[data-template='klinika'] .hero__lead {
+  color: var(--muted);
+}
+
+.site[data-template='klinika'] .hero__title {
+  max-width: 14ch;
+  font-size: clamp(2.3rem, 5vw, 4.4rem);
+}
+
+.site[data-template='klinika'] .chip {
+  border-color: var(--line);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.site[data-template='klinika'] .hero__chip {
+  top: auto;
+  right: auto;
+  bottom: 28px;
+  left: 28px;
+}
+
+@media (min-width: 900px) {
+  .site[data-template='klinika'] .hero__stage {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .site[data-template='klinika'] .hero__panel {
+    min-height: 520px;
+  }
+
+  .site[data-template='klinika'] .hero__copy {
+    align-self: center;
+    padding-block: 56px;
+  }
+
+  .site[data-template='klinika'] .hero__chip {
+    top: 28px;
+    right: auto;
+    bottom: auto;
+    left: calc(50% + 28px);
+  }
+}
+
+.site[data-template='kafe'] .hero__float {
+  bottom: 6%;
+  width: clamp(110px, 14vw, 190px);
+}
+
+@media (max-width: 720px) {
+  .site[data-template='klinika'] .hero__float {
+    display: none;
   }
 }

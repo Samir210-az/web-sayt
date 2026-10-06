@@ -5,7 +5,8 @@ import { useState } from 'react'
 import type { ReactNode } from 'react'
 import { Editable } from '@/components/editable'
 import { SiteProvider, useSite } from '@/lib/site-context'
-import { PAGES, TEMPLATE_PREFIX } from '@/lib/types'
+import { EDITOR_PREFIX, PAGES } from '@/lib/types'
+import type { TemplateId } from '@/lib/types'
 import { cx, pageHref } from '@/lib/utils'
 
 function Header({ current }: { current: string }) {
@@ -25,7 +26,7 @@ function Header({ current }: { current: string }) {
         {editing ? (
           <div className="brand">{brand}</div>
         ) : (
-          <Link href={TEMPLATE_PREFIX} className="brand" aria-label="Ana səhifə">
+          <Link href={pageHref('/', false, site.template)} className="brand" aria-label="Ana səhifə">
             {brand}
           </Link>
         )}
@@ -44,7 +45,7 @@ function Header({ current }: { current: string }) {
           {PAGES.map((page) => (
             <Link
               key={page.key}
-              href={pageHref(page.path, editing)}
+              href={pageHref(page.path, editing, site.template)}
               className={cx('nav__link', current === page.key && 'nav__link--current')}
               aria-current={current === page.key ? 'page' : undefined}
               onClick={() => setOpen(false)}
@@ -97,7 +98,7 @@ function EditorBar() {
         <span>Əsas rəng</span>
         <input type="color" value={site.theme.accent} onChange={(e) => setAccent(e.target.value)} />
       </label>
-      <Link href={TEMPLATE_PREFIX} className="editbar__btn">
+      <Link href={pageHref('/', false, site.template)} className="editbar__btn">
         Önizləmə
       </Link>
       <button
@@ -113,16 +114,26 @@ function EditorBar() {
   )
 }
 
-export function SiteShell({ editing, current, children }: { editing: boolean; current: string; children: ReactNode }) {
+export function SiteShell({
+  template,
+  editing,
+  current,
+  children,
+}: {
+  template: TemplateId
+  editing: boolean
+  current: string
+  children: ReactNode
+}) {
   return (
-    <SiteProvider editing={editing}>
+    <SiteProvider template={template} editing={editing}>
       <a className="skip" href="#content">
         Məzmuna keç
       </a>
       {!editing && (
         <div className="demobar">
           <span>Bu, nümunə şablondur.</span>
-          <Link href="/redaktor">Redaktorda aç</Link>
+          <Link href={`${EDITOR_PREFIX}/${template}`}>Redaktorda aç</Link>
           <Link href="/">Platformaya qayıt</Link>
         </div>
       )}

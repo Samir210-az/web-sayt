@@ -2,10 +2,11 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
-import { createDefaultSite, DEFAULT_ACCENT } from './default-site'
-import type { ExtraSection, ImageValue, PageKey, ServiceItem, SiteConfig } from './types'
+import { DEFAULT_ACCENT } from './default-site'
+import { createSiteFor } from './template-registry'
+import type { ExtraSection, ImageValue, PageKey, ServiceItem, SiteConfig, TemplateId } from './types'
 
-const DRAFT_KEY = 'web-sayt:draft:v1'
+const draftKey = (template: TemplateId) => `web-sayt:draft:v1:${template}`
 const HEX = /^#[0-9a-fA-F]{6}$/
 
 interface SiteApi {
@@ -39,46 +40,54 @@ function emptyImage(alt: string): ImageValue {
   return { src: '', alt, focusX: 50, focusY: 50 }
 }
 
-function readDraft(): SiteConfig | null {
+function readDraft(template: TemplateId): SiteConfig | null {
   try {
-    const raw = window.localStorage.getItem(DRAFT_KEY)
+    const raw = window.localStorage.getItem(draftKey(template))
     if (!raw) return null
     const parsed = JSON.parse(raw) as SiteConfig
-    if (parsed.version !== 1 || !HEX.test(parsed.theme?.accent ?? '')) return null
+    if (parsed.version !== 1 || parsed.template !== template || !HEX.test(parsed.theme?.accent ?? '')) return null
     return parsed
   } catch {
     return null
   }
 }
 
-export function SiteProvider({ editing, children }: { editing: boolean; children: ReactNode }) {
-  const [site, setSite] = useState<SiteConfig>(createDefaultSite)
+export function SiteProvider({
+  template,
+  editing,
+  children,
+}: {
+  template: TemplateId
+  editing: boolean
+  children: ReactNode
+}) {
+  const [site, setSite] = useState<SiteConfig>(() => createSiteFor(template))
   const [saveState, setSaveState] = useState<SiteApi['saveState']>('idle')
   const loaded = useRef(false)
 
   useEffect(() => {
-    const draft = readDraft()
+    const draft = readDraft(template)
     if (draft) setSite(draft)
     loaded.current = true
-  }, [])
+  }, [template])
 
   useEffect(() => {
     if (!editing || !loaded.current) return
     const timer = window.setTimeout(() => {
       try {
-        window.localStorage.setItem(DRAFT_KEY, JSON.stringify(site))
+        window.localStorage.setItem(draftKey(template), JSON.stringify(site))
         setSaveState('saved')
       } catch {
         setSaveState('error')
       }
     }, 600)
     return () => window.clearTimeout(timer)
-  }, [site, editing])
+  }, [site, editing, template])
 
   const update = useCallback((fn: (prev: SiteConfig) => SiteConfig) => setSite(fn), [])
 
   const api = useMemo<SiteApi>(() => {
-    const defaults = createDefaultSite()
+    const defaults = createSiteFor(template)
     return {
       site,
       editing,
@@ -130,21 +139,21 @@ export function SiteProvider({ editing, children }: { editing: boolean; children
       toggleHidden: (id) => update((s) => ({ ...s, hidden: { ...s.hidden, [id]: !s.hidden[id] } })),
       reset: () => {
         try {
-          window.localStorage.removeItem(DRAFT_KEY)
+          window.localStorage.removeItem(draftKey(template))
         } catch {
           /* storage may be blocked */
         }
-        setSite(createDefaultSite())
+        setSite(createSiteFor(template))
         setSaveState('idle')
       },
     }
-  }, [site, editing, saveState, update])
+  }, [site, editing, saveState, template, update])
 
   const accent = HEX.test(site.theme.accent) ? site.theme.accent : DEFAULT_ACCENT
 
   return (
     <SiteContext.Provider value={api}>
-      <div className="site" style={{ ['--accent' as string]: accent }}>
+      <div className="site" data-template={template} style={{ ['--accent' as string]: accent }}>
         {children}
       </div>
     </SiteContext.Provider>

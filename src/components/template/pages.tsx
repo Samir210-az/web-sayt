@@ -8,7 +8,7 @@ import { cx, mailHref, pageHref, telHref, whatsappHref } from '@/lib/utils'
 import { ActionLink, ExtraBlocks, PageHead, SectionFrame, ServiceList } from './blocks'
 
 export function HomePage() {
-  const { editing, text } = useSite()
+  const { editing, text, site } = useSite()
 
   return (
     <>
@@ -48,7 +48,7 @@ export function HomePage() {
         <section className="block">
           <div className="wrap block__head">
             <Editable.Text as="h2" k="home.services.title" className="block__title" label="Bölmənin başlığı" max={60} />
-            <Link href={pageHref('/xidmetler', editing)} className="textlink">
+            <Link href={pageHref('/xidmetler', editing, site.template)} className="textlink">
               <Editable.Text as="span" k="home.services.link" label="Keçidin yazısı" max={30} />
             </Link>
           </div>
@@ -101,7 +101,7 @@ export function HomePage() {
               multiline
               max={180}
             />
-            <Link href={pageHref('/elaqe', editing)} className="btn btn--accent">
+            <Link href={pageHref('/elaqe', editing, site.template)} className="btn btn--accent">
               <Editable.Text as="span" k="home.cta.button" label="Düymənin yazısı" max={30} />
             </Link>
           </div>

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { HeroDemo } from '@/components/landing/hero-demo'
+import { TemplateCards } from '@/components/landing/template-cards'
 import { Parallax } from '@/components/parallax'
 
 const STEPS = [
@@ -15,12 +16,6 @@ const STEPS = [
     title: 'Öz bölmələrinizi əlavə edin',
     text: 'Şablonda olmayan xidmət və ya bölmə lazımdır? Əlavə edin, lazımsızı gizlədin.',
   },
-]
-
-const TEMPLATES = [
-  { name: 'Evdar', kind: 'Xidmət şirkətləri', href: '/shablon', mod: 'a' },
-  { name: 'Klinika', kind: 'Mərkəz və klinikalar', mod: 'b' },
-  { name: 'Kafe', kind: 'Restoran və kafelər', mod: 'c' },
 ]
 
 const FACTS = [
@@ -70,8 +65,8 @@ export default function PlatformHome() {
               <Link href="/redaktor" className="lp-btn lp-btn--glow">
                 Redaktoru sına
               </Link>
-              <Link href="/shablon" className="lp-btn lp-btn--glass">
-                Nümunə sayta bax
+              <Link href="/#shablonlar" className="lp-btn lp-btn--glass">
+                Şablonlara bax
               </Link>
             </div>
             <p className="lp-hero__note">Hesab və dərc etmə hazırlanır. Hazırda redaktoru sınaqdan keçirmək olar.</p>
@@ -106,38 +101,8 @@ export default function PlatformHome() {
 
         <section id="shablonlar" className="lp-section wrap">
           <h2 className="lp-title">Şablonlar</h2>
-          <p className="lp-sub">İlk şablon hazırdır və açıqdır. Digərləri üzərində işlənir.</p>
-          <ul className="lp-cards">
-            {TEMPLATES.map((t) => {
-              const inner = (
-                <>
-                  <div className={`lp-card__art lp-card__art--${t.mod}`}>
-                    <i />
-                    <i />
-                    <i />
-                  </div>
-                  <div className="lp-card__meta">
-                    <strong>{t.name}</strong>
-                    <span>{t.kind}</span>
-                  </div>
-                  <span className={t.href ? 'lp-card__tag lp-card__tag--live' : 'lp-card__tag'}>
-                    {t.href ? 'Hazırdır' : 'Tezliklə'}
-                  </span>
-                </>
-              )
-              return (
-                <li key={t.name}>
-                  {t.href ? (
-                    <Link href={t.href} className="lp-card">
-                      {inner}
-                    </Link>
-                  ) : (
-                    <div className="lp-card lp-card--soon">{inner}</div>
-                  )}
-                </li>
-              )
-            })}
-          </ul>
+          <p className="lp-sub">Hazır şablonlardan birini seçin və ya boş şablonla sıfırdan başlayın.</p>
+          <TemplateCards mode="preview" />
         </section>
 
         <section className="lp-final wrap">
