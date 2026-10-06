@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import type { ReactNode } from 'react'
+import { useAccount } from '@/components/editor/account'
 import { Editable } from '@/components/editable'
 import { SiteProvider, useSite } from '@/lib/site-context'
 import { EDITOR_PREFIX, PAGES } from '@/lib/types'
@@ -78,15 +79,26 @@ function Footer() {
   )
 }
 
+const STATUS: Record<string, string> = {
+  saving: 'Hesabınıza yazılır…',
+  error: 'Saxlamaq alınmadı. Bağlantını yoxlayın, dəyişiklik təkrar cəhd olunacaq.',
+  'too-large': 'Sayt çox böyükdür. Şəkilləri kiçildin və ya sayını azaldın.',
+  'load-error': 'Hesabdan yükləmək alınmadı. Səhifəni yeniləyin, indiki dəyişikliklər saxlanılmayacaq.',
+}
+
 function EditorBar() {
-  const { site, setAccent, reset, saveState } = useSite()
+  const { site, setAccent, reset, saveState, storage } = useSite()
+  const account = useAccount()
 
   const status =
-    saveState === 'saved'
-      ? 'Qaralama saxlanıldı'
-      : saveState === 'error'
-        ? 'Saxlamaq alınmadı: brauzer yaddaşı doludur'
-        : 'Mətnə və ya şəkilə klik edib dəyişin'
+    STATUS[saveState] ??
+    (saveState === 'saved'
+      ? storage === 'account'
+        ? 'Hesabınıza saxlanıldı'
+        : 'Qaralama bu brauzerdə saxlanıldı'
+      : storage === 'account'
+        ? 'Mətnə və ya şəkilə klik edib dəyişin'
+        : 'Hesab qoşulmayıb: dəyişikliklər yalnız bu brauzerdə saxlanılır')
 
   return (
     <div className="editbar" role="region" aria-label="Redaktor paneli">
@@ -110,6 +122,11 @@ function EditorBar() {
       >
         Sıfırla
       </button>
+      {account && (
+        <button type="button" className="editbar__btn editbar__btn--quiet" onClick={account.signOut}>
+          Çıxış
+        </button>
+      )}
     </div>
   )
 }

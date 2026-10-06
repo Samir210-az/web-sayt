@@ -9,10 +9,21 @@ import type { ExtraSection, ImageValue, PageKey, ServiceItem, SiteConfig, Templa
 const draftKey = (template: TemplateId) => `web-sayt:draft:v1:${template}`
 const HEX = /^#[0-9a-fA-F]{6}$/
 
+export interface Persistence {
+  load: () => Promise<SiteConfig | null>
+  save: (site: SiteConfig) => Promise<void>
+}
+
+const PersistenceContext = createContext<Persistence | null>(null)
+export const PersistenceProvider = PersistenceContext.Provider
+
+export type SaveState = 'idle' | 'saving' | 'saved' | 'error' | 'too-large' | 'load-error'
+
 interface SiteApi {
   site: SiteConfig
   editing: boolean
-  saveState: 'idle' | 'saved' | 'error'
+  saveState: SaveState
+  storage: 'account' | 'local'
   text: (key: string) => string
   image: (key: string) => ImageValue
   setText: (key: string, value: string) => void
@@ -62,27 +73,65 @@ export function SiteProvider({
   children: ReactNode
 }) {
   const [site, setSite] = useState<SiteConfig>(() => createSiteFor(template))
-  const [saveState, setSaveState] = useState<SiteApi['saveState']>('idle')
+  const persistence = useContext(PersistenceContext)
+  const remote = editing && persistence !== null
+  const [saveState, setSaveState] = useState<SaveState>('idle')
+  const [ready, setReady] = useState(!remote)
   const loaded = useRef(false)
 
   useEffect(() => {
-    const draft = readDraft(template)
-    if (draft) setSite(draft)
-    loaded.current = true
-  }, [template])
+    let cancelled = false
+    loaded.current = false
+
+    if (remote && persistence) {
+      setReady(false)
+      persistence
+        .load()
+        .then((stored) => {
+          if (cancelled) return
+          if (stored) setSite(stored)
+          loaded.current = true
+          setReady(true)
+        })
+        .catch(() => {
+          if (cancelled) return
+          setSaveState('load-error')
+          setReady(true)
+        })
+    } else {
+      const draft = readDraft(template)
+      if (draft) setSite(draft)
+      loaded.current = true
+      setReady(true)
+    }
+
+    return () => {
+      cancelled = true
+    }
+  }, [remote, persistence, template])
 
   useEffect(() => {
     if (!editing || !loaded.current) return
-    const timer = window.setTimeout(() => {
+    const timer = window.setTimeout(async () => {
+      if (remote && persistence) {
+        setSaveState('saving')
+        try {
+          await persistence.save(site)
+          setSaveState('saved')
+        } catch (e) {
+          setSaveState(e instanceof Error && e.name === 'SiteTooLargeError' ? 'too-large' : 'error')
+        }
+        return
+      }
       try {
         window.localStorage.setItem(draftKey(template), JSON.stringify(site))
         setSaveState('saved')
       } catch {
         setSaveState('error')
       }
-    }, 600)
+    }, remote ? 1200 : 600)
     return () => window.clearTimeout(timer)
-  }, [site, editing, template])
+  }, [site, editing, template, remote, persistence])
 
   const update = useCallback((fn: (prev: SiteConfig) => SiteConfig) => setSite(fn), [])
 
@@ -92,6 +141,7 @@ export function SiteProvider({
       site,
       editing,
       saveState,
+      storage: remote ? 'account' : 'local',
       text: (key) => site.text[key] ?? defaults.text[key] ?? '',
       image: (key) => site.images[key] ?? defaults.images[key] ?? emptyImage(''),
       setText: (key, value) => update((s) => ({ ...s, text: { ...s.text, [key]: value } })),
@@ -147,14 +197,14 @@ export function SiteProvider({
         setSaveState('idle')
       },
     }
-  }, [site, editing, saveState, template, update])
+  }, [site, editing, saveState, remote, template, update])
 
   const accent = HEX.test(site.theme.accent) ? site.theme.accent : DEFAULT_ACCENT
 
   return (
     <SiteContext.Provider value={api}>
       <div className="site" data-template={template} style={{ ['--accent' as string]: accent }}>
-        {children}
+        {ready ? children : <p className="site__loading">Saytınız yüklənir…</p>}
       </div>
     </SiteContext.Provider>
   )

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import { EditorGate } from '@/components/editor/editor-gate'
 import { resolveRoute, templateStaticParams } from '@/components/template/routes'
 import { SiteShell } from '@/components/template/shell'
 import { getTemplate } from '@/lib/template-registry'
@@ -20,8 +21,10 @@ export default async function Page({ params }: { params: Params }) {
   if (!meta || !route) notFound()
 
   return (
-    <SiteShell template={meta.id} editing current={route.key}>
-      <route.View />
-    </SiteShell>
+    <EditorGate template={meta.id}>
+      <SiteShell template={meta.id} editing current={route.key}>
+        <route.View />
+      </SiteShell>
+    </EditorGate>
   )
 }

@@ -2,35 +2,50 @@
   "rules": {
     ".read": false,
     ".write": false,
-
     "sites": {
       "$siteId": {
         ".read": "auth != null && data.child('ownerId').val() === auth.uid",
-        ".write": "auth != null && ((!data.exists() && newData.child('ownerId').val() === auth.uid) || (data.exists() && data.child('ownerId').val() === auth.uid && (!newData.exists() || newData.child('ownerId').val() === auth.uid)))",
-        ".validate": "newData.hasChildren(['ownerId', 'subdomain', 'draft'])",
-        "ownerId": { ".validate": "newData.isString()" },
+        ".write": "auth != null && ((!data.exists() && newData.child('ownerId').val() === auth.uid && $siteId.beginsWith(auth.uid + '_')) || (data.exists() && data.child('ownerId').val() === auth.uid && (!newData.exists() || newData.child('ownerId').val() === auth.uid)))",
+        ".validate": "newData.hasChildren(['ownerId', 'template', 'draft'])",
+        "ownerId": {
+          ".validate": "newData.isString()"
+        },
         "subdomain": {
           ".validate": "newData.isString() && newData.val().matches(/^[a-z0-9][a-z0-9-]{1,28}[a-z0-9]$/)"
         },
-        "template": { ".validate": "newData.isString() && newData.val().length < 40" },
-        "updatedAt": { ".validate": "newData.isNumber()" },
-        "publishedAt": { ".validate": "newData.isNumber()" },
-        "draft": { ".validate": "newData.hasChildren(['version', 'text', 'theme'])" },
-        "$other": { ".validate": false }
+        "template": {
+          ".validate": "newData.isString() && (newData.val() === 'xidmet' || newData.val() === 'klinika' || newData.val() === 'kafe' || newData.val() === 'bosh')"
+        },
+        "updatedAt": {
+          ".validate": "newData.isNumber()"
+        },
+        "publishedAt": {
+          ".validate": "newData.isNumber()"
+        },
+        "draft": {
+          ".validate": "newData.hasChildren(['version', 'text', 'theme'])"
+        },
+        "$other": {
+          ".validate": false
+        }
       }
     },
-
     "subdomains": {
       "$subdomain": {
         ".read": true,
         ".write": "auth != null && ((!data.exists() && newData.child('ownerId').val() === auth.uid) || (data.exists() && data.child('ownerId').val() === auth.uid && !newData.exists()))",
         ".validate": "$subdomain.matches(/^[a-z0-9][a-z0-9-]{1,28}[a-z0-9]$/) && $subdomain !== 'www' && $subdomain !== 'admin' && $subdomain !== 'api' && $subdomain !== 'app' && $subdomain !== 'mail' && $subdomain !== 'redaktor' && $subdomain !== 'static' && $subdomain !== 'cdn' && $subdomain !== 'dashboard' && $subdomain !== 'login' && newData.hasChildren(['ownerId', 'siteId'])",
-        "ownerId": { ".validate": "newData.isString()" },
-        "siteId": { ".validate": "newData.isString()" },
-        "$other": { ".validate": false }
+        "ownerId": {
+          ".validate": "newData.isString()"
+        },
+        "siteId": {
+          ".validate": "newData.isString()"
+        },
+        "$other": {
+          ".validate": false
+        }
       }
     },
-
     "published": {
       "$subdomain": {
         ".read": true,
