@@ -24,13 +24,12 @@ Redaktor dəyişiklikləri hələlik brauzerin `localStorage` yaddaşında qaral
 
 ## Firebase qurulması
 
-Layihə `petcrm-c0cfe` Firebase layihəsində, PET CRM-dən ayrı baza və bucket ilə işləyir. Firebase qurulmayıbsa redaktor işləyir, amma dəyişikliklər yalnız həmin brauzerdə saxlanılır.
+Layihə `petcrm-c0cfe` Firebase layihəsinin əsas (default) Realtime Database və Storage bucket-indən istifadə edir. Qaydalar bütün bazaya şamil olur: `sites`, `subdomains` və `published` yollarından başqa heç nə oxunmur və yazılmır. Firebase qurulmayıbsa redaktor işləyir, amma dəyişikliklər yalnız həmin brauzerdə saxlanılır.
 
-1. **Realtime Database → Create database** ilə ayrıca instance yaradın (məsələn, `web-sayt`, region `europe-west1`). Əsas (default) bazaya toxunmayın, PET CRM orada işləyir.
-2. Yeni instance-in **Rules** bölməsinə `firebase/database.rules.json` məzmununu yapışdırıb dərc edin.
-3. **Storage** bölməsində ayrıca bucket yaradın və **Rules** hissəsinə `firebase/storage.rules` məzmununu yapışdırın.
-4. **Authentication → Sign-in method** bölməsində **Email/Password** və **Google** aktivdir (Google PET CRM-də artıq işləyir, Email/Password yoxlayın). **Settings → Authorized domains** siyahısına `web-sayt-az.vercel.app` əlavə edin.
-5. Vercel → Project → Settings → Environment Variables bölməsinə `.env.example` faylındakı `NEXT_PUBLIC_FIREBASE_*` dəyişənlərini yazın (`DATABASE_URL` yeni instance-in ünvanı, `STORAGE_BUCKET` yeni bucket), sonra yenidən deploy edin.
+1. **Realtime Database → Rules** bölməsinə `firebase/database.rules.json` məzmununu yapışdırıb dərc edin.
+2. **Storage** bölməsində **Get started** ilə işə salın (artıq işləyirsə bu addım lazım deyil), **Rules** hissəsinə `firebase/storage.rules` məzmununu yapışdırıb dərc edin.
+3. **Authentication → Sign-in method** bölməsində **Email/Password** və **Google** aktiv edin. **Settings → Authorized domains** siyahısına `web-sayt-az.vercel.app` əlavə edin.
+4. Vercel → Project → Settings → Environment Variables bölməsinə `.env.example` faylındakı `NEXT_PUBLIC_FIREBASE_*` dəyişənlərini yazın, sonra yenidən deploy edin.
 
 Hər istifadəçinin saytı `sites/{uid}_{şablon}` yolunda saxlanılır və qaydalar yalnız sahibinə oxumağa və yazmağa icazə verir. Giriş edilmiş redaktorda yüklənən şəkillər Storage-də `sites/{uid}/` altında saxlanılır, bazada yalnız ünvanı qalır. Giriş edilməyibsə şəkil qaralamanın içində base64 kimi qalır.
 
