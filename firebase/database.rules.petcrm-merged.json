@@ -1,0 +1,109 @@
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || auth.token.email == 'samir.akhundoff@gmail.com')",
+        ".write": "auth != null && (auth.uid === $uid || (data.exists() && data.child('businessId').val() === auth.uid) || auth.token.email == 'samir.akhundoff@gmail.com')"
+      }
+    },
+    "businesses": {
+      ".read": "auth != null && auth.token.email == 'samir.akhundoff@gmail.com'",
+      "$businessId": {
+        ".read": "auth != null && (auth.uid === $businessId || data.child('staff').child(auth.uid).exists() || auth.token.email == 'samir.akhundoff@gmail.com')",
+        ".write": "auth != null && (auth.uid === $businessId || auth.token.email == 'samir.akhundoff@gmail.com')",
+        ".validate": "auth.token.email == 'samir.akhundoff@gmail.com' || !data.exists() || (newData.child('plan').val() == data.child('plan').val() && newData.child('expiresAt').val() == data.child('expiresAt').val())",
+        "staff": {
+          "$staffUid": {
+            ".write": "auth != null && (auth.uid === $businessId || auth.uid === $staffUid || auth.token.email == 'samir.akhundoff@gmail.com')"
+          }
+        },
+        "pendingInvites": {
+          "$key": {
+            ".write": "auth != null && (auth.uid === $businessId || !newData.exists() || auth.token.email == 'samir.akhundoff@gmail.com')"
+          }
+        }
+      }
+    },
+    "staffDirectory": {
+      "$inviteId": {
+        ".read": "auth != null && (data.child('email').val() === auth.token.email || data.child('businessId').val() === auth.uid || auth.token.email == 'samir.akhundoff@gmail.com')",
+        ".write": "auth != null && ((newData.exists() && newData.child('businessId').val() === auth.uid) || (data.exists() && data.child('businessId').val() === auth.uid) || (data.exists() && data.child('email').val() === auth.token.email) || auth.token.email == 'samir.akhundoff@gmail.com')"
+      }
+    },
+    "pets": {
+      "$petId": {
+        ".read": "auth != null && (data.child('businessId').val() === auth.uid || root.child('businesses/' + data.child('businessId').val() + '/staff/' + auth.uid).exists() || auth.token.email == 'samir.akhundoff@gmail.com')",
+        ".write": "auth != null && ((data.exists() && (data.child('businessId').val() === auth.uid || root.child('businesses/' + data.child('businessId').val() + '/staff/' + auth.uid).exists())) || (!data.exists() && (newData.child('businessId').val() === auth.uid || root.child('businesses/' + newData.child('businessId').val() + '/staff/' + auth.uid).exists())) || auth.token.email == 'samir.akhundoff@gmail.com')"
+      }
+    },
+    "alerts": {
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
+    ".read": false,
+    ".write": false,
+    "sites": {
+      "$siteId": {
+        ".read": "auth != null && data.child('ownerId').val() === auth.uid",
+        ".write": "auth != null && ((!data.exists() && newData.child('ownerId').val() === auth.uid && $siteId.beginsWith(auth.uid + '_')) || (data.exists() && data.child('ownerId').val() === auth.uid && (!newData.exists() || newData.child('ownerId').val() === auth.uid)))",
+        ".validate": "newData.hasChildren(['ownerId', 'template', 'draft'])",
+        "ownerId": {
+          ".validate": "newData.isString()"
+        },
+        "subdomain": {
+          ".validate": "newData.isString() && newData.val().matches(/^[a-z0-9][a-z0-9-]{1,28}[a-z0-9]$/)"
+        },
+        "template": {
+          ".validate": "newData.isString() && (newData.val() === 'xidmet' || newData.val() === 'klinika' || newData.val() === 'kafe' || newData.val() === 'huquq' || newData.val() === 'gozellik' || newData.val() === 'idman' || newData.val() === 'tikinti' || newData.val() === 'kurs' || newData.val() === 'studiya' || newData.val() === 'usaq' || newData.val() === 'bosh')"
+        },
+        "updatedAt": {
+          ".validate": "newData.isNumber()"
+        },
+        "publishedAt": {
+          ".validate": "newData.isNumber()"
+        },
+        "draft": {
+          ".validate": "newData.hasChildren(['version', 'text', 'theme'])"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "subdomains": {
+      "$subdomain": {
+        ".read": true,
+        ".write": "auth != null && ((!data.exists() && newData.child('ownerId').val() === auth.uid) || (data.exists() && data.child('ownerId').val() === auth.uid && !newData.exists()))",
+        ".validate": "$subdomain.matches(/^[a-z0-9][a-z0-9-]{1,28}[a-z0-9]$/) && $subdomain !== 'www' && $subdomain !== 'admin' && $subdomain !== 'api' && $subdomain !== 'app' && $subdomain !== 'mail' && $subdomain !== 'redaktor' && $subdomain !== 'static' && $subdomain !== 'cdn' && $subdomain !== 'dashboard' && $subdomain !== 'login' && newData.hasChildren(['ownerId', 'siteId'])",
+        "ownerId": {
+          ".validate": "newData.isString()"
+        },
+        "siteId": {
+          ".validate": "newData.isString()"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "published": {
+      "$subdomain": {
+        ".read": true,
+        ".write": "auth != null && (root.child('subdomains').child($subdomain).child('ownerId').val() === auth.uid || newData.parent().parent().child('subdomains').child($subdomain).child('ownerId').val() === auth.uid)",
+        ".validate": "$subdomain.matches(/^[a-z0-9][a-z0-9-]{1,28}[a-z0-9]$/) && newData.hasChildren(['template', 'draft'])",
+        "template": {
+          ".validate": "newData.isString() && (newData.val() === 'xidmet' || newData.val() === 'klinika' || newData.val() === 'kafe' || newData.val() === 'huquq' || newData.val() === 'gozellik' || newData.val() === 'idman' || newData.val() === 'tikinti' || newData.val() === 'kurs' || newData.val() === 'studiya' || newData.val() === 'usaq' || newData.val() === 'bosh')"
+        },
+        "publishedAt": {
+          ".validate": "newData.isNumber()"
+        },
+        "draft": {
+          ".validate": "newData.hasChildren(['version', 'text', 'theme'])"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    }
+  }
+}
