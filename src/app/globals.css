@@ -4016,3 +4016,13 @@ html:has(.pv[open]) {
   flex-wrap: wrap;
   gap: 10px;
 }
+
+.dash__addr {
+  color: var(--lp-text);
+  overflow-wrap: anywhere;
+}
+
+.dash__danger {
+  border-color: color-mix(in srgb, #f87171 55%, transparent);
+  color: #fca5a5;
+}

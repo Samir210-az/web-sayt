@@ -277,6 +277,16 @@ export async function unpublishSite(uid: string, template: TemplateId): Promise<
   })
 }
 
+export async function deleteSite(uid: string, template: TemplateId): Promise<void> {
+  const previous = await loadPublishInfo(uid, template)
+  const changes: Record<string, null> = { [`sites/${siteId(uid, template)}`]: null }
+  if (previous) {
+    changes[`subdomains/${previous.name}`] = null
+    changes[`published/${previous.name}`] = null
+  }
+  await update(ref(getFirebaseDb()), changes)
+}
+
 export async function loadPublished(name: string): Promise<SiteConfig | null> {
   if (!SUBDOMAIN.test(name)) return null
   const snap = await get(ref(getFirebaseDb(), `published/${name}`))
