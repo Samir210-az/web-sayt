@@ -19,19 +19,25 @@ const formatDate = (ms: number) =>
 
 function MySites({ user }: { user: User }) {
   const [sites, setSites] = useState<SiteSummary[] | null>(null)
-  const [failed, setFailed] = useState(false)
+  const [failed, setFailed] = useState('')
 
   useEffect(() => {
     let alive = true
     listSites(user.uid)
       .then((list) => alive && setSites(list))
-      .catch(() => alive && setFailed(true))
+      .catch((e: unknown) => alive && setFailed(e instanceof Error ? e.message.slice(0, 160) : 'naməlum xəta'))
     return () => {
       alive = false
     }
   }, [user.uid])
 
-  if (failed) return <p className="dash__note" role="alert">Saytlarınızın siyahısı yüklənmədi. Səhifəni yeniləyin.</p>
+  if (failed) {
+    return (
+      <p className="dash__note" role="alert">
+        Saytlarınızın siyahısı yüklənmədi. Səhifəni yeniləyin. ({failed})
+      </p>
+    )
+  }
   if (!sites) return <p className="dash__note" role="status">Saytlarınız yüklənir…</p>
   if (sites.length === 0) {
     return <p className="dash__note">Hələ saytınız yoxdur. Aşağıdan şablon seçib başlayın, hər dəyişiklik avtomatik saxlanılır.</p>

@@ -168,7 +168,10 @@ export interface SiteSummary {
 }
 
 export async function listSites(uid: string): Promise<SiteSummary[]> {
-  const values = await Promise.all(TEMPLATES.map((t) => readSiteNode(uid, t.id)))
+  const results = await Promise.allSettled(TEMPLATES.map((t) => readSiteNode(uid, t.id)))
+  const failed = results.find((r): r is PromiseRejectedResult => r.status === 'rejected')
+  if (failed && failed.status === 'rejected' && results.every((r) => r.status === 'rejected')) throw failed.reason
+  const values = results.map((r) => (r.status === 'fulfilled' ? r.value : null))
   const out: SiteSummary[] = []
   values.forEach((value, i) => {
     if (!isRecord(value) || value.ownerId !== uid) return
