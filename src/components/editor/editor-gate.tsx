@@ -1,10 +1,9 @@
 'use client'
 
-import { onAuthStateChanged, signOut } from 'firebase/auth'
 import type { User } from 'firebase/auth'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import type { ReactNode } from 'react'
-import { firebaseConfigured, getFirebaseAuth, storageConfigured } from '@/lib/firebase'
+import { firebaseConfigured, storageConfigured } from '@/lib/firebase'
 import { notifyOwner } from '@/lib/notify'
 import { PersistenceProvider } from '@/lib/site-context'
 import type { Persistence } from '@/lib/site-context'
@@ -20,6 +19,7 @@ import {
 import type { TemplateId } from '@/lib/types'
 import { AccountContext } from './account'
 import { LoginPanel } from './login-panel'
+import { signOutUser, useAuthUser, useLoginNotice } from './use-auth-user'
 
 function SignedIn({ user, template, children }: { user: User; template: TemplateId; children: ReactNode }) {
   const persistence = useMemo<Persistence>(
@@ -40,20 +40,11 @@ function SignedIn({ user, template, children }: { user: User; template: Template
     },
     [user, template],
   )
-  useEffect(() => {
-    const key = `web-sayt:notified:${user.uid}`
-    try {
-      if (window.sessionStorage.getItem(key)) return
-      window.sessionStorage.setItem(key, '1')
-    } catch {
-      /* sessionStorage bağlı ola bilər */
-    }
-    void notifyOwner(user, { event: 'login', template })
-  }, [user, template])
+  useLoginNotice(user, template)
 
   const account = useMemo(
-    () => ({ email: user.email ?? '', signOut: () => void signOut(getFirebaseAuth()) }),
-    [user.email],
+    () => ({ email: user.email ?? '', signOut: () => signOutUser(user) }),
+    [user],
   )
 
   return (
@@ -64,17 +55,7 @@ function SignedIn({ user, template, children }: { user: User; template: Template
 }
 
 function Gate({ template, children }: { template: TemplateId; children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null)
-  const [checked, setChecked] = useState(false)
-
-  useEffect(
-    () =>
-      onAuthStateChanged(getFirebaseAuth(), (next) => {
-        setUser(next)
-        setChecked(true)
-      }),
-    [],
-  )
+  const { user, checked } = useAuthUser()
 
   if (!checked) {
     return (

@@ -9,7 +9,7 @@ import {
 } from 'firebase/auth'
 import Link from 'next/link'
 import { useId, useState } from 'react'
-import type { FormEvent } from 'react'
+import type { FormEvent, ReactNode } from 'react'
 import { getFirebaseAuth } from '@/lib/firebase'
 
 type Mode = 'signin' | 'signup'
@@ -33,7 +33,26 @@ function messageFor(error: unknown): string {
   return MESSAGES[code] ?? 'Giriş alınmadı. Bir az sonra yenidən cəhd edin.'
 }
 
-export function LoginPanel() {
+function PageShell({ children }: { children: ReactNode }) {
+  return (
+    <div className="lp gate">
+      <header className="lp-header">
+        <div className="lp-header__row wrap">
+          <Link href="/" className="lp-brand">
+            WEB SAYT
+          </Link>
+        </div>
+      </header>
+      <main className="gate__main">{children}</main>
+    </div>
+  )
+}
+
+function EmbeddedShell({ children }: { children: ReactNode }) {
+  return <div className="gate__main">{children}</div>
+}
+
+export function LoginPanel({ embedded = false }: { embedded?: boolean }) {
   const ids = { email: useId(), password: useId(), error: useId() }
   const [mode, setMode] = useState<Mode>('signin')
   const [email, setEmail] = useState('')
@@ -79,16 +98,10 @@ export function LoginPanel() {
     })
   }
 
+  const Shell = embedded ? EmbeddedShell : PageShell
+
   return (
-    <div className="lp gate">
-      <header className="lp-header">
-        <div className="lp-header__row wrap">
-          <Link href="/" className="lp-brand">
-            WEB SAYT
-          </Link>
-        </div>
-      </header>
-      <main className="gate__main">
+    <Shell>
         <form className="gate__card" onSubmit={submit} noValidate>
           <h1 className="gate__title">{mode === 'signin' ? 'Hesabınıza daxil olun' : 'Hesab yaradın'}</h1>
           <p className="gate__lead">Saytınız hesabınızda saxlanılır və yalnız siz redaktə edə bilərsiniz.</p>
@@ -152,7 +165,6 @@ export function LoginPanel() {
             )}
           </div>
         </form>
-      </main>
-    </div>
+    </Shell>
   )
 }

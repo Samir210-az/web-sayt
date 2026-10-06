@@ -1,6 +1,6 @@
 import { get, ref, update } from 'firebase/database'
 import { getFirebaseApp, getFirebaseDb } from './firebase'
-import { createSiteFor, getTemplate } from './template-registry'
+import { createSiteFor, getTemplate, TEMPLATES } from './template-registry'
 import type { ExtraSection, ImageValue, PageKey, ServiceItem, SiteConfig, TemplateId } from './types'
 
 const HEX = /^#[0-9a-fA-F]{6}$/
@@ -150,6 +150,32 @@ export async function loadSite(uid: string, template: TemplateId): Promise<SiteC
   const value = snap.val()
   if (!isRecord(value) || value.ownerId !== uid) return null
   return decodeSite(value.draft, template)
+}
+
+export interface SiteSummary {
+  template: TemplateId
+  updatedAt: number
+  publish: PublishInfo | null
+}
+
+export async function listSites(uid: string): Promise<SiteSummary[]> {
+  const db = getFirebaseDb()
+  const snaps = await Promise.all(TEMPLATES.map((t) => get(ref(db, `sites/${siteId(uid, t.id)}`))))
+  const out: SiteSummary[] = []
+  snaps.forEach((snap, i) => {
+    const value = snap.val()
+    if (!isRecord(value) || value.ownerId !== uid) return
+    const published =
+      typeof value.subdomain === 'string' && typeof value.publishedAt === 'number'
+        ? { name: value.subdomain, publishedAt: value.publishedAt }
+        : null
+    out.push({
+      template: TEMPLATES[i].id,
+      updatedAt: typeof value.updatedAt === 'number' ? value.updatedAt : 0,
+      publish: published,
+    })
+  })
+  return out.sort((a, b) => b.updatedAt - a.updatedAt)
 }
 
 export async function saveSite(uid: string, site: SiteConfig): Promise<void> {

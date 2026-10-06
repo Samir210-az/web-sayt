@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { Dashboard } from '@/components/editor/dashboard'
 import { TemplateCards } from '@/components/landing/template-cards'
 
 export const metadata: Metadata = {
-  title: 'Şablon seçin',
+  title: 'Panel',
   robots: { index: false, follow: false },
 }
 
@@ -18,9 +19,7 @@ export default function Page() {
         </div>
       </header>
       <main className="lp-section wrap lp-pick">
-        <h1 className="lp-title">Şablon seçin</h1>
-        <p className="lp-sub">Seçdiyiniz şablon redaktorda açılacaq. Dəyişikliklər bu brauzerdə qaralama kimi saxlanılır.</p>
-        <TemplateCards mode="edit" />
+        <Dashboard cards={<TemplateCards mode="edit" />} />
       </main>
     </div>
   )

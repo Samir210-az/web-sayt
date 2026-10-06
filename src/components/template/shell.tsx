@@ -127,6 +127,11 @@ function EditorBar() {
         <span>Əsas rəng</span>
         <input type="color" value={site.theme.accent} onChange={(e) => setAccent(e.target.value)} />
       </label>
+      {account && (
+        <Link href="/redaktor" className="editbar__btn">
+          Panel
+        </Link>
+      )}
       <Link href={pageHref('/', false, site.template)} className="editbar__btn">
         Önizləmə
       </Link>
