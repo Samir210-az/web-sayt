@@ -66,13 +66,15 @@ function readDraft(template: TemplateId): SiteConfig | null {
 export function SiteProvider({
   template,
   editing,
+  initialSite,
   children,
 }: {
   template: TemplateId
   editing: boolean
+  initialSite?: SiteConfig
   children: ReactNode
 }) {
-  const [site, setSite] = useState<SiteConfig>(() => createSiteFor(template))
+  const [site, setSite] = useState<SiteConfig>(() => initialSite ?? createSiteFor(template))
   const persistence = useContext(PersistenceContext)
   const remote = editing && persistence !== null
   const [saveState, setSaveState] = useState<SaveState>('idle')

@@ -98,7 +98,7 @@ export function Parallax({ speed = 0.1, bleed = false, className, children }: Pa
   }, [speed, bleed])
 
   return (
-    <div ref={frameRef} className={['px', bleed ? 'px--bleed' : '', className].filter(Boolean).join(' ')}>
+    <div ref={frameRef} data-px-speed={speed} className={['px', bleed ? 'px--bleed' : '', className].filter(Boolean).join(' ')}>
       <div ref={innerRef} className="px__inner">
         {children}
       </div>

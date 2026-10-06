@@ -23,7 +23,7 @@ export default async function Page({ params }: { params: Params }) {
   if (!meta || !route) notFound()
 
   return (
-    <SiteShell template={meta.id} editing={false} current={route.key}>
+    <SiteShell template={meta.id} editing={false} current={route.key} demoBar>
       <route.View />
     </SiteShell>
   )

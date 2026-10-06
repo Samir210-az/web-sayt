@@ -7,7 +7,7 @@ import { useAccount } from '@/components/editor/account'
 import { Editable } from '@/components/editable'
 import { SiteProvider, useSite } from '@/lib/site-context'
 import { EDITOR_PREFIX, PAGES } from '@/lib/types'
-import type { TemplateId } from '@/lib/types'
+import type { SiteConfig, TemplateId } from '@/lib/types'
 import { cx, pageHref } from '@/lib/utils'
 
 function Header({ current }: { current: string }) {
@@ -89,16 +89,32 @@ const STATUS: Record<string, string> = {
 function EditorBar() {
   const { site, setAccent, reset, saveState, storage } = useSite()
   const account = useAccount()
+  const [exporting, setExporting] = useState(false)
+  const [exportError, setExportError] = useState(false)
 
-  const status =
-    STATUS[saveState] ??
-    (saveState === 'saved'
-      ? storage === 'account'
-        ? 'Hesabınıza saxlanıldı'
-        : 'Qaralama bu brauzerdə saxlanıldı'
-      : storage === 'account'
-        ? 'Mətnə və ya şəkilə klik edib dəyişin'
-        : 'Hesab qoşulmayıb: dəyişikliklər yalnız bu brauzerdə saxlanılır')
+  const download = async () => {
+    setExporting(true)
+    setExportError(false)
+    try {
+      const { downloadSiteZip } = await import('@/lib/export-site')
+      await downloadSiteZip(site)
+    } catch {
+      setExportError(true)
+    } finally {
+      setExporting(false)
+    }
+  }
+
+  const savedText =
+    storage === 'account' ? 'Hesabınıza saxlanıldı' : 'Qaralama bu brauzerdə saxlanıldı'
+  const idleText =
+    storage === 'account'
+      ? 'Mətnə və ya şəkilə klik edib dəyişin'
+      : 'Hesab qoşulmayıb: dəyişikliklər yalnız bu brauzerdə saxlanılır'
+
+  let status = STATUS[saveState] ?? (saveState === 'saved' ? savedText : idleText)
+  if (exporting) status = 'ZIP hazırlanır…'
+  if (exportError) status = 'ZIP hazırlamaq alınmadı. Səhifəni yeniləyib yenidən cəhd edin.'
 
   return (
     <div className="editbar" role="region" aria-label="Redaktor paneli">
@@ -113,6 +129,9 @@ function EditorBar() {
       <Link href={pageHref('/', false, site.template)} className="editbar__btn">
         Önizləmə
       </Link>
+      <button type="button" className="editbar__btn" onClick={download} disabled={exporting}>
+        ZIP yüklə
+      </button>
       <button
         type="button"
         className="editbar__btn editbar__btn--quiet"
@@ -135,19 +154,23 @@ export function SiteShell({
   template,
   editing,
   current,
+  demoBar = false,
+  initialSite,
   children,
 }: {
   template: TemplateId
   editing: boolean
   current: string
+  demoBar?: boolean
+  initialSite?: SiteConfig
   children: ReactNode
 }) {
   return (
-    <SiteProvider template={template} editing={editing}>
+    <SiteProvider template={template} editing={editing} initialSite={initialSite}>
       <a className="skip" href="#content">
         Məzmuna keç
       </a>
-      {!editing && (
+      {demoBar && (
         <div className="demobar">
           <span>Bu, nümunə şablondur.</span>
           <Link href={`${EDITOR_PREFIX}/${template}`}>Redaktorda aç</Link>
