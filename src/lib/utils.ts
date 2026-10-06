@@ -1,12 +1,12 @@
-import { EDITOR_PREFIX } from './types'
+import { EDITOR_PREFIX, TEMPLATE_PREFIX } from './types'
 
 export function cx(...parts: (string | false | null | undefined)[]): string {
   return parts.filter(Boolean).join(' ')
 }
 
 export function pageHref(path: string, editing: boolean): string {
-  if (!editing) return path
-  return path === '/' ? EDITOR_PREFIX : `${EDITOR_PREFIX}${path}`
+  const prefix = editing ? EDITOR_PREFIX : TEMPLATE_PREFIX
+  return path === '/' ? prefix : `${prefix}${path}`
 }
 
 export function telHref(value: string): string | undefined {

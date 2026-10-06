@@ -5,7 +5,7 @@ import { useState } from 'react'
 import type { ReactNode } from 'react'
 import { Editable } from '@/components/editable'
 import { SiteProvider, useSite } from '@/lib/site-context'
-import { PAGES } from '@/lib/types'
+import { PAGES, TEMPLATE_PREFIX } from '@/lib/types'
 import { cx, pageHref } from '@/lib/utils'
 
 function Header({ current }: { current: string }) {
@@ -25,7 +25,7 @@ function Header({ current }: { current: string }) {
         {editing ? (
           <div className="brand">{brand}</div>
         ) : (
-          <Link href="/" className="brand" aria-label="Ana səhifə">
+          <Link href={TEMPLATE_PREFIX} className="brand" aria-label="Ana səhifə">
             {brand}
           </Link>
         )}
@@ -97,7 +97,7 @@ function EditorBar() {
         <span>Əsas rəng</span>
         <input type="color" value={site.theme.accent} onChange={(e) => setAccent(e.target.value)} />
       </label>
-      <Link href="/" className="editbar__btn">
+      <Link href={TEMPLATE_PREFIX} className="editbar__btn">
         Önizləmə
       </Link>
       <button
@@ -119,6 +119,13 @@ export function SiteShell({ editing, current, children }: { editing: boolean; cu
       <a className="skip" href="#content">
         Məzmuna keç
       </a>
+      {!editing && (
+        <div className="demobar">
+          <span>Bu, nümunə şablondur.</span>
+          <Link href="/redaktor">Redaktorda aç</Link>
+          <Link href="/">Platformaya qayıt</Link>
+        </div>
+      )}
       <Header current={current} />
       <main id="content" className={cx(editing && 'main--editing')}>
         {children}

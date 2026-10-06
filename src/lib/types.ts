@@ -42,3 +42,4 @@ export const PAGES: { key: PageKey; label: string; path: string }[] = [
 ]
 
 export const EDITOR_PREFIX = '/redaktor'
+export const TEMPLATE_PREFIX = '/shablon'

@@ -4,8 +4,8 @@ import '@fontsource-variable/instrument-sans'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: { default: 'Evdar', template: '%s | Evdar' },
-  description: 'Elektrik, santexnika, kondisioner və kiçik təmir işləri: eyni gün gəliş, əvvəlcədən razılaşdırılmış qiymət.',
+  title: { default: 'web-sayt: şirkətinizin saytını özünüz yaradın', template: '%s | web-sayt' },
+  description: 'Hazır şablon seçin, mətni və şəkli səhifənin üstündə birbaşa dəyişin, öz bölmələrinizi əlavə edin.',
 }
 
 export const viewport: Viewport = {
