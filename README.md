@@ -12,7 +12,7 @@ npm run dev
 - Sayt: `http://localhost:3000`
 - Redaktor: `http://localhost:3000/redaktor`
 
-Redaktor dəyişiklikləri hələlik brauzerin `localStorage` yaddaşında qaralama kimi saxlanır. Verilənlər bazası sxemi `supabase/schema.sql` faylındadır.
+Redaktor dəyişiklikləri hələlik brauzerin `localStorage` yaddaşında qaralama kimi saxlanır. Verilənlər bazası Firebase (Realtime Database) olacaq. Təhlükəsizlik qaydaları `firebase/` qovluğundadır, hələ Firebase layihəsinə tətbiq olunmayıb.
 
 ## Struktur
 
