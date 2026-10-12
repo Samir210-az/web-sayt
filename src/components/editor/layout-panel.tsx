@@ -103,7 +103,7 @@ export function LayoutPanel() {
                   checked={site.layout?.hero === 'mirror'}
                   onChange={(e) => setHeroMirror(e.target.checked)}
                 />
-                <span>Giriş bölməsində mətn və şəkilin yerini dəyiş</span>
+                <span>Giriş bölməsinin düzülüşünü dəyiş</span>
               </label>
             )}
 

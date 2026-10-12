@@ -59,6 +59,14 @@ export const NAV_STYLES: { key: NavStyle; label: string }[] = [
 export type HeroStyle = 'mirror'
 
 export const HERO_MIRROR_TEMPLATES: TemplateId[] = [
+  'xidmet',
+  'kafe',
+  'huquq',
+  'studiya',
+  'interyer',
+  'toy',
+  'berber',
+  'avto',
   'klinika',
   'gozellik',
   'idman',
