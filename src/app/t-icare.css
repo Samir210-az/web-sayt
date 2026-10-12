@@ -200,7 +200,7 @@
   --zx: 18%;
   --zy: 30%;
   position: absolute;
-  left: -22px;
+  left: 0;
   bottom: 0;
   width: clamp(104px, 15vw, 168px);
   aspect-ratio: 1;
@@ -707,10 +707,6 @@
 
   .site[data-template='icare'] .ic-hero__panel {
     box-shadow: 8px 8px 0 var(--ink);
-  }
-
-  .site[data-template='icare'] .ic-hero__tag {
-    left: -8px;
   }
 
   .site[data-template='icare'] .svclist {
