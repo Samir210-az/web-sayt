@@ -62,15 +62,6 @@ function Header({ current }: { current: string }) {
   )
 }
 
-function Main({ editing, children }: { editing: boolean; children: ReactNode }) {
-  const { site } = useSite()
-  return (
-    <main id="content" className={cx(editing && 'main--editing', site.layout?.order && 'main--ordered')}>
-      {children}
-    </main>
-  )
-}
-
 function Footer() {
   return (
     <footer className="footer">
@@ -198,7 +189,9 @@ export function SiteShell({
         </div>
       )}
       <Header current={current} />
-      <Main editing={editing}>{children}</Main>
+      <main id="content" className={cx(editing && 'main--editing')}>
+        {children}
+      </main>
       <Footer />
       {editing && <EditorBar />}
     </SiteProvider>

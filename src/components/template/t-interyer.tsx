@@ -6,7 +6,7 @@ import { Reveal } from '@/components/motion'
 import { Parallax } from '@/components/parallax'
 import { useSite } from '@/lib/site-context'
 import { cx, telHref } from '@/lib/utils'
-import { ActionLink, ExtraBlocks, SectionFrame, ServiceList } from './blocks'
+import { ActionLink, ExtraBlocks, SectionFrame, Sections, ServiceList } from './blocks'
 import { CtaCopy, ServicesHead, Steps } from './homes'
 import {
   ContactRows,
@@ -32,7 +32,7 @@ export function HomeInteryer() {
   const { editing, text } = useSite()
 
   return (
-    <>
+    <Sections>
       <SectionFrame id="home.hero" label="Giriş bölməsi">
         <section className={cx('in-hero wrap', !editing && 'in-hero--enter')}>
           <Editable.Text as="p" k="contact.address" className="in-hero__side" label="Ünvan" max={120} />
@@ -93,7 +93,7 @@ export function HomeInteryer() {
       </SectionFrame>
 
       <ExtraBlocks page="home" />
-    </>
+    </Sections>
   )
 }
 

@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import type { CSSProperties, ReactNode } from 'react'
+import { Children, isValidElement, useEffect, useState } from 'react'
+import type { CSSProperties, ReactElement, ReactNode } from 'react'
 import { Editable, ImageField, TextField } from '@/components/editable'
 import { Parallax } from '@/components/parallax'
 import { useSite } from '@/lib/site-context'
@@ -16,11 +16,8 @@ export function SectionFrame({ id, label, children }: { id: string; label: strin
 
   if (hidden && !editing) return null
 
-  const position = site.layout?.order?.indexOf(id) ?? -1
-  const order = id.endsWith('.hero') ? -1 : position >= 0 ? position : 1000
-
   return (
-    <div className={cx('frame', hidden && 'frame--hidden')} style={site.layout?.order ? { order } : undefined}>
+    <div className={cx('frame', hidden && 'frame--hidden')}>
       {editing && (
         <div className="frame__bar wrap">
           <span>{label}</span>
@@ -33,6 +30,23 @@ export function SectionFrame({ id, label, children }: { id: string; label: strin
       {children}
     </div>
   )
+}
+
+export function Sections({ children }: { children: ReactNode }) {
+  const { site } = useSite()
+  const items = Children.toArray(children)
+  const order = site.layout?.order
+  if (!order) return <>{items}</>
+
+  const rank = (item: ReactNode) => {
+    const id = isValidElement(item) ? (item as ReactElement<{ id?: unknown }>).props.id : undefined
+    if (typeof id !== 'string') return 2000
+    if (id.endsWith('.hero')) return -1
+    const index = order.indexOf(id)
+    return index >= 0 ? index : 1000
+  }
+
+  return <>{items.map((item, i) => ({ item, i })).sort((a, b) => rank(a.item) - rank(b.item) || a.i - b.i).map((x) => x.item)}</>
 }
 
 export function ActionLink({
@@ -273,7 +287,7 @@ export function ExtraBlocks({ page }: { page: PageKey }) {
   const blocks = site.extras[page]
 
   return (
-    <div className="extras" style={site.layout?.order ? { order: 2000 } : undefined}>
+    <>
       {blocks.map((block) => (
         <section key={block.id} className={cx('split', block.imageSide === 'left' && 'split--flip')}>
           <div className="split__copy wrap-inner">
@@ -333,6 +347,6 @@ export function ExtraBlocks({ page }: { page: PageKey }) {
           </button>
         </div>
       )}
-    </div>
+    </>
   )
 }

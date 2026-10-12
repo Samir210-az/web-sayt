@@ -5,7 +5,7 @@ import { Marquee, Reveal } from '@/components/motion'
 import { Parallax } from '@/components/parallax'
 import { useSite } from '@/lib/site-context'
 import { cx, telHref } from '@/lib/utils'
-import { ActionLink, ExtraBlocks, SectionFrame, ServiceList } from './blocks'
+import { ActionLink, ExtraBlocks, SectionFrame, Sections, ServiceList } from './blocks'
 import { CtaCopy, ServicesHead, Steps, useServiceTitles } from './homes'
 
 function HeroCta() {
@@ -42,7 +42,7 @@ export function HomeHuquq() {
   const { editing } = useSite()
 
   return (
-    <>
+    <Sections>
       <SectionFrame id="home.hero" label="Giriş bölməsi">
         <section className={cx('hq-hero wrap', !editing && 'hq-hero--enter')}>
           <div className="hq-hero__frame">
@@ -80,7 +80,7 @@ export function HomeHuquq() {
       </SectionFrame>
 
       <ExtraBlocks page="home" />
-    </>
+    </Sections>
   )
 }
 
@@ -90,7 +90,7 @@ export function HomeGozellik() {
   const { editing } = useSite()
 
   return (
-    <>
+    <Sections>
       <SectionFrame id="home.hero" label="Giriş bölməsi">
         <section className={cx('gz-hero wrap', !editing && 'gz-hero--enter')}>
           <div className="gz-hero__copy">
@@ -136,7 +136,7 @@ export function HomeGozellik() {
       </SectionFrame>
 
       <ExtraBlocks page="home" />
-    </>
+    </Sections>
   )
 }
 
@@ -147,7 +147,7 @@ export function HomeIdman() {
   const titles = useServiceTitles()
 
   return (
-    <>
+    <Sections>
       <SectionFrame id="home.hero" label="Giriş bölməsi">
         <section className={cx('id-hero', !editing && 'id-hero--enter')}>
           <Parallax speed={-0.2} className="id-hero__ghost">
@@ -185,7 +185,7 @@ export function HomeIdman() {
       </SectionFrame>
 
       <ExtraBlocks page="home" />
-    </>
+    </Sections>
   )
 }
 
@@ -195,7 +195,7 @@ export function HomeTikinti() {
   const { editing } = useSite()
 
   return (
-    <>
+    <Sections>
       <SectionFrame id="home.hero" label="Giriş bölməsi">
         <section className={cx('tk-hero', !editing && 'tk-hero--enter')}>
           <div className="tk-hero__text">
@@ -232,7 +232,7 @@ export function HomeTikinti() {
       </SectionFrame>
 
       <ExtraBlocks page="home" />
-    </>
+    </Sections>
   )
 }
 
@@ -242,7 +242,7 @@ export function HomeKurs() {
   const { editing } = useSite()
 
   return (
-    <>
+    <Sections>
       <SectionFrame id="home.hero" label="Giriş bölməsi">
         <section className={cx('kr-hero wrap', !editing && 'kr-hero--enter')}>
           <div className="kr-hero__copy">
@@ -280,7 +280,7 @@ export function HomeKurs() {
       </SectionFrame>
 
       <ExtraBlocks page="home" />
-    </>
+    </Sections>
   )
 }
 
@@ -290,7 +290,7 @@ export function HomeStudiya() {
   const { editing } = useSite()
 
   return (
-    <>
+    <Sections>
       <SectionFrame id="home.hero" label="Giriş bölməsi">
         <section className={cx('st-hero', !editing && 'st-hero--enter')}>
           <Parallax speed={0.2} bleed className="st-hero__bg">
@@ -332,7 +332,7 @@ export function HomeStudiya() {
       </SectionFrame>
 
       <ExtraBlocks page="home" />
-    </>
+    </Sections>
   )
 }
 
@@ -342,7 +342,7 @@ export function HomeUsaq() {
   const { editing } = useSite()
 
   return (
-    <>
+    <Sections>
       <SectionFrame id="home.hero" label="Giriş bölməsi">
         <section className={cx('uq-hero wrap', !editing && 'uq-hero--enter')}>
           <div className="uq-hero__copy">
@@ -391,6 +391,6 @@ export function HomeUsaq() {
       </SectionFrame>
 
       <ExtraBlocks page="home" />
-    </>
+    </Sections>
   )
 }

@@ -6,7 +6,7 @@ import { Marquee, Reveal } from '@/components/motion'
 import { Parallax } from '@/components/parallax'
 import { useSite } from '@/lib/site-context'
 import { cx, telHref } from '@/lib/utils'
-import { ActionLink, ExtraBlocks, SectionFrame, ServiceList } from './blocks'
+import { ActionLink, ExtraBlocks, SectionFrame, Sections, ServiceList } from './blocks'
 
 export function ServicesHead({ linkClass = 'textlink' }: { linkClass?: string }) {
   const { href } = useSite()
@@ -69,7 +69,7 @@ export function HomeXidmet() {
   const titles = useServiceTitles()
 
   return (
-    <>
+    <Sections>
       <SectionFrame id="home.hero" label="Giriş bölməsi">
         <section className={cx('hero', !editing && 'hero--enter')}>
           <div className="hero__stage">
@@ -131,7 +131,7 @@ export function HomeXidmet() {
       </SectionFrame>
 
       <ExtraBlocks page="home" />
-    </>
+    </Sections>
   )
 }
 
@@ -141,7 +141,7 @@ export function HomeKlinika() {
   const { editing, text } = useSite()
 
   return (
-    <>
+    <Sections>
       <SectionFrame id="home.hero" label="Giriş bölməsi">
         <section className={cx('kl-hero wrap', !editing && 'kl-hero--enter')}>
           <Parallax speed={0.22} className="kl-hero__blob kl-hero__blob--a">
@@ -205,7 +205,7 @@ export function HomeKlinika() {
       </SectionFrame>
 
       <ExtraBlocks page="home" />
-    </>
+    </Sections>
   )
 }
 
@@ -216,7 +216,7 @@ export function HomeKafe() {
   const titles = useServiceTitles()
 
   return (
-    <>
+    <Sections>
       <SectionFrame id="home.hero" label="Giriş bölməsi">
         <section className={cx('cf-hero', !editing && 'cf-hero--enter')}>
           <Parallax speed={0.2} bleed className="cf-hero__bg">
@@ -275,7 +275,7 @@ export function HomeKafe() {
       </SectionFrame>
 
       <ExtraBlocks page="home" />
-    </>
+    </Sections>
   )
 }
 
@@ -285,7 +285,7 @@ export function HomeBosh() {
   const { editing, text } = useSite()
 
   return (
-    <>
+    <Sections>
       <SectionFrame id="home.hero" label="Giriş bölməsi">
         <section className={cx('bs-hero wrap', !editing && 'bs-hero--enter')}>
           <Editable.Text as="h1" k="home.hero.title" className="bs-hero__title" label="Əsas başlıq" max={110} />
@@ -326,6 +326,6 @@ export function HomeBosh() {
       </SectionFrame>
 
       <ExtraBlocks page="home" />
-    </>
+    </Sections>
   )
 }

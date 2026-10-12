@@ -5,7 +5,7 @@ import { Reveal } from '@/components/motion'
 import { Parallax } from '@/components/parallax'
 import { useSite } from '@/lib/site-context'
 import { cx, telHref } from '@/lib/utils'
-import { ActionLink, ExtraBlocks, SectionFrame, ServiceList } from './blocks'
+import { ActionLink, ExtraBlocks, SectionFrame, Sections, ServiceList } from './blocks'
 import { CtaCopy, ServicesHead, Steps } from './homes'
 import {
   ContactRows,
@@ -31,7 +31,7 @@ export function HomeTurizm() {
   const { editing, text } = useSite()
 
   return (
-    <>
+    <Sections>
       <SectionFrame id="home.hero" label="Giriş bölməsi">
         <section className={cx('tz-hero wrap', !editing && 'tz-hero--enter')}>
           <svg className="tz-route" viewBox="0 0 1200 600" preserveAspectRatio="none" aria-hidden="true">
@@ -100,7 +100,7 @@ export function HomeTurizm() {
       </SectionFrame>
 
       <ExtraBlocks page="home" />
-    </>
+    </Sections>
   )
 }
 

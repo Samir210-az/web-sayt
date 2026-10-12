@@ -5,7 +5,7 @@ import { Reveal } from '@/components/motion'
 import { Parallax } from '@/components/parallax'
 import { useSite } from '@/lib/site-context'
 import { cx, telHref } from '@/lib/utils'
-import { ActionLink, ExtraBlocks, SectionFrame, ServiceList } from './blocks'
+import { ActionLink, ExtraBlocks, SectionFrame, Sections, ServiceList } from './blocks'
 import { CtaCopy, ServicesHead, Steps, useServiceTitles } from './homes'
 import { ContactRows, PhoneField, ValueItems, ValuesTitle, WhatsappLink, useContactLinks } from './page-parts'
 
@@ -44,7 +44,7 @@ export function HomeIt() {
   const { editing, text } = useSite()
 
   return (
-    <>
+    <Sections>
       <SectionFrame id="home.hero" label="Giriş bölməsi">
         <section className={cx('it-hero', !editing && 'it-hero--enter')}>
           <div className="it-hero__grid" aria-hidden="true" />
@@ -104,7 +104,7 @@ export function HomeIt() {
       </SectionFrame>
 
       <ExtraBlocks page="home" />
-    </>
+    </Sections>
   )
 }
 

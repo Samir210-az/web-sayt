@@ -6,7 +6,7 @@ import { Reveal } from '@/components/motion'
 import { Parallax } from '@/components/parallax'
 import { useSite } from '@/lib/site-context'
 import { cx, telHref } from '@/lib/utils'
-import { ActionLink, ExtraBlocks, SectionFrame, ServiceList } from './blocks'
+import { ActionLink, ExtraBlocks, SectionFrame, Sections, ServiceList } from './blocks'
 import { CtaCopy, ServicesHead, Steps } from './homes'
 import {
   ContactRows,
@@ -44,7 +44,7 @@ export function HomeEmlak() {
   const { editing, text } = useSite()
 
   return (
-    <>
+    <Sections>
       <SectionFrame id="home.hero" label="Giriş bölməsi">
         <section className={cx('em-hero', !editing && 'em-hero--enter')}>
           <div className="em-hero__grid wrap">
@@ -127,7 +127,7 @@ export function HomeEmlak() {
       </SectionFrame>
 
       <ExtraBlocks page="home" />
-    </>
+    </Sections>
   )
 }
 

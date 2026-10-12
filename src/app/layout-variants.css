@@ -1,14 +1,5 @@
 /* Menyu yeri variantları: şablonun öz rənglərindən (--duman, --ink, --accent) istifadə edir */
 
-.main--ordered {
-  display: flex;
-  flex-direction: column;
-}
-
-.main--ordered > * {
-  min-width: 0;
-}
-
 /* Ortada: loqo üstdə, menyu altda */
 @media (min-width: 821px) {
   .site[data-nav='center'][data-template] .header__row {
@@ -280,6 +271,10 @@
   transform: scaleX(-1);
 }
 
+.site[data-hero='mirror'][data-template='xidmet'] .hero__panel {
+  transform: scaleX(-1);
+}
+
 .site[data-hero='mirror'][data-template='xidmet'] .hero__stage {
   justify-content: flex-end;
 }
@@ -289,14 +284,14 @@
   margin-inline: 0;
 }
 
+.site[data-hero='mirror'][data-template='xidmet'] .hero__chip {
+  top: auto;
+  bottom: 9%;
+}
+
 .site[data-hero='mirror'][data-template='xidmet'] .hero__float {
   right: auto;
   left: clamp(20px, 7vw, 110px);
-}
-
-.site[data-hero='mirror'][data-template='xidmet'] .hero__chip {
-  right: auto;
-  left: clamp(20px, 9vw, 150px);
 }
 
 @media (min-width: 961px) {
