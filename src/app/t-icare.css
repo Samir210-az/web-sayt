@@ -316,15 +316,15 @@
 }
 
 .site[data-template='icare'] .svc:nth-child(6n + 3) .svc__media {
-  --zs: 2.2;
-  --zx: 64%;
-  --zy: 24%;
+  --zs: 2.4;
+  --zx: 71%;
+  --zy: 100%;
 }
 
 .site[data-template='icare'] .svc:nth-child(6n + 4) .svc__media {
-  --zs: 2.9;
-  --zx: 17%;
-  --zy: 30%;
+  --zs: 2.4;
+  --zx: 21%;
+  --zy: 100%;
 }
 
 .site[data-template='icare'] .svc:nth-child(6n + 5) .svc__media {
@@ -587,6 +587,13 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 16px 28px;
+}
+
+.site[data-template='icare'] .ic-desk__call .btn {
+  gap: 8px;
+  padding-inline: 16px;
+  font-size: 0.82rem;
+  white-space: nowrap;
 }
 
 .site[data-template='icare'] .ic-desk__phone {
