@@ -5,7 +5,7 @@ export function createIcareSite(): SiteConfig {
   return build('icare', {
     accent: '#f0b400',
     text: {
-      'brand.name': 'Marşrut',
+      'brand.name': 'Avtomobil icarəsi',
 
       'home.hero.chip': 'Avtomobil icarəsi · gündəlik və aylıq',
       'home.hero.title': 'Yola çıxmaq üçün hazır avtomobil',
@@ -34,7 +34,7 @@ export function createIcareSite(): SiteConfig {
       'services.page.lead': 'Qiymət sinifdən və müddətdən asılıdır, zəng edərək dəqiq öyrənə bilərsiniz.',
 
       'about.title': 'Haqqımızda',
-      'about.lead': 'Marşrut şəhər və bölgə səfərləri üçün avtomobil icarəsi ilə məşğul olur.',
+      'about.lead': 'Şəhər və bölgə səfərləri üçün avtomobil icarəsi ilə məşğul oluruq.',
       'about.body1':
         'Hər avtomobil təhvildən əvvəl yuyulur və yoxlanılır. Müqavilədə nə yazılıbsa, qiymət də o olur.',
       'about.body2':
@@ -51,7 +51,7 @@ export function createIcareSite(): SiteConfig {
       'contact.lead': 'Rezerv üçün zəng edin və ya WhatsApp-da yazın.',
       'contact.phone': '+994 12 000 00 00',
       'contact.whatsapp': '+994 50 000 00 00',
-      'contact.email': 'info@marshrut.az',
+      'contact.email': 'info@sirketiniz.az',
       'contact.address': 'Bakı şəhəri',
       'contact.hours': 'Hər gün 09:00 – 21:00',
     },

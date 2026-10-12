@@ -18,7 +18,7 @@ export function createDefaultSite(): SiteConfig {
     theme: { accent: DEFAULT_ACCENT },
     logo: img('Loqo'),
     text: {
-      'brand.name': 'Usta',
+      'brand.name': 'Xidmət',
 
       'home.hero.title': 'Evinizdəki hər problem bir zəngə qədər yaxındır',
       'home.hero.lead':
@@ -47,7 +47,7 @@ export function createDefaultSite(): SiteConfig {
       'services.page.lead': 'Hər xidmətin qiyməti işə başlamazdan əvvəl razılaşdırılır.',
 
       'about.title': 'Haqqımızda',
-      'about.lead': 'Usta kiçik və təcrübəli ustalar komandasıdır.',
+      'about.lead': 'Kiçik və təcrübəli ustalar komandasıdır.',
       'about.body1':
         'Biz ev və mənzil sahiblərinin gündəlik problemlərini tez və səliqəli həll etmək üçün bir araya gəlmişik.',
       'about.body2':
@@ -64,7 +64,7 @@ export function createDefaultSite(): SiteConfig {
       'contact.lead': 'Zəng edin və ya yazın, eyni gün cavab veririk.',
       'contact.phone': '+994 12 000 00 00',
       'contact.whatsapp': '+994 50 000 00 00',
-      'contact.email': 'salam@usta.az',
+      'contact.email': 'info@sirketiniz.az',
       'contact.address': 'Bakı şəhəri',
       'contact.hours': 'Hər gün 09:00 – 21:00',
 

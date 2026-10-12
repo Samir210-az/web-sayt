@@ -8,7 +8,7 @@ export function createKafeSite(): SiteConfig {
     theme: { accent: '#b3243f' },
     logo: img('Loqo'),
     text: {
-      'brand.name': 'Dəmlik Kafe',
+      'brand.name': 'Kafe',
 
       'home.hero.title': 'Səhər qəhvəsindən axşam süfrəsinə qədər',
       'home.hero.lead': 'Təzə bişmiş yeməklər, ev desertləri və qaynar çay. Dostlarla oturmaq üçün isti bir yer.',
@@ -36,7 +36,7 @@ export function createKafeSite(): SiteConfig {
       'services.page.lead': 'Menyu mövsümə görə yenilənir.',
 
       'about.title': 'Haqqımızda',
-      'about.lead': 'Dəmlik Kafe ailə işidir.',
+      'about.lead': 'Kiçik ailə kafesidir.',
       'about.body1':
         'Kafeni dostlarla oturub söhbət edə biləcəyiniz bir yer kimi açdıq. Yeməklərin çoxunu ev resepti ilə hazırlayırıq.',
       'about.body2': 'Məhsulları yerli təchizatçılardan alırıq, menyunu mövsümə görə yeniləyirik.',
@@ -52,7 +52,7 @@ export function createKafeSite(): SiteConfig {
       'contact.lead': 'Masa sifarişi üçün zəng edin və ya yazın.',
       'contact.phone': '+994 12 000 00 00',
       'contact.whatsapp': '+994 50 000 00 00',
-      'contact.email': 'salam@demlik.az',
+      'contact.email': 'info@sirketiniz.az',
       'contact.address': 'Bakı şəhəri',
       'contact.hours': 'Hər gün 08:00 – 23:00',
 

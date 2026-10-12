@@ -5,7 +5,7 @@ export function createItSite(): SiteConfig {
   return build('it', {
     accent: '#b6f23c',
     text: {
-      'brand.name': 'Kod Zavodu',
+      'brand.name': 'IT şirkəti',
 
       'home.hero.chip': 'Veb, mobil və daxili sistemlər',
       'home.hero.title': 'Biznesinizin işinə uyğun proqram yazırıq',
@@ -34,7 +34,7 @@ export function createItSite(): SiteConfig {
       'services.page.lead': 'Hər layihədə əvvəlcə tələblər yazılır, sonra müddət və büdcə razılaşdırılır.',
 
       'about.title': 'Haqqımızda',
-      'about.lead': 'Kod Zavodu proqramçı, dizayner və analitiklərdən ibarət kiçik komandadır.',
+      'about.lead': 'Proqramçı, dizayner və analitiklərdən ibarət kiçik komandadır.',
       'about.body1':
         'Sifarişçinin dilində danışır, texniki qərarları sadə izah edir və verdiyimiz sözü vaxtında yerinə yetiririk.',
       'about.body2':
@@ -51,7 +51,7 @@ export function createItSite(): SiteConfig {
       'contact.lead': 'Layihəni qısaca yazın və ya zəng edin, növbəti addımı birlikdə müəyyən edək.',
       'contact.phone': '+994 12 000 00 00',
       'contact.whatsapp': '+994 50 000 00 00',
-      'contact.email': 'salam@kodzavodu.az',
+      'contact.email': 'info@sirketiniz.az',
       'contact.address': 'Bakı şəhəri',
       'contact.hours': 'B.e. – Cümə 09:00 – 18:00',
     },

@@ -5,7 +5,7 @@ export function createTurizmSite(): SiteConfig {
   return build('turizm', {
     accent: '#e2543b',
     text: {
-      'brand.name': 'Yol Əhli',
+      'brand.name': 'Turizm',
       'home.hero.title': 'Bu dəfə hara gedirik?',
       'home.hero.lead': 'Aviabilet, otel, viza və transfer bir yerdə. Tarixləri və büdcənizi deyin, sizə uyğun marşrutları göndərək.',
       'home.hero.cta': 'Təklif istə',
@@ -27,7 +27,7 @@ export function createTurizmSite(): SiteConfig {
       'services.page.title': 'Səyahət xidmətləri',
       'services.page.lead': 'Hər səfər üçün istiqaməti, tarixləri və büdcəni birlikdə dəqiqləşdiririk.',
       'about.title': 'Haqqımızda',
-      'about.lead': 'Yol Əhli səyahəti stressiz etmək üçün çalışan kiçik turizm agentliyidir.',
+      'about.lead': 'Səyahəti stressiz etmək üçün çalışan kiçik turizm agentliyidir.',
       'about.body1': 'Hər səfərə fərdi yanaşırıq: hara getmək istədiyinizi, kiminlə getdiyinizi və vaxtınızı nəyə ayırmaq istədiyinizi soruşub planı ona görə quraq.',
       'about.body2': 'Rezervasiya, sənəd və transfer məsələlərini özümüz izləyirik ki, siz yalnız yola hazırlaşasınız.',
       'about.values.title': 'Səfərə baxışımız',
@@ -41,7 +41,7 @@ export function createTurizmSite(): SiteConfig {
       'contact.lead': 'Hara getmək istədiyinizi yazın, sizə uyğun variantları göndərək.',
       'contact.phone': '+994 12 000 00 00',
       'contact.whatsapp': '+994 50 000 00 00',
-      'contact.email': 'salam@yolehli.az',
+      'contact.email': 'info@sirketiniz.az',
       'contact.address': 'Bakı şəhəri',
       'contact.hours': 'B.e. – Şənbə 10:00 – 19:00',
     },

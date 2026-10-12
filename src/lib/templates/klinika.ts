@@ -8,7 +8,7 @@ export function createKlinikaSite(): SiteConfig {
     theme: { accent: '#0b7f8f' },
     logo: img('Loqo'),
     text: {
-      'brand.name': 'Nur Klinika',
+      'brand.name': 'Klinika',
 
       'home.hero.title': 'Sağlamlığınıza vaxtında və diqqətlə baxırıq',
       'home.hero.lead': 'Həkim qəbulu, analizlər və diaqnostika bir ünvanda. Əvvəlcədən yazılın, növbə gözləməyin.',
@@ -36,7 +36,7 @@ export function createKlinikaSite(): SiteConfig {
       'services.page.lead': 'Hər xidmət üçün qiymət qəbuldan əvvəl bildirilir.',
 
       'about.title': 'Haqqımızda',
-      'about.lead': 'Nur Klinika ailə həkimlərindən ibarət kiçik tibb mərkəzidir.',
+      'about.lead': 'Ailə həkimlərindən ibarət kiçik tibb mərkəzidir.',
       'about.body1':
         'Məqsədimiz xəstənin həm həkimi, həm də nəticəni başa düşməsidir. Hər qəbulda vaxt ayırır, sualları cavablandırırıq.',
       'about.body2': 'Müayinə nəticələri aydın dildə izah olunur və yazılı şəkildə təqdim edilir.',
@@ -52,7 +52,7 @@ export function createKlinikaSite(): SiteConfig {
       'contact.lead': 'Qəbula yazılmaq üçün zəng edin və ya WhatsApp-da yazın.',
       'contact.phone': '+994 12 000 00 00',
       'contact.whatsapp': '+994 50 000 00 00',
-      'contact.email': 'salam@nurklinika.az',
+      'contact.email': 'info@sirketiniz.az',
       'contact.address': 'Bakı şəhəri',
       'contact.hours': 'B.e. – Şənbə 09:00 – 19:00',
 

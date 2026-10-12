@@ -5,7 +5,7 @@ export function createBerberSite(): SiteConfig {
   return build('berber', {
     accent: '#b3261e',
     text: {
-      'brand.name': 'Tiğ Bərbər',
+      'brand.name': 'Bərbər',
 
       'home.hero.chip': 'Kişi saç və saqqal salonu',
       'home.hero.title': 'Saç və saqqal işi əl dəqiqliyi ilə',
@@ -34,7 +34,7 @@ export function createBerberSite(): SiteConfig {
       'services.page.lead': 'Qiymətləri zəng edərək və ya salonda öyrənə bilərsiniz.',
 
       'about.title': 'Haqqımızda',
-      'about.lead': 'Tiğ Bərbər klassik bərbər ənənəsini müasir rahatlıqla birləşdirən salondur.',
+      'about.lead': 'Klassik bərbər ənənəsini müasir rahatlıqla birləşdirən salondur.',
       'about.body1': 'Bizdə iş tələsmədən görülür: hər kəsim məsləhətlə başlayır, üz isti dəsmalla bitir.',
       'about.body2':
         'Alətlər hər müştəridən sonra təmizlənir. Usta sizin istəyinizi dinləyir və ona uyğun forma təklif edir.',
@@ -50,7 +50,7 @@ export function createBerberSite(): SiteConfig {
       'contact.lead': 'Növbə üçün zəng edin və ya WhatsApp-da yazın.',
       'contact.phone': '+994 12 000 00 00',
       'contact.whatsapp': '+994 50 000 00 00',
-      'contact.email': 'salam@tigberber.az',
+      'contact.email': 'info@sirketiniz.az',
       'contact.address': 'Bakı şəhəri',
       'contact.hours': 'B.e. – Şənbə 10:00 – 21:00',
     },

@@ -5,7 +5,7 @@ export function createGulSite(): SiteConfig {
   return build('gul', {
     accent: '#b8325f',
     text: {
-      'brand.name': 'Qönçə',
+      'brand.name': 'Gül mağazası',
       'home.hero.title': 'Hisslər çiçəklə daha asan deyilir',
       'home.hero.lead': 'Mövsümün çiçəklərindən buketlər, qutu kompozisiyaları və kiçik hədiyyələr. Sifarişi verin, Bakı daxilində çatdırırıq.',
       'home.hero.cta': 'Buket sifariş et',
@@ -27,7 +27,7 @@ export function createGulSite(): SiteConfig {
       'services.page.title': 'Kataloq',
       'services.page.lead': 'Çiçək və hədiyyə seçimləri. Hər buket sifariş üzrə yığılır, ona görə rəngi və ölçünü dəyişə bilərik.',
       'about.title': 'Haqqımızda',
-      'about.lead': 'Qönçə kiçik çiçək studiyası və hədiyyə mağazasıdır.',
+      'about.lead': 'Kiçik çiçək studiyası və hədiyyə mağazasıdır.',
       'about.body1': 'Buketləri hazır şablonla yox, münasibətə, alıcıya və mövsümə baxıb yığırıq. Çiçək bir-birinin yanında düzgün dayananda gözəl görünür.',
       'about.body2': 'Mağazada çiçəklə yanaşı onunla gedən kiçik hədiyyələr də var: şam, açıqca, vaza. Beləliklə hər şey bir yerdə hazır olur.',
       'about.values.title': 'Qaydalarımız',
@@ -41,7 +41,7 @@ export function createGulSite(): SiteConfig {
       'contact.lead': 'Sifariş üçün zəng edin və ya WhatsApp-da yazın.',
       'contact.phone': '+994 12 000 00 00',
       'contact.whatsapp': '+994 50 000 00 00',
-      'contact.email': 'salam@qoncha.az',
+      'contact.email': 'info@sirketiniz.az',
       'contact.address': 'Bakı şəhəri',
       'contact.hours': 'Hər gün 09:00 – 20:00',
     },

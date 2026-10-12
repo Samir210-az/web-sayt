@@ -5,7 +5,7 @@ export function createRestoranSite(): SiteConfig {
   return build('restoran', {
     accent: '#c9461a',
     text: {
-      'brand.name': 'Ocaqbaşı',
+      'brand.name': 'Restoran',
 
       'home.hero.chip': 'Qril restoranı və bar',
       'home.hero.title': 'Ocaq üzərində hazırlanan süfrə',
@@ -34,7 +34,7 @@ export function createRestoranSite(): SiteConfig {
       'services.page.lead': 'Yeməklərin tərkibi və qiyməti üçün zəng edin, ofisiant da zalda izah edir.',
 
       'about.title': 'Haqqımızda',
-      'about.lead': 'Ocaqbaşı ocaq mətbəxinə və sadə, düzgün bişmiş yeməyə əsaslanan restoran və bardır.',
+      'about.lead': 'Ocaq mətbəxinə və sadə, düzgün bişmiş yeməyə əsaslanan restoran və bardır.',
       'about.body1':
         'Ətləri sifarişdən sonra ocaqda bişiririk. Tərəvəz və göyərti hər səhər təzə gətirilir, saxlanmış məhsul menyuya düşmür.',
       'about.body2':
@@ -51,7 +51,7 @@ export function createRestoranSite(): SiteConfig {
       'contact.lead': 'Masa ayırmaq üçün zəng edin və ya WhatsApp-da yazın.',
       'contact.phone': '+994 12 000 00 00',
       'contact.whatsapp': '+994 50 000 00 00',
-      'contact.email': 'salam@ocaqbasi.az',
+      'contact.email': 'info@sirketiniz.az',
       'contact.address': 'Bakı şəhəri',
       'contact.hours': 'Hər gün 12:00 – 00:00',
     },

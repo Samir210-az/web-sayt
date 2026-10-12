@@ -5,7 +5,7 @@ export function createToySite(): SiteConfig {
   return build('toy', {
     accent: '#8a1f3a',
     text: {
-      'brand.name': 'Şölən Saray',
+      'brand.name': 'Toy salonu',
 
       'home.hero.chip': 'Toy, nişan və ad günü məclisləri',
       'home.hero.title': 'Toyunuz ailənizə yaraşan məkanda keçsin',
@@ -34,7 +34,7 @@ export function createToySite(): SiteConfig {
       'services.page.lead': 'Qonaq sayına və məclisin xarakterinə görə uyğun zalı seçin.',
 
       'about.title': 'Haqqımızda',
-      'about.lead': 'Şölən Saray toy və ailə məclisləri üçün zallar kompleksidir.',
+      'about.lead': 'Toy və ailə məclisləri üçün zallar kompleksidir.',
       'about.body1': 'Hər ailənin bayramı özünəməxsusdur. Zalı, süfrəni və xidməti sizin istəyinizə uyğunlaşdırırıq.',
       'about.body2':
         'Komanda məclisdən əvvəl və gün ərzində yanınızdadır ki, siz qonaqlarınızla maraqlana biləsiniz.',
@@ -50,7 +50,7 @@ export function createToySite(): SiteConfig {
       'contact.lead': 'Zalı görmək və tarixi dəqiqləşdirmək üçün zəng edin.',
       'contact.phone': '+994 12 000 00 00',
       'contact.whatsapp': '+994 50 000 00 00',
-      'contact.email': 'salam@solensaray.az',
+      'contact.email': 'info@sirketiniz.az',
       'contact.address': 'Bakı şəhəri',
       'contact.hours': 'Hər gün 10:00 – 20:00',
     },

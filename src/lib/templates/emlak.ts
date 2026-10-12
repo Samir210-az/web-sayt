@@ -5,7 +5,7 @@ export function createEmlakSite(): SiteConfig {
   return build('emlak', {
     accent: '#b8893b',
     text: {
-      'brand.name': 'Dəyər Əmlak',
+      'brand.name': 'Əmlak',
       'home.hero.title': 'Doğru mənzili tapmaq üçün yanınızdayıq',
       'home.hero.lead':
         'Alış, kirayə və qiymətləndirmə üzrə konkret məsləhət. Baxışları təşkil edir, sənədlərə birgə baxır, danışıqlarda yanınızda oluruq.',
@@ -41,7 +41,7 @@ export function createEmlakSite(): SiteConfig {
       'services.page.title': 'Xidmətlər',
       'services.page.lead': 'Hər əməliyyatın şərtləri razılaşmadan əvvəl yazılı təqdim olunur.',
       'about.title': 'Haqqımızda',
-      'about.lead': 'Dəyər Əmlak alıcı, satıcı və kirayəçi arasında aydın ünsiyyət quran agentlikdir.',
+      'about.lead': 'Alıcı, satıcı və kirayəçi arasında aydın ünsiyyət quran agentlikdir.',
       'about.agent.title': 'Məsul agent',
       'about.agent.text': 'Sorğudan açarların təhvilinə qədər sizinlə eyni mütəxəssis işləyir.',
       'about.body1': 'Nə mümkündür, nə vaxt və hansı şərtlərlə: bunları əvvəldən sadə dillə deyirik, vədlə yox, məlumatla işləyirik.',
@@ -58,7 +58,7 @@ export function createEmlakSite(): SiteConfig {
       'contact.panel.title': 'Birbaşa zəng',
       'contact.phone': '+994 12 000 00 00',
       'contact.whatsapp': '+994 50 000 00 00',
-      'contact.email': 'salam@dayeremlak.az',
+      'contact.email': 'info@sirketiniz.az',
       'contact.address': 'Bakı şəhəri',
       'contact.hours': 'B.e. – Şənbə 10:00 – 19:00',
     },

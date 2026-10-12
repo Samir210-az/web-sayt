@@ -5,7 +5,7 @@ export function createInteryerSite(): SiteConfig {
   return build('interyer', {
     accent: '#8a6f4d',
     text: {
-      'brand.name': 'Ölçü Studio',
+      'brand.name': 'İnteryer',
       'home.hero.title': 'Sakit, dəqiq, sizə uyğun interyer',
       'home.hero.lead': 'Mənzil, ofis və mağaza interyerlərini layihələndirir, mebeli ölçüyə görə sifarişlə hazırlayırıq.',
       'home.hero.cta': 'Görüş təyin et',
@@ -27,7 +27,7 @@ export function createInteryerSite(): SiteConfig {
       'services.page.title': 'Xidmətlər',
       'services.page.lead': 'İlk görüşdə ehtiyacı dəqiqləşdirir, sonra uyğun xidmət dəstini təklif edirik.',
       'about.title': 'Studiya haqqında',
-      'about.lead': 'Ölçü Studio kiçik komandalı interyer dizayn və mebel studiyasıdır.',
+      'about.lead': 'Kiçik komandalı interyer dizayn və mebel studiyasıdır.',
       'about.body1': 'Yaxşı interyer ölçüdən başlayır. Ona görə hər layihəyə məkanı santimetrinə qədər öyrənməklə başlayırıq.',
       'about.body2': 'Dizayn və mebel eyni komandada hazırlanır, layihədə çəkilən hər xətt real ölçüyə uyğun gəlir.',
       'about.values.title': 'Prinsiplər',
@@ -41,7 +41,7 @@ export function createInteryerSite(): SiteConfig {
       'contact.lead': 'Layihənin ünvanını və qısa təsvirini yazın, görüş təyin edək.',
       'contact.phone': '+994 12 000 00 00',
       'contact.whatsapp': '+994 50 000 00 00',
-      'contact.email': 'salam@olcu.az',
+      'contact.email': 'info@sirketiniz.az',
       'contact.address': 'Bakı şəhəri',
       'contact.hours': 'B.e. – Cümə 10:00 – 18:00',
     },

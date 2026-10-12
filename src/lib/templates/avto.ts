@@ -5,7 +5,7 @@ export function createAvtoSite(): SiteConfig {
   return build('avto', {
     accent: '#ff5a1f',
     text: {
-      'brand.name': 'Mator Servis',
+      'brand.name': 'Avtoservis',
       'home.hero.title': 'Dəqiq diaqnostika, səliqəli təmir',
       'home.hero.lead':
         'Mühərrik, əyləc, asqı və elektrik sistemləri üzrə servis. Nəyin dəyişdiyini göstərir, işə başlamazdan əvvəl qiyməti deyirik.',
@@ -30,7 +30,7 @@ export function createAvtoSite(): SiteConfig {
       'services.page.title': 'İş növləri',
       'services.page.lead': 'Hər işin qiyməti diaqnostikadan sonra, işə başlamazdan əvvəl deyilir.',
       'about.title': 'Haqqımızda',
-      'about.lead': 'Mator Servis mühərrikdən elektrikə qədər hər şeyi bir yerdə görən avtoservisdir.',
+      'about.lead': 'Mühərrikdən elektrikə qədər hər şeyi bir yerdə görən avtoservisdir.',
       'about.body1': 'Hər maşın əvvəlcə diaqnostikadan keçir, yalnız sonra təmir qərarı verilir. Lazımsız hissə dəyişdirmirik.',
       'about.body2': 'Dəyişdirilən hissələri sizə göstərir, görülən işləri yazılı siyahı ilə təqdim edirik.',
       'about.values.title': 'Servis qaydası',
@@ -46,7 +46,7 @@ export function createAvtoSite(): SiteConfig {
       'contact.board.note': 'Bayram günlərində iş saatı əvvəlcədən elan olunur.',
       'contact.phone': '+994 12 000 00 00',
       'contact.whatsapp': '+994 50 000 00 00',
-      'contact.email': 'salam@matorservis.az',
+      'contact.email': 'info@sirketiniz.az',
       'contact.address': 'Bakı şəhəri',
       'contact.hours': 'B.e. – Şənbə 09:00 – 19:00',
     },

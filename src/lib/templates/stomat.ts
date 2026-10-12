@@ -5,7 +5,7 @@ export function createStomatSite(): SiteConfig {
   return build('stomat', {
     accent: '#0f8f86',
     text: {
-      'brand.name': 'Ağ Təbəssüm',
+      'brand.name': 'Stomatologiya',
       'home.hero.title': 'Dişləriniz üçün sakit və diqqətli qəbul',
       'home.hero.lead':
         'Müayinə, təmizləmə və müalicə bir klinikada. Hər mərhələni əvvəlcədən izah edir, qərarı birlikdə veririk.',
@@ -30,7 +30,7 @@ export function createStomatSite(): SiteConfig {
       'services.page.title': 'Xidmətlər',
       'services.page.lead': 'Müalicənin qiyməti və mərhələləri müayinədən sonra yazılı təqdim olunur.',
       'about.title': 'Haqqımızda',
-      'about.lead': 'Ağ Təbəssüm rahat və sakit mühitdə qəbul edən stomatoloji klinikadır.',
+      'about.lead': 'Rahat və sakit mühitdə qəbul edən stomatoloji klinikadır.',
       'about.body1': 'Qorxu və narahatlıq normaldır. Müalicəyə başlamazdan əvvəl nə ediləcəyini sadə dillə izah edirik.',
       'about.body2': 'Lazım olsa fasilə veririk, suallarınıza vaxt ayırırıq. Sizi tələsdirmirik.',
       'about.values.title': 'Tez-tez verilən suallar',
@@ -48,7 +48,7 @@ export function createStomatSite(): SiteConfig {
       'contact.rules.3': 'Vaxtınızı dəyişmək istəsəniz, bir gün əvvəl xəbər verin.',
       'contact.phone': '+994 12 000 00 00',
       'contact.whatsapp': '+994 50 000 00 00',
-      'contact.email': 'salam@agtebessum.az',
+      'contact.email': 'info@sirketiniz.az',
       'contact.address': 'Bakı şəhəri',
       'contact.hours': 'B.e. – Şənbə 10:00 – 19:00',
     },
