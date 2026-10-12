@@ -1936,10 +1936,17 @@ main:not(.main--editing) .pagehead__lead {
 .site {
   --muted: color-mix(in srgb, var(--ink) 68%, var(--duman));
   --line: color-mix(in srgb, var(--ink) 16%, transparent);
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
+  min-height: 100svh;
   overflow-x: clip;
   background: var(--duman);
   color: var(--ink);
+}
+
+.site > main {
+  flex: 1 0 auto;
 }
 
 .site[data-template='klinika'] {
