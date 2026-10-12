@@ -143,6 +143,11 @@ export function PublishPanel() {
               {busy ? 'Gözləyin…' : info ? 'Yenilə' : 'Dərc et'}
             </button>
             {info && (
+              <a href={`/s/${info.name}`} target="_blank" rel="noopener noreferrer" className="pubdlg__btn pubdlg__btn--link">
+                Saytı aç
+              </a>
+            )}
+            {info && (
               <button type="button" className="pubdlg__btn" onClick={unpublish} disabled={busy}>
                 Dərcdən çıxar
               </button>

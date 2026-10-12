@@ -3906,6 +3906,12 @@ html:has(.pv[open]) {
   cursor: pointer;
 }
 
+.pubdlg__btn--link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
 .pubdlg__btn--main {
   border-color: #1b4fd6;
   background: #1b4fd6;
