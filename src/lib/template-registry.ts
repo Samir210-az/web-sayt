@@ -51,7 +51,7 @@ export const TEMPLATES: TemplateMeta[] = [
   { id: 'it', name: 'Kod Zavodu', kind: 'IT və proqram şirkətləri', create: () => withArt('it', createItSite()) },
   { id: 'toy', name: 'Şölən Saray', kind: 'Toy və tədbir salonları', create: () => withArt('toy', createToySite()) },
   { id: 'berber', name: 'Tiğ Bərbər', kind: 'Bərbər və kişi salonları', create: () => withArt('berber', createBerberSite()) },
-  { id: 'icare', name: 'Marşrut', kind: 'Avtomobil icarəsi şirkətləri', create: () => withArt('icare', createIcareSite()) },
+  { id: 'icare', name: 'Marşrut', kind: 'Avtomobil icarəsi şirkətləri', create: () => withArt('icare', createIcareSite(), { 'home.hero.float': [0, 50] }) },
   { id: 'bosh', name: 'Sıfırdan başla', kind: 'Boş şablon, özünüz qurun', create: createBoshSite },
 ]
 

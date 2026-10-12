@@ -31,7 +31,7 @@ export function HomeIcare() {
               <Parallax speed={0.07} bleed className="ic-hero__panel">
                 <Editable.Image k="home.hero.panel" label="Giriş şəkli" />
               </Parallax>
-              <Parallax speed={-0.1} bleed className="ic-hero__tag">
+              <Parallax speed={-0.03} bleed className="ic-hero__tag">
                 <Editable.Image k="home.hero.float" label="Dəyirmi şəkil" />
               </Parallax>
             </div>

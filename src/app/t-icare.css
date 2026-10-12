@@ -196,9 +196,9 @@
 }
 
 .site[data-template='icare'] .ic-hero__tag {
-  --zs: 2.7;
-  --zx: 18%;
-  --zy: 30%;
+  --zs: 2;
+  --zx: 40%;
+  --zy: 0%;
   position: absolute;
   left: 0;
   bottom: 0;
@@ -249,6 +249,7 @@
 .site[data-template='icare'] .svc:last-child {
   display: flex;
   flex-direction: column;
+  align-items: stretch;
   gap: 0;
   padding: 0;
   border: 2px solid var(--ink);
@@ -305,7 +306,7 @@
 .site[data-template='icare'] .svc:nth-child(6n + 1) .svc__media {
   --zs: 1.9;
   --zx: 48%;
-  --zy: 76%;
+  --zy: 100%;
 }
 
 .site[data-template='icare'] .svc:nth-child(6n + 2) .svc__media {

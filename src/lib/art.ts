@@ -37,7 +37,7 @@ const SERVICE_FOCUS: [number, number][] = [
   [50, 62],
 ]
 
-export function withArt(id: TemplateId, site: SiteConfig): SiteConfig {
+export function withArt(id: TemplateId, site: SiteConfig, focus: Record<string, [number, number]> = {}): SiteConfig {
   const alt = ART_ALT[id]
   if (!alt) return site
   const src = `/images/${id}/art.webp`
@@ -47,7 +47,7 @@ export function withArt(id: TemplateId, site: SiteConfig): SiteConfig {
   return {
     ...site,
     images: Object.fromEntries(
-      Object.entries(site.images).map(([key, value]) => [key, fill(value, SLOT_FOCUS[key] ?? [50, 50])]),
+      Object.entries(site.images).map(([key, value]) => [key, fill(value, focus[key] ?? SLOT_FOCUS[key] ?? [50, 50])]),
     ),
     services: site.services.map((item, i) => ({ ...item, image: fill(item.image, SERVICE_FOCUS[i % SERVICE_FOCUS.length]) })),
   }
