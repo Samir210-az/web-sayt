@@ -87,6 +87,7 @@ const SERVICE_VARIANT: Record<TemplateId, ServiceVariant> = {
   it: 'bento',
   toy: 'accordion',
   berber: 'menu',
+  icare: 'rows',
 }
 
 const ITEM_CLASS: Record<ServiceVariant, string> = {

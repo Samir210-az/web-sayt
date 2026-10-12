@@ -25,6 +25,7 @@ const FONT_FAMILIES: Record<TemplateId, string[]> = {
   it: ['Space Grotesk Variable', 'JetBrains Mono Variable'],
   toy: ['Cormorant Variable', 'DM Sans Variable'],
   berber: ['Playfair Display Variable', 'Onest Variable'],
+  icare: ['Unbounded Variable', 'Onest Variable'],
 }
 
 const IMAGE_ATTR = /src="(data:image\/(webp|jpeg|png);base64,[A-Za-z0-9+/=]+)"/g

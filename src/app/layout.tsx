@@ -25,6 +25,7 @@ import './t-interyer.css'
 import './t-it.css'
 import './t-toy.css'
 import './t-berber.css'
+import './t-icare.css'
 
 export const metadata: Metadata = {
   title: { default: 'web-sayt: şirkətinizin saytını özünüz yaradın', template: '%s | web-sayt' },

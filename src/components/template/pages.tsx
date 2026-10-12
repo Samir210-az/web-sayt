@@ -24,6 +24,7 @@ import { AboutInteryer, ContactInteryer } from './t-interyer'
 import { AboutIt, ContactIt } from './t-it'
 import { AboutToy, ContactToy } from './t-toy'
 import { AboutBerber, ContactBerber } from './t-berber'
+import { AboutIcare, ContactIcare } from './t-icare'
 import {
   AboutGozellik,
   AboutHuquq,
@@ -196,6 +197,7 @@ const ABOUT: Record<TemplateId, () => React.JSX.Element> = {
   it: AboutIt,
   toy: AboutToy,
   berber: AboutBerber,
+  icare: AboutIcare,
 }
 
 export function AboutPage() {
@@ -322,6 +324,7 @@ const CONTACT: Record<TemplateId, () => React.JSX.Element> = {
   it: ContactIt,
   toy: ContactToy,
   berber: ContactBerber,
+  icare: ContactIcare,
 }
 
 export function ContactPage() {

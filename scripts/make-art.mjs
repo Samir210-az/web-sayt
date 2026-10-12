@@ -328,7 +328,7 @@ ${cube(380, 905, 150, '#c7a4e8', '#9d73cc', 12, 'E')}`,
   )
 }
 
-const NEW_SCENES = ['emlak', 'avto', 'stomat', 'turizm', 'gul', 'interyer', 'it', 'toy', 'berber']
+const NEW_SCENES = ['emlak', 'avto', 'stomat', 'turizm', 'gul', 'interyer', 'it', 'toy', 'berber', 'icare']
 for (const id of NEW_SCENES) scenes[id] = (await import(`./art/${id}.mjs`)).scene
 
 await mkdir(OUT, { recursive: true })
