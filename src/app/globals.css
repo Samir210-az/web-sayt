@@ -2561,6 +2561,21 @@ main:not(.main--editing) .pagehead__lead {
     pointer-events: auto;
     transform: none;
   }
+
+  .svclist--menu .menu__row:hover .menu__media,
+  .svclist--menu .menu__row:focus-within .menu__media {
+    transform: none;
+  }
+
+  .menu__row:hover .menu__copy,
+  .menu__row:focus-within .menu__copy {
+    transform: none;
+  }
+}
+
+.svclist--menu.svclist--editing .menu__row:hover .menu__media,
+.svclist--menu.svclist--editing .menu__row:focus-within .menu__media {
+  transform: none;
 }
 
 .num {
