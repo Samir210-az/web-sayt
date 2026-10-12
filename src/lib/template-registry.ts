@@ -22,6 +22,7 @@ import { createItSite } from './templates/it'
 import { createToySite } from './templates/toy'
 import { createBerberSite } from './templates/berber'
 import { createIcareSite } from './templates/icare'
+import { createRestoranSite } from './templates/restoran'
 import type { SiteConfig, TemplateId } from './types'
 
 export interface TemplateMeta {
@@ -52,6 +53,7 @@ export const TEMPLATES: TemplateMeta[] = [
   { id: 'toy', name: 'Şölən Saray', kind: 'Toy və tədbir salonları', create: () => withArt('toy', createToySite()) },
   { id: 'berber', name: 'Tiğ Bərbər', kind: 'Bərbər və kişi salonları', create: () => withArt('berber', createBerberSite()) },
   { id: 'icare', name: 'Marşrut', kind: 'Avtomobil icarəsi şirkətləri', create: () => withArt('icare', createIcareSite(), { 'home.hero.float': [0, 50] }) },
+  { id: 'restoran', name: 'Ocaqbaşı', kind: 'Restoran və barlar', create: () => withArt('restoran', createRestoranSite(), { 'home.hero.float': [18, 50] }) },
   { id: 'bosh', name: 'Sıfırdan başla', kind: 'Boş şablon, özünüz qurun', create: createBoshSite },
 ]
 

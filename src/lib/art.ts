@@ -20,6 +20,7 @@ const ART_ALT: Partial<Record<TemplateId, string>> = {
   toy: 'Qapı tağı, lüstr və süfrə təsvir edilən illüstrasiya',
   berber: 'Ülgüc, daraq və bərbər dirəyi təsvir edilən illüstrasiya',
   icare: 'Yolda gedən avtomobil, xəritə nişanı və açar təsvir edilən illüstrasiya',
+  restoran: 'Ocaqda şişlər, şərab stəkanı və yemək boşqabı təsvir edilən illüstrasiya',
 }
 
 const SLOT_FOCUS: Record<string, [number, number]> = {

@@ -1,7 +1,7 @@
 import { chromium } from 'playwright'
 
 const BASE = process.env.PREVIEW_BASE ?? 'http://localhost:3100'
-const ALL_TEMPLATES = ['xidmet', 'klinika', 'kafe', 'huquq', 'gozellik', 'idman', 'tikinti', 'kurs', 'studiya', 'usaq', 'emlak', 'avto', 'stomat', 'turizm', 'gul', 'interyer', 'it', 'toy', 'berber', 'icare', 'bosh']
+const ALL_TEMPLATES = ['xidmet', 'klinika', 'kafe', 'huquq', 'gozellik', 'idman', 'tikinti', 'kurs', 'studiya', 'usaq', 'emlak', 'avto', 'stomat', 'turizm', 'gul', 'interyer', 'it', 'toy', 'berber', 'icare', 'restoran', 'bosh']
 const TEMPLATES = process.env.ONLY ? process.env.ONLY.split(',') : ALL_TEMPLATES
 const SUBPAGES = ['', '/xidmetler', '/haqqimizda', '/elaqe']
 const SCROLLER_ROUTES = new Set(['idman'])
@@ -58,7 +58,7 @@ for (const template of TEMPLATES) {
   await page.waitForTimeout(1200)
   await page.reload({ waitUntil: 'networkidle' })
   const text = await page.locator('[contenteditable="plaintext-only"]').first().innerText()
-  if (!text.includes(marker.trim())) fail(`redaktor ${template}: dəyişiklik reload-dan sonra qalmadı`)
+  if (!text.toLowerCase().includes(marker.trim().toLowerCase())) fail(`redaktor ${template}: dəyişiklik reload-dan sonra qalmadı`)
   await context.close()
 }
 

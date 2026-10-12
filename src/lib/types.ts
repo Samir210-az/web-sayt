@@ -19,6 +19,7 @@ export type TemplateId =
   | 'toy'
   | 'berber'
   | 'icare'
+  | 'restoran'
   | 'bosh'
 
 export type PageKey = 'home' | 'services' | 'about' | 'contact'

@@ -13,6 +13,7 @@ import { HomeIt } from './t-it'
 import { HomeToy } from './t-toy'
 import { HomeBerber } from './t-berber'
 import { HomeIcare } from './t-icare'
+import { HomeRestoran } from './t-restoran'
 import { AboutPage, ContactPage, ServicesPage } from './pages'
 
 const HOMES = {
@@ -36,6 +37,7 @@ const HOMES = {
   toy: HomeToy,
   berber: HomeBerber,
   icare: HomeIcare,
+  restoran: HomeRestoran,
   bosh: HomeBosh,
 }
 

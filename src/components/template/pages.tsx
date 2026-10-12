@@ -25,6 +25,7 @@ import { AboutIt, ContactIt } from './t-it'
 import { AboutToy, ContactToy } from './t-toy'
 import { AboutBerber, ContactBerber } from './t-berber'
 import { AboutIcare, ContactIcare } from './t-icare'
+import { AboutRestoran, ContactRestoran } from './t-restoran'
 import {
   AboutGozellik,
   AboutHuquq,
@@ -198,6 +199,7 @@ const ABOUT: Record<TemplateId, () => React.JSX.Element> = {
   toy: AboutToy,
   berber: AboutBerber,
   icare: AboutIcare,
+  restoran: AboutRestoran,
 }
 
 export function AboutPage() {
@@ -325,6 +327,7 @@ const CONTACT: Record<TemplateId, () => React.JSX.Element> = {
   toy: ContactToy,
   berber: ContactBerber,
   icare: ContactIcare,
+  restoran: ContactRestoran,
 }
 
 export function ContactPage() {
