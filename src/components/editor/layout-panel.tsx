@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react'
 import type { JSX } from 'react'
 import { useSite } from '@/lib/site-context'
-import { NAV_STYLES } from '@/lib/types'
+import { HERO_MIRROR_TEMPLATES, NAV_STYLES } from '@/lib/types'
 import type { NavStyle } from '@/lib/types'
 
 const SHAPES: Record<NavStyle, JSX.Element> = {
@@ -29,7 +29,7 @@ function NavIcon({ kind }: { kind: NavStyle }) {
 }
 
 export function LayoutPanel() {
-  const { site, sections, setNav, setOrder, toggleHidden, resetLayout } = useSite()
+  const { site, sections, setNav, setHeroMirror, setOrder, toggleHidden, resetLayout } = useSite()
   const dialog = useRef<HTMLDialogElement>(null)
   const [open, setOpen] = useState(false)
 
@@ -95,6 +95,17 @@ export function LayoutPanel() {
                 Yan menyu geniş ekranda yan panel kimi görünür. Telefonda menyu həmişə düyməli açılan siyahı olur.
               </p>
             </fieldset>
+
+            {HERO_MIRROR_TEMPLATES.includes(site.template) && (
+              <label className="laydlg__switch">
+                <input
+                  type="checkbox"
+                  checked={site.layout?.hero === 'mirror'}
+                  onChange={(e) => setHeroMirror(e.target.checked)}
+                />
+                <span>Giriş bölməsində mətn və şəkilin yerini dəyiş</span>
+              </label>
+            )}
 
             <div className="laydlg__group">
               <p className="pubdlg__label">Bu səhifənin bölmələri</p>

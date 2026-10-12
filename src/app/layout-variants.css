@@ -177,6 +177,38 @@
   padding-bottom: 84px;
 }
 
+/* Giriş bölməsi: iki sütunlu heroların yerini dəyişir */
+
+.site[data-hero='mirror'][data-template='klinika'] .kl-hero,
+.site[data-hero='mirror'][data-template='gozellik'] .gz-hero,
+.site[data-hero='mirror'][data-template='idman'] .id-hero__grid,
+.site[data-hero='mirror'][data-template='tikinti'] .tk-hero,
+.site[data-hero='mirror'][data-template='kurs'] .kr-hero,
+.site[data-hero='mirror'][data-template='usaq'] .uq-hero,
+.site[data-hero='mirror'][data-template='emlak'] .em-hero__grid,
+.site[data-hero='mirror'][data-template='turizm'] .tz-hero,
+.site[data-hero='mirror'][data-template='gul'] .gl-hero,
+.site[data-hero='mirror'][data-template='it'] .it-hero__inner,
+.site[data-hero='mirror'][data-template='icare'] .ic-hero__grid,
+.site[data-hero='mirror'][data-template='restoran'] .rs-hero__grid {
+  direction: rtl;
+}
+
+.site[data-hero='mirror'][data-template='klinika'] .kl-hero > *,
+.site[data-hero='mirror'][data-template='gozellik'] .gz-hero > *,
+.site[data-hero='mirror'][data-template='idman'] .id-hero__grid > *,
+.site[data-hero='mirror'][data-template='tikinti'] .tk-hero > *,
+.site[data-hero='mirror'][data-template='kurs'] .kr-hero > *,
+.site[data-hero='mirror'][data-template='usaq'] .uq-hero > *,
+.site[data-hero='mirror'][data-template='emlak'] .em-hero__grid > *,
+.site[data-hero='mirror'][data-template='turizm'] .tz-hero > *,
+.site[data-hero='mirror'][data-template='gul'] .gl-hero > *,
+.site[data-hero='mirror'][data-template='it'] .it-hero__inner > *,
+.site[data-hero='mirror'][data-template='icare'] .ic-hero__grid > *,
+.site[data-hero='mirror'][data-template='restoran'] .rs-hero__grid > * {
+  direction: ltr;
+}
+
 /* Redaktor panelinin düymələri */
 
 .laydlg {
@@ -314,4 +346,20 @@
   .laydlg__navs {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+}
+
+.laydlg__switch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  margin-top: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.laydlg__switch input {
+  width: 20px;
+  height: 20px;
+  accent-color: #1b4fd6;
 }

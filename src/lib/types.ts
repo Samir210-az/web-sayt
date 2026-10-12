@@ -56,8 +56,26 @@ export const NAV_STYLES: { key: NavStyle; label: string }[] = [
   { key: 'bottom', label: 'Aşağıda' },
 ]
 
+export type HeroStyle = 'mirror'
+
+export const HERO_MIRROR_TEMPLATES: TemplateId[] = [
+  'klinika',
+  'gozellik',
+  'idman',
+  'tikinti',
+  'kurs',
+  'usaq',
+  'emlak',
+  'turizm',
+  'gul',
+  'it',
+  'icare',
+  'restoran',
+]
+
 export interface LayoutConfig {
   nav?: NavStyle
+  hero?: HeroStyle
   order?: string[]
 }
 

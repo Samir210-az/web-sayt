@@ -6,7 +6,7 @@ import { DEFAULT_ACCENT } from './default-site'
 import { createSiteFor } from './template-registry'
 import { pageHref } from './utils'
 import type { PublishInfo } from './site-storage'
-import type { ExtraSection, ImageValue, NavStyle, PageKey, ServiceItem, SiteConfig, TemplateId } from './types'
+import type { ExtraSection, ImageValue, LayoutConfig, NavStyle, PageKey, ServiceItem, SiteConfig, TemplateId } from './types'
 
 const draftKey = (template: TemplateId) => `web-sayt:draft:v1:${template}`
 const HEX = /^#[0-9a-fA-F]{6}$/
@@ -54,6 +54,7 @@ interface SiteApi {
   sections: SectionInfo[]
   registerSection: (section: SectionInfo) => () => void
   setNav: (nav: NavStyle) => void
+  setHeroMirror: (on: boolean) => void
   setOrder: (order: string[]) => void
   resetLayout: () => void
   replaceSite: (next: SiteConfig) => void
@@ -65,6 +66,12 @@ const SiteContext = createContext<SiteApi | null>(null)
 function newId(): string {
   if (typeof crypto !== 'undefined' && 'randomUUID' in crypto) return crypto.randomUUID().slice(0, 8)
   return Math.random().toString(36).slice(2, 10)
+}
+
+function withLayout(site: SiteConfig, patch: Partial<LayoutConfig>): SiteConfig {
+  const merged = { ...site.layout, ...patch }
+  const layout = Object.fromEntries(Object.entries(merged).filter(([, v]) => v !== undefined)) as LayoutConfig
+  return { ...site, layout: Object.keys(layout).length ? layout : undefined }
 }
 
 function emptyImage(alt: string): ImageValue {
@@ -220,13 +227,9 @@ export function SiteProvider({
         update((s) => ({ ...s, extras: { ...s.extras, [page]: s.extras[page].filter((it) => it.id !== id) } })),
       sections,
       registerSection,
-      setNav: (nav) =>
-        update((s) => {
-          const order = s.layout?.order
-          const layout = { ...(order ? { order } : {}), ...(nav === 'top' ? {} : { nav }) }
-          return { ...s, layout: Object.keys(layout).length ? layout : undefined }
-        }),
-      setOrder: (order) => update((s) => ({ ...s, layout: { ...s.layout, order } })),
+      setNav: (nav) => update((s) => withLayout(s, { nav: nav === 'top' ? undefined : nav })),
+      setHeroMirror: (on) => update((s) => withLayout(s, { hero: on ? 'mirror' : undefined })),
+      setOrder: (order) => update((s) => withLayout(s, { order })),
       resetLayout: () => update((s) => ({ ...s, layout: undefined })),
       toggleHidden: (id) => update((s) => ({ ...s, hidden: { ...s.hidden, [id]: !s.hidden[id] } })),
       replaceSite: (next) => update(() => next),
@@ -250,6 +253,7 @@ export function SiteProvider({
         className="site"
         data-template={template}
         data-nav={site.layout?.nav}
+        data-hero={site.layout?.hero}
         data-editing={editing ? '' : undefined}
         style={{ ['--accent' as string]: accent }}
       >

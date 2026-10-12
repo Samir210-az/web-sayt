@@ -72,11 +72,12 @@ function decodeLayout(raw: unknown): LayoutConfig | undefined {
   if (!isRecord(raw)) return undefined
   const layout: LayoutConfig = {}
   if (typeof raw.nav === 'string' && NAV_STYLES.some((s) => s.key === raw.nav)) layout.nav = raw.nav as NavStyle
+  if (raw.hero === 'mirror') layout.hero = 'mirror'
   const order = toArray(raw.order)
     .filter((id): id is string => typeof id === 'string' && /^[a-z0-9.-]{1,40}$/.test(id))
     .slice(0, 40)
   if (order.length) layout.order = order
-  return layout.nav || layout.order ? layout : undefined
+  return layout.nav || layout.hero || layout.order ? layout : undefined
 }
 
 export function decodeSite(raw: unknown, template: TemplateId): SiteConfig {
