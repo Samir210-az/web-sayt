@@ -6,7 +6,7 @@ import { DEFAULT_ACCENT } from './default-site'
 import { createSiteFor } from './template-registry'
 import { pageHref } from './utils'
 import type { PublishInfo } from './site-storage'
-import type { ExtraSection, ImageValue, PageKey, ServiceItem, SiteConfig, TemplateId } from './types'
+import type { ExtraSection, ImageValue, NavStyle, PageKey, ServiceItem, SiteConfig, TemplateId } from './types'
 
 const draftKey = (template: TemplateId) => `web-sayt:draft:v1:${template}`
 const HEX = /^#[0-9a-fA-F]{6}$/
@@ -23,6 +23,11 @@ export interface Persistence {
 
 const PersistenceContext = createContext<Persistence | null>(null)
 export const PersistenceProvider = PersistenceContext.Provider
+
+export interface SectionInfo {
+  id: string
+  label: string
+}
 
 export type SaveState = 'idle' | 'saving' | 'saved' | 'error' | 'too-large' | 'load-error'
 
@@ -46,6 +51,11 @@ interface SiteApi {
   updateExtra: (page: PageKey, id: string, patch: Partial<Omit<ExtraSection, 'id'>>) => void
   removeExtra: (page: PageKey, id: string) => void
   toggleHidden: (id: string) => void
+  sections: SectionInfo[]
+  registerSection: (section: SectionInfo) => () => void
+  setNav: (nav: NavStyle) => void
+  setOrder: (order: string[]) => void
+  resetLayout: () => void
   replaceSite: (next: SiteConfig) => void
   reset: () => void
 }
@@ -92,6 +102,7 @@ export function SiteProvider({
   const [saveState, setSaveState] = useState<SaveState>('idle')
   const [ready, setReady] = useState(!remote)
   const loaded = useRef(false)
+  const [sections, setSections] = useState<SectionInfo[]>([])
 
   useEffect(() => {
     let cancelled = false
@@ -146,6 +157,11 @@ export function SiteProvider({
     }, remote ? 1200 : 600)
     return () => window.clearTimeout(timer)
   }, [site, editing, template, remote, persistence])
+
+  const registerSection = useCallback((section: SectionInfo) => {
+    setSections((prev) => (prev.some((s) => s.id === section.id) ? prev : [...prev, section]))
+    return () => setSections((prev) => prev.filter((s) => s.id !== section.id))
+  }, [])
 
   const update = useCallback((fn: (prev: SiteConfig) => SiteConfig) => setSite(fn), [])
 
@@ -202,6 +218,16 @@ export function SiteProvider({
         })),
       removeExtra: (page, id) =>
         update((s) => ({ ...s, extras: { ...s.extras, [page]: s.extras[page].filter((it) => it.id !== id) } })),
+      sections,
+      registerSection,
+      setNav: (nav) =>
+        update((s) => {
+          const order = s.layout?.order
+          const layout = { ...(order ? { order } : {}), ...(nav === 'top' ? {} : { nav }) }
+          return { ...s, layout: Object.keys(layout).length ? layout : undefined }
+        }),
+      setOrder: (order) => update((s) => ({ ...s, layout: { ...s.layout, order } })),
+      resetLayout: () => update((s) => ({ ...s, layout: undefined })),
       toggleHidden: (id) => update((s) => ({ ...s, hidden: { ...s.hidden, [id]: !s.hidden[id] } })),
       replaceSite: (next) => update(() => next),
       reset: () => {
@@ -214,13 +240,19 @@ export function SiteProvider({
         setSaveState('idle')
       },
     }
-  }, [site, editing, saveState, remote, persistence, template, basePath, update])
+  }, [site, editing, saveState, remote, persistence, template, basePath, update, sections, registerSection])
 
   const accent = HEX.test(site.theme.accent) ? site.theme.accent : DEFAULT_ACCENT
 
   return (
     <SiteContext.Provider value={api}>
-      <div className="site" data-template={template} style={{ ['--accent' as string]: accent }}>
+      <div
+        className="site"
+        data-template={template}
+        data-nav={site.layout?.nav}
+        data-editing={editing ? '' : undefined}
+        style={{ ['--accent' as string]: accent }}
+      >
         {ready ? children : <p className="site__loading">Saytınız yüklənir…</p>}
       </div>
     </SiteContext.Provider>

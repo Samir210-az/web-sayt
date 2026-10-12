@@ -5,6 +5,7 @@ import { useState } from 'react'
 import type { ReactNode } from 'react'
 import { useAccount } from '@/components/editor/account'
 import { Editable } from '@/components/editable'
+import { LayoutPanel } from '@/components/editor/layout-panel'
 import { PublishPanel } from '@/components/editor/publish-panel'
 import { SiteProvider, useSite } from '@/lib/site-context'
 import { EDITOR_PREFIX, PAGES } from '@/lib/types'
@@ -58,6 +59,15 @@ function Header({ current }: { current: string }) {
         </nav>
       </div>
     </header>
+  )
+}
+
+function Main({ editing, children }: { editing: boolean; children: ReactNode }) {
+  const { site } = useSite()
+  return (
+    <main id="content" className={cx(editing && 'main--editing', site.layout?.order && 'main--ordered')}>
+      {children}
+    </main>
   )
 }
 
@@ -138,6 +148,7 @@ function EditorBar() {
       <button type="button" className="editbar__btn" onClick={download} disabled={exporting}>
         ZIP yüklə
       </button>
+      <LayoutPanel />
       <PublishPanel />
       <button
         type="button"
@@ -187,9 +198,7 @@ export function SiteShell({
         </div>
       )}
       <Header current={current} />
-      <main id="content" className={cx(editing && 'main--editing')}>
-        {children}
-      </main>
+      <Main editing={editing}>{children}</Main>
       <Footer />
       {editing && <EditorBar />}
     </SiteProvider>

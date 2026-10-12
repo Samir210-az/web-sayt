@@ -1,7 +1,8 @@
 import { get, ref, update } from 'firebase/database'
 import { getFirebaseApp, getFirebaseDb } from './firebase'
 import { createSiteFor, getTemplate, TEMPLATES } from './template-registry'
-import type { ExtraSection, ImageValue, PageKey, ServiceItem, SiteConfig, TemplateId } from './types'
+import { NAV_STYLES } from './types'
+import type { ExtraSection, ImageValue, LayoutConfig, NavStyle, PageKey, ServiceItem, SiteConfig, TemplateId } from './types'
 
 const HEX = /^#[0-9a-fA-F]{6}$/
 const IMAGE_SRC =
@@ -67,6 +68,17 @@ function cleanStrings(value: unknown): Record<string, string> {
   return out
 }
 
+function decodeLayout(raw: unknown): LayoutConfig | undefined {
+  if (!isRecord(raw)) return undefined
+  const layout: LayoutConfig = {}
+  if (typeof raw.nav === 'string' && NAV_STYLES.some((s) => s.key === raw.nav)) layout.nav = raw.nav as NavStyle
+  const order = toArray(raw.order)
+    .filter((id): id is string => typeof id === 'string' && /^[a-z0-9.-]{1,40}$/.test(id))
+    .slice(0, 40)
+  if (order.length) layout.order = order
+  return layout.nav || layout.order ? layout : undefined
+}
+
 export function decodeSite(raw: unknown, template: TemplateId): SiteConfig {
   const base = createSiteFor(template)
   if (!isRecord(raw)) return base
@@ -114,6 +126,8 @@ export function decodeSite(raw: unknown, template: TemplateId): SiteConfig {
     for (const [k, v] of Object.entries(raw.hidden)) if (v === true) hidden[decodeKey(k)] = true
   }
 
+  const layout = decodeLayout(raw.layout)
+
   const accent = isRecord(raw.theme) && typeof raw.theme.accent === 'string' ? raw.theme.accent : ''
 
   return {
@@ -126,6 +140,7 @@ export function decodeSite(raw: unknown, template: TemplateId): SiteConfig {
     services,
     extras,
     hidden,
+    ...(layout ? { layout } : {}),
   }
 }
 
@@ -140,6 +155,7 @@ export function encodeSite(site: SiteConfig) {
       services: site.services,
       extras: site.extras,
       hidden: encodeMap(site.hidden),
+      layout: site.layout,
     }),
   )
 }

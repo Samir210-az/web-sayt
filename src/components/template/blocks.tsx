@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { CSSProperties, ReactNode } from 'react'
 import { Editable, ImageField, TextField } from '@/components/editable'
 import { Parallax } from '@/components/parallax'
@@ -9,12 +9,18 @@ import type { PageKey, ServiceItem, TemplateId } from '@/lib/types'
 import { cx } from '@/lib/utils'
 
 export function SectionFrame({ id, label, children }: { id: string; label: string; children: ReactNode }) {
-  const { editing, site, toggleHidden } = useSite()
+  const { editing, site, toggleHidden, registerSection } = useSite()
   const hidden = Boolean(site.hidden[id])
+
+  useEffect(() => (editing ? registerSection({ id, label }) : undefined), [editing, id, label, registerSection])
+
   if (hidden && !editing) return null
 
+  const position = site.layout?.order?.indexOf(id) ?? -1
+  const order = id.endsWith('.hero') ? -1 : position >= 0 ? position : 1000
+
   return (
-    <div className={cx('frame', hidden && 'frame--hidden')}>
+    <div className={cx('frame', hidden && 'frame--hidden')} style={site.layout?.order ? { order } : undefined}>
       {editing && (
         <div className="frame__bar wrap">
           <span>{label}</span>
@@ -267,7 +273,7 @@ export function ExtraBlocks({ page }: { page: PageKey }) {
   const blocks = site.extras[page]
 
   return (
-    <>
+    <div className="extras" style={site.layout?.order ? { order: 2000 } : undefined}>
       {blocks.map((block) => (
         <section key={block.id} className={cx('split', block.imageSide === 'left' && 'split--flip')}>
           <div className="split__copy wrap-inner">
@@ -327,6 +333,6 @@ export function ExtraBlocks({ page }: { page: PageKey }) {
           </button>
         </div>
       )}
-    </>
+    </div>
   )
 }

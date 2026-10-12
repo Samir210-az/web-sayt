@@ -46,6 +46,21 @@ export interface ExtraSection {
   imageSide: 'left' | 'right'
 }
 
+export type NavStyle = 'top' | 'center' | 'left' | 'right' | 'bottom'
+
+export const NAV_STYLES: { key: NavStyle; label: string }[] = [
+  { key: 'top', label: 'Yuxarıda' },
+  { key: 'center', label: 'Ortada' },
+  { key: 'left', label: 'Solda' },
+  { key: 'right', label: 'Sağda' },
+  { key: 'bottom', label: 'Aşağıda' },
+]
+
+export interface LayoutConfig {
+  nav?: NavStyle
+  order?: string[]
+}
+
 export interface SiteConfig {
   version: 1
   template: TemplateId
@@ -56,6 +71,7 @@ export interface SiteConfig {
   services: ServiceItem[]
   extras: Record<PageKey, ExtraSection[]>
   hidden: Record<string, boolean>
+  layout?: LayoutConfig
 }
 
 export const PAGES: { key: PageKey; label: string; path: string }[] = [
