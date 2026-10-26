@@ -70,7 +70,7 @@ function Footer() {
         <Editable.Text as="span" k="footer.text" className="footer__text" label="Alt yazı" max={120} />
         <a
           className="footer__credit"
-          href="https://instagram.com/securtiy_group"
+          href="https://aze-ai.az"
           target="_blank"
           rel="noopener noreferrer"
         >

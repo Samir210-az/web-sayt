@@ -125,7 +125,7 @@ export default function PlatformHome() {
         </p>
         <div className="lp-footer__row wrap">
           <span>Şirkətlər üçün özünüz redaktə etdiyiniz saytlar</span>
-          <a href="https://instagram.com/securtiy_group" target="_blank" rel="noopener noreferrer">
+          <a href="https://aze-ai.az" target="_blank" rel="noopener noreferrer">
             By securtiy_group
           </a>
         </div>
